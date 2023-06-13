@@ -11,8 +11,8 @@ const String bSignInWithGoogle = "Sign-In with Google";
 const String bLogout = "Logout";
 
 /*-- App Text Strings--*/
-const String bAppName = ".appable/";
-const String bAppTagLine = "Learn To Code. \nFree For Everyone";
+const String bAppName = "Bursary";
+const String bAppTagLine = "Apply For Bursary. \nFree For Everyone";
 
 //-- Welcome Screen Text
 const String bWelcomeTitle = "Apply For Bursary";
