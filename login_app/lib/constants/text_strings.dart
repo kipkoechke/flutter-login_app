@@ -62,7 +62,7 @@ const String bMenu1 = "Settings";
 const String bMenu2 = "Billing Details";
 const String bMenu3 = "User Management";
 const String bMenu4 = "Information";
-const String bMenu5 = tLogout;
+const String bMenu5 = bLogout;
 
 //-- Update Profile Screen - Text
 const String bDelete = "Delete";
