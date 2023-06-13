@@ -1,84 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:login_app/constants/image_strings.dart';
 import 'package:login_app/constants/sizes.dart';
 import 'package:login_app/constants/text_strings.dart';
+import 'package:login_app/features/authentication/controllers/splash_screen_controller.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class SplashScreen extends StatelessWidget {
+  final splashController = Get.put(SplashScreenController());
 
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  bool animate = false;
-
-  @override
-  void initState() {
-    startAnimation();
-    super.initState();
-  }
+  SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    splashController.startAnimation();
+
     return Scaffold(
       body: Stack(
         children: [
-          AnimatedPositioned(
-            duration: const Duration(milliseconds: 1600),
-            top: animate ? 0 : -30,
-            left: animate ? 0 : -30,
-            child: const Image(
-              image: AssetImage(bSplashTopIcon),
-            ),
-          ),
-          AnimatedPositioned(
-            duration: const Duration(milliseconds: 1600),
-            top: 80,
-            left: animate ? bDefaultSize : -80,
-            child: AnimatedOpacity(
+          Obx(
+            () => AnimatedPositioned(
               duration: const Duration(milliseconds: 1600),
-              opacity: animate ? 1 : 0,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    bAppName,
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  Text(
-                    bAppTagLine,
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          AnimatedPositioned(
-            duration: const Duration(milliseconds: 2400),
-            bottom: animate ? 100 : -30,
-            left: animate ? 50 : 0,
-            child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 2400),
-              opacity: animate ? 1 : 0,
+              top: splashController.animate.value ? 0 : -30,
+              left: splashController.animate.value ? 0 : -30,
               child: const Image(
-                image: AssetImage(bSplashImage),
+                image: AssetImage(bSplashTopIcon),
               ),
             ),
           ),
-          AnimatedPositioned(
-            duration: const Duration(milliseconds: 2400),
-            bottom: animate ? 40 : -100,
-            right: bDefaultSize,
-            child: AnimatedOpacity(
+          Obx(
+            () => AnimatedPositioned(
+              duration: const Duration(milliseconds: 1600),
+              top: 80,
+              left: splashController.animate.value ? bDefaultSize : -80,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 1600),
+                opacity: splashController.animate.value ? 1 : 0,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      bAppName,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    Text(
+                      bAppTagLine,
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Obx(
+            () => AnimatedPositioned(
               duration: const Duration(milliseconds: 2400),
-              opacity: animate ? 1 : 0,
-              child: Container(
-                width: bSplashContainerSize,
-                height: bSplashContainerSize,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: Colors.yellow,
+              bottom: splashController.animate.value ? 100 : -30,
+              left: splashController.animate.value ? 50 : 0,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 2400),
+                opacity: splashController.animate.value ? 1 : 0,
+                child: const Image(
+                  image: AssetImage(bSplashImage),
+                ),
+              ),
+            ),
+          ),
+          Obx(
+            () => AnimatedPositioned(
+              duration: const Duration(milliseconds: 2400),
+              bottom: splashController.animate.value ? 40 : -100,
+              right: bDefaultSize,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 2400),
+                opacity: splashController.animate.value ? 1 : 0,
+                child: Container(
+                  width: bSplashContainerSize,
+                  height: bSplashContainerSize,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                    color: Colors.yellow,
+                  ),
                 ),
               ),
             ),
@@ -86,14 +87,5 @@ class _SplashScreenState extends State<SplashScreen> {
         ],
       ),
     );
-  }
-
-  Future startAnimation() async {
-    await Future.delayed(
-      const Duration(milliseconds: 500),
-    );
-    setState(() {
-      animate = true;
-    });
   }
 }

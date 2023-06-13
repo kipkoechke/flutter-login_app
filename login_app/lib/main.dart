@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:login_app/features/authentication/screens/splash_screen/splash_screen.dart';
 import 'package:login_app/utils/theme/theme.dart';
 
@@ -12,12 +13,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       theme: BAppTheme.lightTheme,
       darkTheme: BAppTheme.darkTheme,
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      home: SplashScreen(),
     );
   }
 }
