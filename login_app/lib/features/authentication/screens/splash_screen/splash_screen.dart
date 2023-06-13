@@ -1,89 +1,86 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login_app/common_widgets/fade_in_animation/animation_design.dart';
+import 'package:login_app/common_widgets/fade_in_animation/fade_in_animation_controller.dart';
+import 'package:login_app/common_widgets/fade_in_animation/fade_in_animation_model.dart';
 import 'package:login_app/constants/image_strings.dart';
 import 'package:login_app/constants/sizes.dart';
 import 'package:login_app/constants/text_strings.dart';
-import 'package:login_app/features/authentication/controllers/splash_screen_controller.dart';
 
 class SplashScreen extends StatelessWidget {
-  final splashController = Get.put(SplashScreenController());
-
-  SplashScreen({super.key});
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    splashController.startAnimation();
+    final controller = Get.put(FadeInAnimationController());
+    controller.startSplashAnimation();
 
     return Scaffold(
       body: Stack(
         children: [
-          Obx(
-            () => AnimatedPositioned(
-              duration: const Duration(milliseconds: 1600),
-              top: splashController.animate.value ? 0 : -30,
-              left: splashController.animate.value ? 0 : -30,
-              child: const Image(
-                image: AssetImage(bSplashTopIcon),
-              ),
+          BFadeInAnimation(
+            durationIMls: 1600,
+            animate: BAnimatedPosition(
+              topAfter: 0,
+              topBefore: -30,
+              leftAfter: 0,
+              leftBefore: -30,
+            ),
+            child: const Image(
+              image: AssetImage(bSplashTopIcon),
             ),
           ),
-          Obx(
-            () => AnimatedPositioned(
-              duration: const Duration(milliseconds: 1600),
-              top: 80,
-              left: splashController.animate.value ? bDefaultSize : -80,
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 1600),
-                opacity: splashController.animate.value ? 1 : 0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      bAppName,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    Text(
-                      bAppTagLine,
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                  ],
+          BFadeInAnimation(
+            durationIMls: 1600,
+            animate: BAnimatedPosition(
+              topAfter: 80,
+              topBefore: 80,
+              leftAfter: bDefaultSize,
+              leftBefore: -80,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  bAppName,
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
-              ),
-            ),
-          ),
-          Obx(
-            () => AnimatedPositioned(
-              duration: const Duration(milliseconds: 2400),
-              bottom: splashController.animate.value ? 100 : -30,
-              left: splashController.animate.value ? 50 : 0,
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 2400),
-                opacity: splashController.animate.value ? 1 : 0,
-                child: const Image(
-                  image: AssetImage(bSplashImage),
+                Text(
+                  bAppTagLine,
+                  style: Theme.of(context).textTheme.headlineMedium,
                 ),
-              ),
+              ],
             ),
           ),
-          Obx(
-            () => AnimatedPositioned(
-              duration: const Duration(milliseconds: 2400),
-              bottom: splashController.animate.value ? 40 : -100,
-              right: bDefaultSize,
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 2400),
-                opacity: splashController.animate.value ? 1 : 0,
-                child: Container(
-                  width: bSplashContainerSize,
-                  height: bSplashContainerSize,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: Colors.yellow,
-                  ),
-                ),
-              ),
+          BFadeInAnimation(
+            durationIMls: 2400,
+            animate: BAnimatedPosition(
+              bottomAfter: 100,
+              bottomeBefore: -30,
+              leftAfter: 50,
+              leftBefore: 0,
+            ),
+            child: const Image(
+              image: AssetImage(bSplashImage),
             ),
           ),
+          BFadeInAnimation(
+            durationIMls: 2400,
+            animate: BAnimatedPosition(
+              bottomAfter: 60,
+              bottomeBefore: 00,
+              rightBefore: bDefaultSize,
+              rightAfter: bDefaultSize,
+            ),
+            child: Container(
+              width: bSplashContainerSize,
+              height: bSplashContainerSize,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                color: Colors.yellow,
+              ),
+            ),
+          )
         ],
       ),
     );
