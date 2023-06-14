@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_app/constants/sizes.dart';
 import 'package:login_app/constants/text_strings.dart';
+import 'package:login_app/features/authentication/screens/forget_password/forget_password_options/forget_password_modal_bottom_sheet.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({
@@ -32,7 +33,9 @@ class LoginForm extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  ForgetPasswordScreen.buildShowModalBottomSheet(context);
+                },
                 child: Text(bForgetPassword.toUpperCase()),
               ),
             ),

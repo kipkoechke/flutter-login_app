@@ -18,8 +18,9 @@ class MyApp extends StatelessWidget {
       darkTheme: BAppTheme.darkTheme,
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
+      defaultTransition: Transition.leftToRightWithFade,
+      transitionDuration: const Duration(milliseconds: 500),
       home: const SplashScreen(),
     );
   }
 }
-
