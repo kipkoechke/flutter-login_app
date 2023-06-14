@@ -15,7 +15,7 @@ class FadeInAnimationController extends GetxController {
     Get.off(
       () => const WelcomeScreen(),
       duration: const Duration(milliseconds: 1000), //Transition Time
-      transition: Transition.fadeIn,
+      transition: Transition.fadeIn, //Screen Switch transition
     );
   }
 
