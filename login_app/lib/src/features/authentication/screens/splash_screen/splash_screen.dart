@@ -31,7 +31,7 @@ class SplashScreen extends StatelessWidget {
             ),
           ),
           BFadeInAnimation(
-            durationIMls: 1600,
+            durationIMls: 2000,
             animate: BAnimatedPosition(
               topAfter: 80,
               topBefore: 80,
