@@ -39,6 +39,7 @@ dependencies:
   google_fonts: ^5.0.0
   flutter_otp_text_field: ^1.1.1
   smooth_page_indicator: ^1.1.0
+  firebase_core: ^2.14.0
 
 dev_dependencies:
   flutter_test:
