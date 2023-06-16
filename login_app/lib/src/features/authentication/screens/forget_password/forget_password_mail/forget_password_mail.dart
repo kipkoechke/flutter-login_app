@@ -24,7 +24,7 @@ class ForgetPasswordMailScreen extends StatelessWidget {
                 const FormHeaderWidget(
                   image: bForgetPasswordImage,
                   title: bForgetPassword,
-                  subtitle: bForgetMailSubTitle,
+                  subTitle: bForgetMailSubTitle,
                   textAlign: TextAlign.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   heightBetween: 30,
