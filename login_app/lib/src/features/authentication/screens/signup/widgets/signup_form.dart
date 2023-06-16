@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:login_app/src/constants/sizes.dart';
 import 'package:login_app/src/constants/text_strings.dart';
 import 'package:login_app/src/features/authentication/controllers/signup_controller.dart';
-import 'package:login_app/src/repository/authentication_repository/authentication_reposirtory.dart';
+import 'package:login_app/src/features/authentication/models/user_model.dart';
 
 class SignUpForm extends StatelessWidget {
   const SignUpForm({
@@ -59,13 +59,14 @@ class SignUpForm extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    AuthenticationRepository.instance
-                        .createUserWithEmailAndPassword(
-                            controller.email.text.trim(),
-                            controller.password.text.trim());
-                    // SignUpController.instance.registerUser(
-                    //     controller.email.text.trim(),
-                    //     controller.password.text.trim());
+                    final user = UserModel(
+                      fullName: controller.fullName.text.trim(),
+                      email: controller.email.text.trim(),
+                      phoneNo: controller.phoneNo.text.trim(),
+                      password: controller.password.text.trim(),
+                    );
+                    SignUpController.instance.createUser(user);
+                    
                   }
                 },
                 child: Text(

@@ -13,7 +13,7 @@ class SignupHeader extends StatelessWidget {
     return const FormHeaderWidget(
       image: bWelcomeScreenImage,
       title: bSignUpTitle,
-      subtitle: bSignUpSubTitle,
+      subTitle: bSignUpSubTitle,
     );
   }
 }
