@@ -9,8 +9,8 @@ class BOutlinedButtonTheme {
 
   /*-- Light Theme --*/
   static final lightOutlinedButtonTheme = OutlinedButtonThemeData(
-      style: OutlinedButton.styleFrom(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+      style: OutlinedButton.styleFrom(        
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     foregroundColor: bSecondaryColor,
     side: const BorderSide(color: bSecondaryColor),
     padding: const EdgeInsets.symmetric(vertical: bButtonHeight),
@@ -19,7 +19,7 @@ class BOutlinedButtonTheme {
   /*-- Dark Theme --*/
   static final darkOutlinedButtonTheme = OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     foregroundColor: bWhiteColor,
     side: const BorderSide(color: bWhiteColor),
     padding: const EdgeInsets.symmetric(vertical: bButtonHeight),
