@@ -13,7 +13,7 @@ class LoginHeader extends StatelessWidget {
     return const FormHeaderWidget(
       image: bWelcomeScreenImage,
       title: bLoginTitle,
-      subtitle: bLoginSubTitle,
+      subTitle: bLoginSubTitle,
     );
   }
 }

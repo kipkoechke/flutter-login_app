@@ -51,7 +51,8 @@ class LoginForm extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  AuthenticationRepository.instance.loginWithEmailAndPassword(
+                  AuthenticationRepository.instance
+                      .loginUserWithEmailAndPassword(
                       controller.email.text.trim(),
                       controller.password.text.trim());
                 },
