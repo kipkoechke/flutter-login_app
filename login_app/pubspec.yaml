@@ -41,6 +41,9 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   firebase_core: ^2.14.0
   firebase_auth: ^4.6.3
+  cloud_firestore: ^4.8.1
+  line_awesome_flutter: ^2.0.0
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +72,7 @@ flutter:
     - assets/images/splash/
     - assets/images/welcome/
     - assets/images/forget_password/
+    - assets/images/profile/
     - assets/logo/
 
   # An image asset can refer to one or more resolution-specific "variants", see

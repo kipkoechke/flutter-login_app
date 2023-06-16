@@ -63,6 +63,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '94976884411',
     projectId: 'login-app-8a728',
     storageBucket: 'login-app-8a728.appspot.com',
+    androidClientId: '94976884411-af453d9p2b0bdg3u8t7ift1cgundfsic.apps.googleusercontent.com',
     iosClientId: '94976884411-m70nntqcktp5ljtiu033qmk0vek8gf4m.apps.googleusercontent.com',
     iosBundleId: 'com.example.loginApp',
   );
