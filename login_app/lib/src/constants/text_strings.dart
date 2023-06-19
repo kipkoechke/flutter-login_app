@@ -69,10 +69,54 @@ const String bDelete = "Delete";
 const String bJoined = "Joined";
 const String bJoinedAt = "\t12 July 2022";
 
-//-- Locality Details
+//-- location Details
 const String bSubCounty = "Sub County";
 const String bWard = "Ward";
 const String bLocation = "Location";
 const String bSubLocation = "Sub Location";
 const String bVillage = "Village";
 const String bChiefName = "Chief's Name";
+
+//-- Personal Details
+// const String bFullName = "Full Name";
+const String bNationalId = "National ID";
+const String bRegNumber = "Registration Number";
+// const String bPhoneNo = "Phone Number";
+const String bDateOfBirth = "Date Picker";
+const String bGender = "Radio button - Male or Female";
+const String bRegularOrPrivate = "Radio button - Regular/Private";
+
+// -- Family Details
+const String bFatherDetails = "Enter your father's details";
+const String bFatherName = "Full Name";
+const String bFatherNationalid = "National ID";
+const String bFatherOccupation = "Occupation";
+const String bFatherPhoneNo = "Father's Phone Number";
+const String bFatherDisable = "Father's Disability (Yes/No)";
+const String bIfFatherDisable = "NCPWD";
+
+const String bMotherDetails = "Enter your mother's details";
+const String bMotherName = "Full Name";
+const String bMotherNationalid = "National ID";
+const String bMotherOccupation = "Occupation";
+const String bMotherPhoneNo = "Mother's Phone Number";
+const String bMotherDisable = "Mother's Disability (Yes/No)";
+const String bIfMotherDisable = "NCPWD";
+
+const String bGuardianDetails = "Enter your guardian's details";
+const String bGuardianName = "Full Name";
+const String bGuardianNationalid = "National ID";
+const String bGuardianOccupation = "Occupation";
+const String bGuardianPhoneNo = "Guardian's Phone Number";
+const String bGuardianDisable = "Guardian's Disability (Yes/No)";
+const String bIfGuardianDisable = "NCPWD";
+
+enum ParentStatus {
+  bothAlive,
+  fatherAlive,
+  motherAlive,
+  bothDeceased,
+  fatherDeceased,
+  motherDeceased,
+  singleParent,
+}
