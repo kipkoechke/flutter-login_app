@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_app/src/constants/sizes.dart';
 import 'package:login_app/src/constants/text_strings.dart';
-import 'package:login_app/src/features/application/controllers/locality_details_controller.dart';
-import 'package:login_app/src/features/application/models/locality_model.dart';
+import 'package:login_app/src/features/application/controllers/location_details_controller.dart';
+import 'package:login_app/src/features/application/models/location_model.dart';
 
-class LocalityDetailsScreen extends StatelessWidget {
-  const LocalityDetailsScreen({super.key});
+class LocationDetailsScreen extends StatelessWidget {
+  const LocationDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(LocalityDetailsController());
+    final controller = Get.put(LocationDetailsController());
 
     final formKey = GlobalKey<FormState>();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            'Locality Details',
+            'location Details',
             style: Theme.of(context).textTheme.displaySmall,
             textAlign: TextAlign.center,
           ),
@@ -76,8 +76,8 @@ class LocalityDetailsScreen extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
-                        final locality = LocalityModel(
-                          //-- Locality details
+                        final location = LocationModel(
+                          //-- location details
                           subCounty: controller.subCounty.text.trim(),
                           ward: controller.ward.text.trim(),
                           location: controller.location.text.trim(),
@@ -85,8 +85,8 @@ class LocalityDetailsScreen extends StatelessWidget {
                           village: controller.village.text.trim(),
                           chiefName: controller.chiefName.text.trim(),
                         );
-                        LocalityDetailsController.instance
-                            .createLocation(locality);
+                        LocationDetailsController.instance
+                            .createLocation(location);
                       },
                       child: Text(bNext.toUpperCase()),
                     ),
