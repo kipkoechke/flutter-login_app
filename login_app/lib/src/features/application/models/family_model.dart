@@ -1,4 +1,4 @@
-class ApplicationModel {
+class FamilyModel {
   // -- Family details
   final String fatherName;
   final String fatherNationalId;
@@ -21,7 +21,7 @@ class ApplicationModel {
   final String guardianDisability;
   final String ifGuardianDisable;
 
-  ApplicationModel({
+  FamilyModel({
     //-- Family Details
 
     required this.fatherName,

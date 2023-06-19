@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_app/src/constants/sizes.dart';
 import 'package:login_app/src/features/application/controllers/family_details_controller.dart';
-import 'package:login_app/src/features/application/models/application_model.dart';
+import 'package:login_app/src/features/application/models/family_model.dart';
 import 'package:login_app/src/features/application/screens/family/parents_status.dart';
 
 class FamilyDetailsForm extends StatelessWidget {
@@ -182,7 +182,7 @@ class FamilyDetailsForm extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            final application = ApplicationModel(
+                            final family = FamilyModel(
                               //-- Family Details
 
                               fatherName: controller.fatherName.text.trim(),
@@ -220,7 +220,7 @@ class FamilyDetailsForm extends StatelessWidget {
                                   controller.ifGuardianDisable.text.trim(),
                             );
                             FamilyDetailsController.instance
-                                .createApplication(application);
+                                .createFamily(family);
                           }
                         },
                         child: const Text('Next'),

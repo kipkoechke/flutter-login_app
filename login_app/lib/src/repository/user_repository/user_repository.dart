@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login_app/src/features/application/models/application_model.dart';
-import 'package:login_app/src/features/application/models/locality_model.dart';
+import 'package:login_app/src/features/application/models/family_model.dart';
+import 'package:login_app/src/features/application/models/location_model.dart';
 import 'package:login_app/src/features/application/models/personal_model.dart';
 import 'package:login_app/src/features/application/models/school_model.dart';
 import 'package:login_app/src/features/authentication/models/user_model.dart';
@@ -51,12 +51,13 @@ class UserRepository extends GetxController {
   }
 
   //-- Application logic
-  Future<void> createApplication(ApplicationModel application) async {
+  //-- Family details
+  Future<void> createFamily(FamilyModel family) async {
     await _db
         .collection("Users")
         .doc("application")
-        .collection("userapplication")
-        .add(application.toJson())
+        .collection("family")
+        .add(family.toJson())
         .whenComplete(
           () => Get.snackbar(
             'Success',
@@ -75,12 +76,12 @@ class UserRepository extends GetxController {
     });
   }
 
-  Future<void> createLocation(LocalityModel locality) async {
+  Future<void> createLocation(LocationModel location) async {
     await _db
         .collection("Users")
         .doc("application")
-        .collection("locality")
-        .add(locality.toJson())
+        .collection("location")
+        .add(location.toJson())
         .whenComplete(
           () => Get.snackbar(
             'Success',

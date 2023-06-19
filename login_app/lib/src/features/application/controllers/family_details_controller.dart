@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login_app/src/features/application/models/application_model.dart';
+import 'package:login_app/src/features/application/models/family_model.dart';
 import 'package:login_app/src/features/application/screens/school/school_form_details_screen.dart';
 import 'package:login_app/src/repository/user_repository/user_repository.dart';
 
@@ -30,8 +30,8 @@ class FamilyDetailsController extends GetxController {
 
   final userRepo = Get.put(UserRepository());
 
-  Future<void> createApplication(ApplicationModel application) async {
-    await userRepo.createApplication(application);
+  Future<void> createFamily(FamilyModel family) async {
+    await userRepo.createFamily(family);
     Get.to(() => SchoolFormDetailsScreen());
   }
 
