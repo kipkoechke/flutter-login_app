@@ -5,14 +5,14 @@ class UserModel {
   final String fullName;
   final String email;
   final String phoneNo;
-  final String password;
+  final String? password;
 
   UserModel({
     this.id,
     required this.fullName,
     required this.email,
     required this.phoneNo,
-    required this.password,
+    this.password,
   });
 
   toJson() {
@@ -20,7 +20,6 @@ class UserModel {
       "FullName": fullName,
       "Email": email,
       "Phone Number": phoneNo,
-      "Password": password,
     };
   }
 
