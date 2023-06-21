@@ -75,12 +75,11 @@ const String bWard = "Ward";
 const String bLocation = "Location";
 const String bSubLocation = "Sub Location";
 const String bVillage = "Village";
-const String bChiefName = "Chief's Name";
 
 //-- Personal Details
 // const String bFullName = "Full Name";
 const String bNationalId = "National ID";
-const String bRegNumber = "Registration Number";
+const String bAdmNumber = "Admission Number";
 // const String bPhoneNo = "Phone Number";
 const String bDateOfBirth = "Date Picker";
 const String bGender = "Radio button - Male or Female";
@@ -120,3 +119,11 @@ enum ParentStatus {
   motherDeceased,
   singleParent,
 }
+
+//-- School details
+const String binstitutionName = "Institution's Name";
+const String binstitutionAddress = "Institution's Address";
+const String binstitutionBankAccountNo = "Institution's Bank Acc No.";
+const String bbankName = "Bank Name";
+const String bbankBranch = " Bank Branch";
+const String bbankCode = "Bank Code";
