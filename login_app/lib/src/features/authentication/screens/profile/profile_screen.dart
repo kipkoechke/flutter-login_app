@@ -6,6 +6,7 @@ import 'package:login_app/src/constants/image_strings.dart';
 import 'package:login_app/src/constants/sizes.dart';
 import 'package:login_app/src/constants/text_strings.dart';
 import 'package:login_app/src/features/authentication/screens/profile/update_profile_screen.dart';
+import 'package:login_app/src/features/authentication/screens/profile/user_management.dart';
 import 'package:login_app/src/features/authentication/screens/profile/widgets/profile_menu.dart';
 import 'package:login_app/src/repository/authentication_repository/authentication_reposirtory.dart';
 
@@ -18,7 +19,9 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Get.back();
+          },
           icon: const Icon(LineAwesomeIcons.angle_left),
         ),
         title: Text(
@@ -112,7 +115,9 @@ class ProfileScreen extends StatelessWidget {
               ProfileMenuWidget(
                 title: bMenu3,
                 icon: LineAwesomeIcons.user_check,
-                onPress: () {},
+                onPress: () {
+                  Get.to(const UserManagementScreen());
+                },
               ),
               const Divider(),
               const SizedBox(height: 10),
