@@ -5,7 +5,7 @@ class LocationModel {
   final String location;
   final String subLocation;
   final String village;
-  final String chiefName;
+
 
   LocationModel({
     //-- Location details
@@ -15,7 +15,7 @@ class LocationModel {
     required this.location,
     required this.subLocation,
     required this.village,
-    required this.chiefName,
+  
   });
 
   toJson() {
@@ -26,7 +26,6 @@ class LocationModel {
       "Location": location,
       "Sub Location": subLocation,
       "Village": village,
-      "Chief Name": chiefName,
     };
   }
 }

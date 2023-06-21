@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:login_app/src/constants/sizes.dart';
-import 'package:login_app/src/features/application/screens/location/location_details_screen.dart';
 import 'package:login_app/src/features/authentication/screens/profile/profile_screen.dart';
+import 'package:login_app/src/features/student/application/screens/application_screen.dart';
 
 class ApplicationScreen extends StatelessWidget {
   const ApplicationScreen({super.key});
@@ -41,7 +41,7 @@ class ApplicationScreen extends StatelessWidget {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.to(() => const LocationDetailsScreen());
+                      Get.to(() => const StudentApplicationForm());
                     },
                     child: const Text('Click to apply'),
                   ),

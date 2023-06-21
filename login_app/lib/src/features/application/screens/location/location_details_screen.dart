@@ -65,13 +65,7 @@ class LocationDetailsScreen extends StatelessWidget {
                         prefixIcon: Icon(Icons.holiday_village_rounded)),
                   ),
                   const SizedBox(height: bFormHeight - 20.0),
-                  TextFormField(
-                    controller: controller.chiefName,
-                    decoration: const InputDecoration(
-                        label: Text(bChiefName),
-                        prefixIcon: Icon(Icons.person_2)),
-                  ),
-                  const SizedBox(height: bFormHeight - 10.0),
+                  
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -83,7 +77,7 @@ class LocationDetailsScreen extends StatelessWidget {
                           location: controller.location.text.trim(),
                           subLocation: controller.subLocation.text.trim(),
                           village: controller.village.text.trim(),
-                          chiefName: controller.chiefName.text.trim(),
+                          
                         );
                         LocationDetailsController.instance
                             .createLocation(location);
