@@ -1,9 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_app/src/features/admin/dashboard/admin_dashboard.dart';
-import 'package:login_app/src/features/application/application_screen.dart';
+import 'package:login_app/src/features/student/application/screens/application_screen.dart';
 import 'package:login_app/src/features/authentication/models/user_model.dart';
 import 'package:login_app/src/features/authentication/screens/splash_screen/splash_screen.dart';
 import 'package:login_app/src/features/authentication/screens/welcome/welcome_screen.dart';
@@ -27,7 +25,7 @@ class AuthenticationRepository extends GetxController {
   _setInitialScreen(User? user) {
     if (user == null) {
       Get.offAll(() => const SplashScreen());
-    } else if (user.email == 'admin@admin.com') {
+    } else if (user.email == 'admin@gmail.com') {
       Get.offAll(() => const AdminDashboardScreen());
     } else {
       Get.offAll(() => const ApplicationScreen());
@@ -71,30 +69,8 @@ class AuthenticationRepository extends GetxController {
 
   Future<void> createUserWithEmailAndPassword(UserModel user) async {
     try {
-      final credentials = await _auth
-          .createUserWithEmailAndPassword(
-              email: user.email, password: user.password!)
-          .whenComplete(
-            () => Get.snackbar(
-              'Success',
-              'Your account has been created',
-              snackPosition: SnackPosition.BOTTOM,
-              backgroundColor: Colors.green.withOpacity(0.1),
-              colorText: Colors.green,
-            ),
-          )
-          .catchError((error, stackTrace) {
-        Get.snackbar('Error', 'Something went wrong. Try again',
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.redAccent.withOpacity(0.1),
-            colorText: Colors.red);
-        throw error;
-      });
-      FirebaseFirestore.instance
-          .collection("Users")
-          .doc(credentials.user!.uid)
-          .set(user.toJson());
-
+      await _auth.createUserWithEmailAndPassword(
+          email: user.email, password: user.password!);
       firebaseUser.value != null
           ? Get.offAll(() => const ApplicationScreen())
           : Get.to(() => const WelcomeScreen());
