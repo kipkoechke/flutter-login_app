@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:login_app/src/features/application/screens/application_done_screen.dart';
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';
+import 'package:login_app/src/features/student/application/screens/application_done_screen.dart';
 import 'package:login_app/src/repository/user_repository/user_repository.dart';
 
 class StudentDetailsController extends GetxController {
   static StudentDetailsController get instance => Get.find();
   final userRepo = Get.put(UserRepository());
+
+  Future<List<ApplicationFormModel>> getAllApplications() async {
+    return await userRepo.allApplications();
+  }
 
   //-- Location Details
   final subCounty = TextEditingController();
@@ -55,8 +59,6 @@ class StudentDetailsController extends GetxController {
   void saveForm(ApplicationFormModel application) async {
     await userRepo.createApplication(application);
     Get.to(() => const ApplicationDoneScreen());
-
-    // Perform any additional logic or operations here after saving the form
   }
 
   @override
