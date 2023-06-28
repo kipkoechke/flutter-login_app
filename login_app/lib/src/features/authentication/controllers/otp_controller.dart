@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:login_app/src/features/application/application_screen.dart';
+import 'package:login_app/src/features/student/application/screens/application_screen.dart';
 import 'package:login_app/src/repository/authentication_repository/authentication_reposirtory.dart';
 
 class OTPController extends GetxController {
