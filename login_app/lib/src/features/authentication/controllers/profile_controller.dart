@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:login_app/src/features/authentication/models/user_model.dart';
+import 'package:login_app/src/features/student/application/models/application_form_model.dart';
 import 'package:login_app/src/repository/authentication_repository/authentication_reposirtory.dart';
 import 'package:login_app/src/repository/user_repository/user_repository.dart';
 
@@ -9,6 +10,7 @@ class ProfileController extends GetxController {
   final _authRepo = Get.put(AuthenticationRepository());
   final _userRepo = Get.put(UserRepository());
 
+  //-- Retrieves a single user
   getUserdata() {
     final email = _authRepo.firebaseUser.value?.email;
     if (email != null) {
@@ -18,7 +20,19 @@ class ProfileController extends GetxController {
     }
   }
 
-  Future<List<UserModel>> getAllUser() async {
-    return await _userRepo.allUsers();
+  //-- Retrieves all the users
+  Stream<List<UserModel>> getAllUser() {
+    return _userRepo.allUsers().asStream();
+  }
+
+  //-- Retrieves user application data
+  Stream<ApplicationFormModel> getUserApplicationData() {
+    final uid = _authRepo.firebaseUser.value?.uid;
+    if (uid != null) {
+      return _userRepo.getUserApplicationDetails(uid).asStream();
+    } else {
+      Get.snackbar("Error", "Login in to continue");
+      throw Exception('User not authenticated.');
+    }
   }
 }
