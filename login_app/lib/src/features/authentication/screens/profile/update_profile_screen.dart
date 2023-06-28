@@ -27,48 +27,11 @@ class UpdateProfileScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(bDefaultSize),
-
-//-- Fetching data for all users
-          // child: FutureBuilder<List<UserModel>>(
-          //   future: controller.getAllUser(),
-/**
- * This is for fetching data for single user
- */
           child: FutureBuilder(
             future: controller.getUserdata(),
-
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
-                  //-- Fetching data for all users
-
-                  // List<UserModel> userData = snapshot.data!;
-                  // return ListView.builder(
-                  //   itemCount: userData.length,
-                  //   itemBuilder: (context, index) {
-                  //     return Column(
-                  //       children: [
-                  //         ListTile(
-                  //           iconColor: Colors.blue,
-                  //           tileColor: Colors.blue.withOpacity(0.1),
-                  //           leading: const Icon(LineAwesomeIcons.user_1),
-                  //           title: Text("Name: ${userData[index]}"),
-                  //           subtitle: Column(
-                  //             children: [
-                  //               Text(userData[index].phoneNo),
-                  //               Text(userData[index].email),
-                  //             ],
-                  //           ),
-                  //         ),
-                  //         const SizedBox(height: 10),
-                  //       ],
-                  //     );
-                  //   },
-                  // );
-
-/**
- * This is for fetching data for single user
- */
                   UserModel userData = snapshot.data as UserModel;
                   return Column(
                     children: [
