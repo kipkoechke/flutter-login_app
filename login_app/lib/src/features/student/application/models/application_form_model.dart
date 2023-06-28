@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ApplicationFormModel {
-  final String? id;
+  final String? uid;
+  // Application status
+  final String status;
   // Location details
   final String subCounty;
   final String ward;
@@ -47,7 +50,9 @@ class ApplicationFormModel {
   final String ifGuardianDisable;
 
   ApplicationFormModel({
-    this.id,
+    this.uid,
+    // Application status
+    required this.status,
     // Location details
     required this.subCounty,
     required this.ward,
@@ -93,6 +98,9 @@ class ApplicationFormModel {
 
   toJson() {
     return {
+      "uid": FirebaseAuth.instance.currentUser!.uid,
+      // Application status
+      "Status": status,
       // Location details
       "Sub County": subCounty,
       "Ward": ward,
@@ -142,18 +150,21 @@ class ApplicationFormModel {
       DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data()!;
     return ApplicationFormModel(
+      uid: document.id,
+      // APplication status
+      status: data["Status"],
       //-- Location details
-      subCounty: data['Sub County'],
-      ward: data['Ward'],
-      location: data['Location'],
-      subLocation: data['Sub Location'],
-      village: data['Village'],
+      subCounty: data["Sub County"],
+      ward: data["Ward"],
+      location: data["Location"],
+      subLocation: data["Sub Location"],
+      village: data["Village"],
 
       //-- personal details
-      fullName: data['Full Name'],
-      nationalId: data['National Id'],
-      admNumber: data['Registration Number'],
-      phoneNo: data['Phone Number'],
+      fullName: data["Full Name"],
+      nationalId: data["National Id"],
+      admNumber: data["Registration Number"],
+      phoneNo: data["Phone Number"],
 
       //-- school details
       institutionCounty: data["Institution's County"],
