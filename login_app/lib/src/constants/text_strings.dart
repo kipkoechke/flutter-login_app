@@ -58,7 +58,7 @@ const String bProfileHeading = "Your Profile";
 const String bProfileSubHeading = "support@bellon.com";
 
 //-- Menu
-const String bMenu1 = "Settings";
+const String bMenu1 = "Update Your Details";
 const String bMenu2 = "Billing Details";
 const String bMenu3 = "User Management";
 const String bMenu4 = "Information";
@@ -67,7 +67,7 @@ const String bMenu5 = bLogout;
 //-- Update Profile Screen - Text
 const String bDelete = "Delete";
 const String bJoined = "Joined";
-const String bJoinedAt = "\t12 July 2022";
+const String bJoinedAt = "\t12 June 2023";
 
 //-- location Details
 const String bSubCounty = "Sub County";
