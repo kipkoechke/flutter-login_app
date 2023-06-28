@@ -15,7 +15,7 @@ class SignUpController extends GetxController {
   final userRepo = Get.put(UserRepository());
 
   createUser(UserModel user) async {
-    AuthenticationRepository.instance.createUserWithEmailAndPassword(user);
+    userRepo.createUser(user);
   }
 
   void phoneAuthentication(String phoneNo) {
