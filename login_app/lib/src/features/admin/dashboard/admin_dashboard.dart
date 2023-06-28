@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:login_app/src/constants/colors.dart';
+import 'package:login_app/src/features/admin/all_applications.dart';
+import 'package:login_app/src/features/admin/screen/user_management.dart';
+import 'package:login_app/src/features/admin/user_details.dart';
+import 'package:login_app/src/repository/authentication_repository/authentication_reposirtory.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
   const AdminDashboardScreen({super.key});
@@ -10,6 +15,14 @@ class AdminDashboardScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Admin Portal'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                AuthenticationRepository.instance.logOut();
+              },
+              icon: const Icon(Icons.logout),
+            ),
+          ],
         ),
         drawer: Drawer(
           child: Column(
@@ -40,17 +53,26 @@ class AdminDashboardScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const ListTile(
-                title: Text('Dashboard'),
+              ListTile(
+                title: const Text('Dashboard'),
+                onTap: () {
+                  Get.to(() => const AllApplicationsScreen());
+                },
               ),
               const ListTile(
                 title: Text('Beneficiaries'),
               ),
-              const ListTile(
-                title: Text('Applications'),
+              ListTile(
+                title: const Text('Applications'),
+                onTap: () {
+                  Get.to(const UserManagementScreen());
+                },
               ),
-              const ListTile(
-                title: Text('Bursaries'),
+              ListTile(
+                title: const Text('Bursaries'),
+                onTap: () {
+                  Get.to(() => const UserDetailsScreen());
+                },
               ),
               const ListTile(
                 title: Text('Disbursements'),
