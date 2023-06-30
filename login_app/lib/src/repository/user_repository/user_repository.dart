@@ -56,11 +56,11 @@ class UserRepository extends GetxController {
 
   //-- Store application form details in firestore
   Future<void> createApplication(ApplicationFormModel application) async {
-    final userUid = FirebaseAuth.instance.currentUser?.uid;
+    // final userUid = FirebaseAuth.instance.currentUser?.uid;
     await _db
         .collection("Applications")
-        .doc(userUid)
-        .set(application.toJson())
+        // .doc(userUid)
+        .add(application.toJson())
         .whenComplete(
           () => Get.snackbar(
             'Success',
@@ -88,12 +88,44 @@ class UserRepository extends GetxController {
     return userData;
   }
 
-  //-- Fetch data for all the users applications
   Future<List<ApplicationFormModel>> allApplications() async {
     final snapshot = await _db.collection("Applications").get();
     final userApplication =
         snapshot.docs.map((e) => ApplicationFormModel.fromSnapshot(e)).toList();
     return userApplication;
+  }
+
+  //-- Fetch data for all the pending users applications as the admin
+  Future<List<ApplicationFormModel>> pendingApplications() async {
+    final snapshot = await _db
+        .collection("Applications")
+        .where("Status", isEqualTo: 'Pending')
+        .get();
+    final userApplication =
+        snapshot.docs.map((e) => ApplicationFormModel.fromSnapshot(e)).toList();
+    return userApplication;
+  }
+
+  //-- Fetch data for all the approved users applications as the admin
+  Future<List<ApplicationFormModel>> approvedApplication() async {
+    final snapshot = await _db
+        .collection("Applications")
+        .where("Status", isEqualTo: 'Approved')
+        .get();
+    final userData =
+        snapshot.docs.map((e) => ApplicationFormModel.fromSnapshot(e)).toList();
+    return userData;
+  }
+
+  //-- Fetch data for all the declined users applications as the admin
+  Future<List<ApplicationFormModel>> declinedApplication() async {
+    final snapshot = await _db
+        .collection("Applications")
+        .where("Status", isEqualTo: 'Declined')
+        .get();
+    final userData =
+        snapshot.docs.map((e) => ApplicationFormModel.fromSnapshot(e)).toList();
+    return userData;
   }
 
   //-- Fetch data for single user as the admin
@@ -106,29 +138,33 @@ class UserRepository extends GetxController {
     return userData;
   }
 
-  void approveApplication(ApplicationFormModel application) {
-    _db.collection("Applications").doc(application.uid).update({
-      "Status": "Approved", // Update the "status" field to indicate approval
+  //-- Update user application status to approved as the admin
+  Future<void> approveUserApplication(String id) async {
+    await _db.collection("Applications").doc(id).update({
+      "Status": "Approved",
     }).then((_) {
-      print('Approved application with ID: ${application.uid}');
-      // Perform any additional actions or show a success message
+      Get.snackbar('Success', 'Approved application with ID: $id');
+      print("Your application id is:" '$id');
     }).catchError((error) {
-      print('Failed to approve application with ID: ${application.uid}');
-      print(error);
-      // Handle the error accordingly
+      Get.snackbar("Error", 'Failed to approve application with ID: $id');
+      print("Your application id is:" '$id');
+
+      throw (error);
     });
   }
 
-  void rejectApplication(ApplicationFormModel application) {
-    _db.collection("Applications").doc(application.uid).update({
-      "Status": "Rejected", // Update the "status" field to indicate rejection
+  //-- Update user application status to declined as the admin
+  Future<void> declineUserApplication(String id) async {
+    await _db.collection("Applications").doc(id).update({
+      "Status": "Declined",
     }).then((_) {
-      print('Rejected application with ID: ${application.uid}');
-      // Perform any additional actions or show a success message
+      Get.snackbar('Declined', 'Rejected application with ID: $id');
+      print("Your application id is:" '$id');
     }).catchError((error) {
-      print('Failed to reject application with ID: ${application.uid}');
-      print(error);
-      // Handle the error accordingly
+      Get.snackbar('Error', 'Failed to reject application with ID: $id');
+      print("Your application id is:" '$id');
+
+      throw (error);
     });
   }
 }
