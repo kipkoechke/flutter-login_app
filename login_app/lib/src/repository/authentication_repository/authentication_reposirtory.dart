@@ -39,8 +39,8 @@ class AuthenticationRepository extends GetxController {
         await _auth.signInWithCredential(credential);
       },
       codeSent: (verificationId, resendToken) {
-        this.verificationId.value == verificationId;
-        this.resendToken == resendToken;
+        this.verificationId.value = verificationId;
+        this.resendToken = resendToken;
       },
       timeout: const Duration(seconds: 30),
       forceResendingToken: resendToken,
@@ -53,7 +53,7 @@ class AuthenticationRepository extends GetxController {
           Get.back();
         } else {
           Get.snackbar('Error', 'Something went wrong. Try again.');
-          Get.back;
+          Get.back();
         }
       },
     );
@@ -75,10 +75,12 @@ class AuthenticationRepository extends GetxController {
           ? Get.offAll(() => const ApplicationScreen())
           : Get.to(() => const WelcomeScreen());
     } on FirebaseAuthException catch (e) {
-      final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
-      throw ex;
+      // final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
+      Get.snackbar('Signup Failed', e.code);
+      // throw ex;
     } catch (_) {
       final ex = SignUpWithEmailAndPasswordFailure();
+      Get.snackbar("title", ex.message);
       throw ex;
     }
   }
