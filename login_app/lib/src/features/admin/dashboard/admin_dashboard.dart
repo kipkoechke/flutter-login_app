@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_app/src/constants/colors.dart';
 import 'package:login_app/src/features/admin/all_applications.dart';
-import 'package:login_app/src/features/admin/screen/user_management.dart';
+import 'package:login_app/src/features/admin/screen/applications/applications_status/application_status_screen.dart';
 import 'package:login_app/src/features/admin/user_details.dart';
 import 'package:login_app/src/repository/authentication_repository/authentication_reposirtory.dart';
 
@@ -65,7 +65,7 @@ class AdminDashboardScreen extends StatelessWidget {
               ListTile(
                 title: const Text('Applications'),
                 onTap: () {
-                  Get.to(const UserManagementScreen());
+                  Get.to(ApplicationStatusScreen());
                 },
               ),
               ListTile(
