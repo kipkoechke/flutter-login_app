@@ -3,8 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class ApplicationFormModel {
   final String? uid;
+  final String? id;
   // Application status
-  final String status;
+  final String? status;
   // Location details
   final String subCounty;
   final String ward;
@@ -50,9 +51,10 @@ class ApplicationFormModel {
   final String ifGuardianDisable;
 
   ApplicationFormModel({
+    this.id,
     this.uid,
     // Application status
-    required this.status,
+    this.status = "Pending",
     // Location details
     required this.subCounty,
     required this.ward,
@@ -150,7 +152,8 @@ class ApplicationFormModel {
       DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data()!;
     return ApplicationFormModel(
-      uid: document.id,
+      id: document.id,
+      uid: data["uid"],
       // APplication status
       status: data["Status"],
       //-- Location details

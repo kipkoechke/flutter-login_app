@@ -54,7 +54,7 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
         onStepContinue: () {
           if (isLastStep && _formKeys[_currentStep].currentState!.validate()) {
             final applicationForm = ApplicationFormModel(
-              status: "Pending",
+              // status: "Pending",
               subCounty: _controller.subCounty.text.trim(),
               ward: _controller.ward.text.trim(),
               location: _controller.location.text.trim(),

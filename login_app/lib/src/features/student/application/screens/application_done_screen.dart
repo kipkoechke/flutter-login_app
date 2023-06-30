@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login_app/src/features/student/application/screens/application_status.dart';
+import 'package:login_app/src/features/student/application/screens/student_application_status.dart';
 
 class ApplicationDoneScreen extends StatelessWidget {
   const ApplicationDoneScreen({super.key});
@@ -19,7 +19,7 @@ class ApplicationDoneScreen extends StatelessWidget {
           ),
           OutlinedButton(
               onPressed: () {
-                Get.to(() => ApplicationStatusScreen());
+                Get.to(() => StudentApplicationStatusScreen());
               },
               child: const Text('Application Status')),
         ],
