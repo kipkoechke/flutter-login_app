@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:login_app/src/features/student/application/screens/application_screen.dart';
+import 'package:login_app/src/features/student/application/screens/student_home_page/application_screen.dart';
 import 'package:login_app/src/repository/authentication_repository/authentication_reposirtory.dart';
 
 class OTPController extends GetxController {
@@ -9,7 +9,7 @@ class OTPController extends GetxController {
     var isVerified = await AuthenticationRepository.instance.verifyOTP(otp);
     isVerified
         ? Get.offAll(
-            () => const ApplicationScreen(),
+            () => const HomePage(),
           )
         : Get.back();
   }

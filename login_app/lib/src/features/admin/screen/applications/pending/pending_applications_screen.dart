@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:login_app/src/constants/sizes.dart';
+import 'package:login_app/src/features/admin/screen/applications/approved/approved_applications_controller.dart';
+import 'package:login_app/src/features/admin/screen/applications/declined/declined_applications_controller.dart';
 import 'package:login_app/src/features/admin/screen/applications/pending/pending_applications_controller.dart';
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';
 
@@ -11,6 +13,8 @@ class PendingApplicationsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(PendingApplicationsController());
+    final approve = Get.put(ApprovedApplicationController());
+    final decline = Get.put(DeclinedApplicationsController());
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -26,8 +30,8 @@ class PendingApplicationsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(bDefaultSize),
 
 //-- Fetching data for all users
-        child: FutureBuilder<List<ApplicationFormModel>>(
-          future: controller.getPendingApplications(),
+        child: StreamBuilder<List<ApplicationFormModel>>(
+          stream: controller.getPendingApplications(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               if (snapshot.hasData) {
@@ -238,6 +242,8 @@ class PendingApplicationsScreen extends StatelessWidget {
                                       Expanded(
                                         child: ElevatedButton(
                                           onPressed: () {
+                                            approve.approveApplication(
+                                                userApplication[index].id!);
                                             Get.back();
                                           },
                                           child: const Text('Approve'),
@@ -247,6 +253,8 @@ class PendingApplicationsScreen extends StatelessWidget {
                                       Expanded(
                                         child: OutlinedButton(
                                           onPressed: () {
+                                            decline.declineApplication(
+                                                userApplication[index].id!);
                                             Get.back();
                                           },
                                           child: const Text('Reject'),
