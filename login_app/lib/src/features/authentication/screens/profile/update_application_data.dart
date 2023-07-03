@@ -21,7 +21,7 @@ class UpdateApplicationData extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
                   ApplicationFormModel userApplicationData =
-                      snapshot.data as ApplicationFormModel;
+                      snapshot.data!;
                   return Column(
                     children: [
                       const SizedBox(height: 20),
