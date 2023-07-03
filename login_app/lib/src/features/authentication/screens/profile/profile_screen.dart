@@ -124,12 +124,12 @@ class ProfileScreen extends StatelessWidget {
               //   },
               // ),
               const Divider(),
-              const SizedBox(height: 10),
-              ProfileMenuWidget(
-                title: bMenu4,
-                icon: LineAwesomeIcons.info,
-                onPress: () {},
-              ),
+              // const SizedBox(height: 10),
+              // ProfileMenuWidget(
+              //   title: bMenu4,
+              //   icon: LineAwesomeIcons.info,
+              //   onPress: () {},
+              // ),
               ProfileMenuWidget(
                 title: bMenu5,
                 icon: LineAwesomeIcons.alternate_sign_out,
