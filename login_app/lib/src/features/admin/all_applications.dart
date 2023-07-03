@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:login_app/src/constants/sizes.dart';
-import 'package:login_app/src/constants/text_strings.dart';
 import 'package:login_app/src/features/student/application/controllers/student_details_controller.dart';
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';
 
@@ -18,7 +17,7 @@ class AllApplicationsScreen extends StatelessWidget {
             onPressed: () => Get.back(),
             icon: const Icon(LineAwesomeIcons.angle_left)),
         title: Text(
-          bEditProfile,
+          'All Applications',
           style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
