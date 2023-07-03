@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_app/src/constants/colors.dart';
 import 'package:login_app/src/features/admin/all_applications.dart';
+import 'package:login_app/src/features/admin/screen/allocation/allocated_users.dart';
 import 'package:login_app/src/features/admin/screen/applications/applications_status/application_status_screen.dart';
-import 'package:login_app/src/features/admin/user_details.dart';
+import 'package:login_app/src/features/admin/screen/bursaries/new_bursary.dart';
 import 'package:login_app/src/repository/authentication_repository/authentication_reposirtory.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
@@ -59,8 +60,11 @@ class AdminDashboardScreen extends StatelessWidget {
                   Get.to(() => const AllApplicationsScreen());
                 },
               ),
-              const ListTile(
-                title: Text('Beneficiaries'),
+              ListTile(
+                title: const Text('Beneficiaries'),
+                onTap: () {
+                  Get.to(const AllocatedApplicationScreen());
+                },
               ),
               ListTile(
                 title: const Text('Applications'),
@@ -71,7 +75,7 @@ class AdminDashboardScreen extends StatelessWidget {
               ListTile(
                 title: const Text('Bursaries'),
                 onTap: () {
-                  Get.to(() => const UserDetailsScreen());
+                  Get.to(() => NewBursaryScreen());
                 },
               ),
               const ListTile(
