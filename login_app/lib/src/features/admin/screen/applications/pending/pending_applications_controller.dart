@@ -8,7 +8,7 @@ class PendingApplicationsController extends GetxController {
   final String title = 'Pending Applications';
   final userRepo = Get.put(UserRepository());
 
-  Future<List<ApplicationFormModel>> getPendingApplications() async {
-    return await userRepo.pendingApplications();
+  Stream<List<ApplicationFormModel>> getPendingApplications() {
+    return userRepo.pendingApplications().asStream();
   }
 }
