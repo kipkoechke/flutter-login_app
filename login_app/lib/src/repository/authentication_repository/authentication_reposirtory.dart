@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:login_app/src/features/admin/dashboard/admin_dashboard.dart';
-import 'package:login_app/src/features/student/application/screens/application_screen.dart';
+import 'package:login_app/src/features/student/application/screens/student_dashboard/student_dashboard.dart';
 import 'package:login_app/src/features/authentication/models/user_model.dart';
 import 'package:login_app/src/features/authentication/screens/splash_screen/splash_screen.dart';
 import 'package:login_app/src/features/authentication/screens/welcome/welcome_screen.dart';
@@ -28,7 +28,7 @@ class AuthenticationRepository extends GetxController {
     } else if (user.email == 'admin@gmail.com') {
       Get.offAll(() => const AdminDashboardScreen());
     } else {
-      Get.offAll(() => const ApplicationScreen());
+      Get.offAll(() => const StudentDashboardScreen());
     }
   }
 
@@ -72,7 +72,7 @@ class AuthenticationRepository extends GetxController {
       await _auth.createUserWithEmailAndPassword(
           email: user.email, password: user.password!);
       firebaseUser.value != null
-          ? Get.offAll(() => const ApplicationScreen())
+          ? Get.offAll(() => const StudentDashboardScreen())
           : Get.to(() => const WelcomeScreen());
     } on FirebaseAuthException catch (e) {
       // final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
