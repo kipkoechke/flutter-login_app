@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login_app/src/features/admin/model/bursary_model.dart';
 
 import 'package:login_app/src/features/authentication/models/user_model.dart';
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';
@@ -11,6 +12,39 @@ class UserRepository extends GetxController {
   static UserRepository get instance => Get.find();
   final _db = FirebaseFirestore.instance;
   final _authRepo = Get.put(AuthenticationRepository());
+
+  //-- Create a new bursary as the admin
+  Future<void> createBursary(BursaryModel bursary) async {
+    await _db.collection("Bursaries").add(bursary.toJson()).then((_) {
+      Get.snackbar(
+        'Success',
+        'The bursary has been created',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green.withOpacity(0.1),
+        colorText: Colors.green,
+      );
+    }).catchError((error, stackTrace) {
+      Get.snackbar(
+        'Error',
+        'Failed to create the bursary',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent.withOpacity(0.1),
+        colorText: Colors.red,
+      );
+      throw error;
+    });
+  }
+
+  //-- Fetch all bursaries
+  Future<List<BursaryModel>> getBursaries(DateTime deadline) async {
+    final snapshot = await _db
+        .collection("Bursaries")
+        .where("deadline", isLessThan: deadline)
+        .get();
+    final bursaries =
+        snapshot.docs.map((doc) => BursaryModel.fromSnapshot(doc)).toList();
+    return bursaries;
+  }
 
   //-- Store data in the firestore
   Future<void> createUser(UserModel user) async {
@@ -54,23 +88,36 @@ class UserRepository extends GetxController {
     return userData;
   }
 
-  //-- Store application form details in firestore
+  //-- Store application form details in Firestore
   Future<void> createApplication(ApplicationFormModel application) async {
-    // final userUid = FirebaseAuth.instance.currentUser?.uid;
-    await _db
-        .collection("Applications")
-        // .doc(userUid)
-        .add(application.toJson())
-        .whenComplete(
-          () => Get.snackbar(
-            'Success',
-            'Your application has been submitted',
-            snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.green.withOpacity(0.1),
-            colorText: Colors.green,
-          ),
-        )
-        .catchError((error, stackTrace) {
+    final userUid = FirebaseAuth.instance.currentUser?.uid;
+
+    // Check if the user has already submitted an application
+    final querySnapshot = await _db
+        .collection('Applications')
+        .where('uid', isEqualTo: userUid)
+        .limit(1)
+        .get();
+
+    if (querySnapshot.docs.isNotEmpty) {
+      // User has already submitted an application
+      Get.snackbar('Error', 'You have already submitted an application',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.redAccent.withOpacity(0.1),
+          colorText: Colors.red);
+      return;
+    }
+
+    // Proceed with the application submission
+    await _db.collection("Applications").add(application.toJson()).then((_) {
+      Get.snackbar(
+        'Success',
+        'Your application has been submitted',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green.withOpacity(0.1),
+        colorText: Colors.green,
+      );
+    }).catchError((error, stackTrace) {
       Get.snackbar('Error', 'Something went wrong. Try again',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.redAccent.withOpacity(0.1),
@@ -88,6 +135,7 @@ class UserRepository extends GetxController {
     return userData;
   }
 
+  //-- Fetching all the applications
   Future<List<ApplicationFormModel>> allApplications() async {
     final snapshot = await _db.collection("Applications").get();
     final userApplication =
@@ -138,33 +186,110 @@ class UserRepository extends GetxController {
     return userData;
   }
 
+  //-- Fetch allocation status for a signed-in user
+  Future<String> getAllocationStatus() async {
+    final userUid = FirebaseAuth.instance.currentUser?.uid;
+    final snapshot = await _db
+        .collection("Applications")
+        .where("uid", isEqualTo: userUid)
+        .get();
+    if (snapshot.docs.isNotEmpty) {
+      final userData =
+          snapshot.docs.map((e) => ApplicationFormModel.fromSnapshot(e)).first;
+      return userData.status!;
+    }
+    return 'No Application'; // Return 'No Application' if no allocation status found for the user
+  }
+
+
   //-- Update user application status to approved as the admin
   Future<void> approveUserApplication(String id) async {
-    await _db.collection("Applications").doc(id).update({
-      "Status": "Approved",
-    }).then((_) {
-      Get.snackbar('Success', 'Approved application with ID: $id');
-      print("Your application id is:" '$id');
-    }).catchError((error) {
-      Get.snackbar("Error", 'Failed to approve application with ID: $id');
-      print("Your application id is:" '$id');
-
-      throw (error);
-    });
+    await _db
+        .collection("Applications")
+        .doc(id)
+        .update({
+          "Status": "Approved",
+        })
+        .whenComplete(
+          () => Get.snackbar(
+            'Success',
+            'Approved application with ID: $id',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.green.withOpacity(0.1),
+            colorText: Colors.green,
+          ),
+        )
+        .catchError((error, stackTrace) {
+          () => Get.snackbar(
+              "Error", 'Failed to approve application with ID: $id',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.redAccent.withOpacity(0.1),
+              colorText: Colors.red);
+          throw (error);
+        });
   }
 
   //-- Update user application status to declined as the admin
   Future<void> declineUserApplication(String id) async {
-    await _db.collection("Applications").doc(id).update({
-      "Status": "Declined",
-    }).then((_) {
-      Get.snackbar('Declined', 'Rejected application with ID: $id');
-      print("Your application id is:" '$id');
-    }).catchError((error) {
-      Get.snackbar('Error', 'Failed to reject application with ID: $id');
-      print("Your application id is:" '$id');
+    await _db
+        .collection("Applications")
+        .doc(id)
+        .update({
+          "Status": "Declined",
+        })
+        .whenComplete(
+          () => Get.snackbar(
+            'Declined',
+            'Rejected application with ID: $id',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.green.withOpacity(0.1),
+            colorText: Colors.green,
+          ),
+        )
+        .catchError((error, stackTrace) {
+          () => Get.snackbar(
+              'Error', 'Failed to reject application with ID: $id',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.redAccent.withOpacity(0.1),
+              colorText: Colors.red);
+          throw (error);
+        });
+  }
 
-      throw (error);
-    });
+  //-- Allocate amount to approved user application as the admin
+  Future<void> allocateUserFunds(String id, double amount) async {
+    await _db
+        .collection("Applications")
+        .doc(id)
+        .update({
+          "Amount": amount,
+        })
+        .whenComplete(() => Get.snackbar(
+              'Success',
+              'Allocated $amount funds to application with ID: $id',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.green.withOpacity(0.1),
+              colorText: Colors.green,
+            ))
+        .catchError((error, stackTrace) {
+          Get.snackbar(
+              "Error", 'Failed to allocate funds to application with ID: $id',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.redAccent.withOpacity(0.1),
+              colorText: Colors.red);
+          throw error;
+        });
+  }
+
+  //-- Fetch allocated amount as the admin
+  Future<List<ApplicationFormModel>> allocatedApplications() async {
+    final snapshot = await _db
+        .collection("Applications")
+        .where("Amount", isGreaterThanOrEqualTo: 4000.00)
+        .where("Amount", isLessThan: 20000.00)
+        .get();
+    final userData =
+        snapshot.docs.map((e) => ApplicationFormModel.fromSnapshot(e)).toList();
+    return userData;
   }
 }
