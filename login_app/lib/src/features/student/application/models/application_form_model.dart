@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 class ApplicationFormModel {
   final String? uid;
   final String? id;
+  final double? amount;
+  double? allocatedAmount = 0.0;
   // Application status
   final String? status;
   // Location details
@@ -53,6 +55,8 @@ class ApplicationFormModel {
   ApplicationFormModel({
     this.id,
     this.uid,
+    this.amount,
+    this.allocatedAmount,
     // Application status
     this.status = "Pending",
     // Location details
@@ -103,6 +107,7 @@ class ApplicationFormModel {
       "uid": FirebaseAuth.instance.currentUser!.uid,
       // Application status
       "Status": status,
+      "Amount": amount,
       // Location details
       "Sub County": subCounty,
       "Ward": ward,
@@ -154,6 +159,9 @@ class ApplicationFormModel {
     return ApplicationFormModel(
       id: document.id,
       uid: data["uid"],
+      amount: data["Amount"],
+      allocatedAmount: data["Allocated amount"],
+
       // APplication status
       status: data["Status"],
       //-- Location details
