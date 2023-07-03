@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';
-import 'package:login_app/src/features/student/application/screens/application_done_screen.dart';
+import 'package:login_app/src/features/student/application/screens/student_application_form/application_done.dart';
 import 'package:login_app/src/repository/user_repository/user_repository.dart';
 
 class StudentDetailsController extends GetxController {
