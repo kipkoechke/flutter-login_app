@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login_app/src/features/student/application/controllers/student_application_status_controller.dart';
+import 'package:login_app/src/features/student/application/screens/student_application_status/student_application_status_controller.dart';
 
 class StudentApplicationStatusScreen extends StatelessWidget {
   final StudentApplicationStatusController controller =
@@ -14,9 +14,9 @@ class StudentApplicationStatusScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Application Status'),
       ),
-      body: Center(
-        child: Obx(
-          () => Text(
+      body: Obx(
+        () => Center(
+          child: Text(
             'Application Status: $controller',
             style: const TextStyle(fontSize: 20),
           ),
