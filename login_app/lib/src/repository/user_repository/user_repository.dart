@@ -6,6 +6,7 @@ import 'package:login_app/src/features/admin/model/bursary_model.dart';
 
 import 'package:login_app/src/features/authentication/models/user_model.dart';
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';
+import 'package:login_app/src/features/student/application/screens/student_dashboard/student_dashboard.dart';
 import 'package:login_app/src/repository/authentication_repository/authentication_reposirtory.dart';
 
 class UserRepository extends GetxController {
@@ -46,31 +47,47 @@ class UserRepository extends GetxController {
     return bursaries;
   }
 
-  //-- Store data in the firestore
-  Future<void> createUser(UserModel user) async {
-    await _authRepo.createUserWithEmailAndPassword(user);
-    final userUid = FirebaseAuth.instance.currentUser?.uid;
-    await _db
-        .collection("Users")
-        .doc(userUid)
-        .set(user.toJson())
-        .whenComplete(
-          () => Get.snackbar(
-            'Success',
-            'Your account has been created',
+Future<void> createUser(UserModel user) async {
+    try {
+      await _authRepo.createUserWithEmailAndPassword(user);
+      final userUid = FirebaseAuth.instance.currentUser?.uid;
+      if (userUid != null) {
+        final userRef = _db.collection("Users").doc(userUid);
+        final docSnapshot = await userRef.get();
+        if (docSnapshot.exists) {
+          Get.snackbar(
+            'Signup Failed',
+            'An account already exists for that email.',
             snackPosition: SnackPosition.BOTTOM,
-            backgroundColor: Colors.green.withOpacity(0.1),
-            colorText: Colors.green,
-          ),
-        )
-        .catchError((error, stackTrace) {
-      Get.snackbar('Error', 'Something went wrong. Try again',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.redAccent.withOpacity(0.1),
-          colorText: Colors.red);
-      throw error;
-    });
+            backgroundColor: Colors.redAccent.withOpacity(0.1),
+            colorText: Colors.red,
+          );
+          // Handle the case where the user already exists
+        } else {
+          await userRef.set(user.toJson()).whenComplete(() {
+            Get.snackbar(
+              'Success',
+              'Your account has been created',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.green.withOpacity(0.1),
+              colorText: Colors.green,
+            );
+            Get.offAll(() => const StudentDashboardScreen());
+          });
+        }
+      }
+    } catch (error) {
+      Get.snackbar(
+        'Error',
+        'Something went wrong. Try again',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent.withOpacity(0.1),
+        colorText: Colors.red,
+      );
+      rethrow;
+    }
   }
+
 
   //-- Fetch data from the firestore for a single user using email
   Future<UserModel> getUserDetails(String email) async {

@@ -75,8 +75,8 @@ class AuthenticationRepository extends GetxController {
           ? Get.offAll(() => const StudentDashboardScreen())
           : Get.to(() => const WelcomeScreen());
     } on FirebaseAuthException catch (e) {
-      // final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
-      Get.snackbar('Signup Failed', e.code);
+      final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
+      Get.snackbar('Signup Failed', ex.message);
       // throw ex;
     } catch (_) {
       final ex = SignUpWithEmailAndPasswordFailure();
