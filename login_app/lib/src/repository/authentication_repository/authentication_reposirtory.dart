@@ -5,6 +5,7 @@ import 'package:login_app/src/features/student/application/screens/student_dashb
 import 'package:login_app/src/features/authentication/models/user_model.dart';
 import 'package:login_app/src/features/authentication/screens/splash_screen/splash_screen.dart';
 import 'package:login_app/src/features/authentication/screens/welcome/welcome_screen.dart';
+import 'package:login_app/src/repository/authentication_repository/exceptions/login_email_password_failure.dart';
 import 'package:login_app/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart';
 
 class AuthenticationRepository extends GetxController {
@@ -76,11 +77,11 @@ class AuthenticationRepository extends GetxController {
           : Get.to(() => const WelcomeScreen());
     } on FirebaseAuthException catch (e) {
       final ex = SignUpWithEmailAndPasswordFailure.code(e.code);
-      Get.snackbar('Signup Failed', ex.message);
+      Get.snackbar("Signup Failed", ex.message);
       // throw ex;
     } catch (_) {
       final ex = SignUpWithEmailAndPasswordFailure();
-      Get.snackbar("title", ex.message);
+      Get.snackbar("Signup Failed", ex.message);
       throw ex;
     }
   }
@@ -89,7 +90,14 @@ class AuthenticationRepository extends GetxController {
       String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
-    } catch (_) {}
+    } on FirebaseAuthException catch (e) {
+      final ex = LoginWithEmailAndPasswordFailure.code(e.code);
+      Get.snackbar("Login Failed", ex.message);
+      throw ex;
+    } catch (_) {
+      final ex = LoginWithEmailAndPasswordFailure();
+      Get.snackbar('Login Failed', ex.message);
+    }
   }
 
   Future<void> logOut() async => await _auth.signOut();
