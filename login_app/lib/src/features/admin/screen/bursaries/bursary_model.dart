@@ -5,12 +5,14 @@ class BursaryModel {
   final String title;
   final String description;
   final DateTime deadline;
+  bool isClicked;
 
   BursaryModel({
     this.id,
     required this.title,
     required this.description,
     required this.deadline,
+    this.isClicked = false,
   });
 
   Map<String, dynamic> toJson() {
@@ -18,6 +20,7 @@ class BursaryModel {
       "Title": title,
       "Description": description,
       "Deadline": Timestamp.fromDate(deadline),
+      "IsClicked": isClicked,
     };
   }
 
@@ -29,6 +32,7 @@ class BursaryModel {
       title: data["Title"],
       description: data["Description"],
       deadline: (data["Deadline"] as Timestamp).toDate(),
+      isClicked: data["IsClicked"] ?? false,
     );
   }
 }

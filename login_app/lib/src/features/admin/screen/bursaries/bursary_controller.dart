@@ -6,6 +6,7 @@ class BursaryController extends GetxController {
   final _userRepo = Get.put(UserRepository());
 
   RxList<BursaryModel> bursaries = <BursaryModel>[].obs;
+  bool isClicked = false;
 
   @override
   void onInit() {
@@ -35,4 +36,13 @@ class BursaryController extends GetxController {
       // Handle error
     }
   }
+
+  void setBursaryClicked(BursaryModel bursary) {
+    bursary.isClicked = true;
+  }
+
+  BursaryModel? getSelectedBursary() {
+    return bursaries.firstWhereOrNull((bursary) => bursary.isClicked);
+  }
+
 }
