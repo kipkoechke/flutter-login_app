@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login_app/src/features/admin/model/bursary_model.dart';
+import 'package:login_app/src/features/admin/screen/bursaries/bursary_model.dart';
 
 import 'package:login_app/src/features/authentication/models/user_model.dart';
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';
@@ -37,11 +37,8 @@ class UserRepository extends GetxController {
   }
 
   //-- Fetch all bursaries
-  Future<List<BursaryModel>> getBursaries(DateTime deadline) async {
-    final snapshot = await _db
-        .collection("Bursaries")
-        .where("deadline", isLessThan: deadline)
-        .get();
+  Future<List<BursaryModel>> getBursaries() async {
+    final snapshot = await _db.collection("Bursaries").get();
     final bursaries =
         snapshot.docs.map((doc) => BursaryModel.fromSnapshot(doc)).toList();
     return bursaries;

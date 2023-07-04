@@ -1,30 +1,34 @@
 import 'package:get/get.dart';
-import 'package:login_app/src/features/admin/model/bursary_model.dart';
+import 'package:login_app/src/features/admin/screen/bursaries/bursary_model.dart';
 import 'package:login_app/src/repository/user_repository/user_repository.dart';
 
 class BursaryController extends GetxController {
-  static BursaryController get instance => Get.find();
-  final UserRepository _userRepository = Get.put(Get.put(UserRepository()));
+  final _userRepo = Get.put(UserRepository());
 
   RxList<BursaryModel> bursaries = <BursaryModel>[].obs;
 
+  @override
+  void onInit() {
+    fetchBursaries();
+    super.onInit();
+  }
+
   Future<void> fetchBursaries() async {
     try {
-      final DateTime deadline =
-          DateTime.now(); // Set the desired deadline for filtering
       final List<BursaryModel> fetchedBursaries =
-          await _userRepository.getBursaries(deadline);
+          await _userRepo.getBursaries();
       bursaries.value = fetchedBursaries;
     } catch (error) {
       // Handle error
     }
   }
 
-  Future<void> createBursary(String name, DateTime deadline) async {
+  Future<void> createBursary(String title, DateTime deadline) async {
     try {
       final BursaryModel bursary =
-          BursaryModel(title: name, deadline: deadline);
-      await _userRepository.createBursary(bursary);
+          BursaryModel(title: title, deadline: deadline);
+      await _userRepo.createBursary(bursary);
+      fetchBursaries();
     } catch (error) {
       // Handle error
     }
