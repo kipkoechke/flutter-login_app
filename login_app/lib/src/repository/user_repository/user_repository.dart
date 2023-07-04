@@ -44,7 +44,7 @@ class UserRepository extends GetxController {
     return bursaries;
   }
 
-Future<void> createUser(UserModel user) async {
+  Future<void> createUser(UserModel user) async {
     try {
       await _authRepo.createUserWithEmailAndPassword(user);
       final userUid = FirebaseAuth.instance.currentUser?.uid;
@@ -84,7 +84,6 @@ Future<void> createUser(UserModel user) async {
       rethrow;
     }
   }
-
 
   //-- Fetch data from the firestore for a single user using email
   Future<UserModel> getUserDetails(String email) async {
@@ -209,12 +208,11 @@ Future<void> createUser(UserModel user) async {
         .get();
     if (snapshot.docs.isNotEmpty) {
       final userData =
-          snapshot.docs.map((e) => ApplicationFormModel.fromSnapshot(e)).first;
+          snapshot.docs.map((e) => ApplicationFormModel.fromSnapshot(e)).single;
       return userData.status!;
     }
-    return 'No Application'; // Return 'No Application' if no allocation status found for the user
+    return 'No Application';
   }
-
 
   //-- Update user application status to approved as the admin
   Future<void> approveUserApplication(String id) async {
@@ -305,5 +303,20 @@ Future<void> createUser(UserModel user) async {
     final userData =
         snapshot.docs.map((e) => ApplicationFormModel.fromSnapshot(e)).toList();
     return userData;
+  }
+
+  //-- Fetch allocated amount for a signed-in user
+  Future<double> getAllocatedAmount() async {
+    final userUid = FirebaseAuth.instance.currentUser?.uid;
+    final snapshot = await _db
+        .collection("Applications")
+        .where("uid", isEqualTo: userUid)
+        .where("Amount", isGreaterThanOrEqualTo: 4000.00)
+        .where("Amount", isLessThan: 20000.00)
+        .get();
+
+    final userData =
+        snapshot.docs.map((e) => ApplicationFormModel.fromSnapshot(e)).single;
+    return userData.amount!;
   }
 }
