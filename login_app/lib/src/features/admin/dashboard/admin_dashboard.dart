@@ -78,12 +78,6 @@ class AdminDashboardScreen extends StatelessWidget {
                   Get.to(() => NewBursaryScreen());
                 },
               ),
-              const ListTile(
-                title: Text('Disbursements'),
-              ),
-              const ListTile(
-                title: Text('Sub-Counties'),
-              ),
             ],
           ),
         ),
