@@ -4,6 +4,7 @@ import 'package:login_app/src/repository/user_repository/user_repository.dart';
 class StudentApplicationStatusController extends GetxController {
   static StudentApplicationStatusController get instance => Get.find();
   var status = ''.obs;
+  var allocatedAmount = 0.0.obs;
 
   final _userRepo = Get.put(UserRepository());
 
@@ -26,4 +27,21 @@ class StudentApplicationStatusController extends GetxController {
       return ("Unknown application status: $allocationStatus");
     }
   }
+
+  Future<double> getAllocatedUser() async {
+    try {
+      double amount = await _userRepo.getAllocatedAmount();
+      allocatedAmount.value = amount;
+      return amount; // Add this line to return the allocated amount
+    } catch (error) {
+      // Handle error
+      rethrow; // Optional: You can re-throw the error or handle it here
+    }
+  }
+
+  bool get isApproved => status.value == 'Approved';
+
+  bool get hasAllocatedAmount => allocatedAmount.value != 0.0;
+
+  
 }
