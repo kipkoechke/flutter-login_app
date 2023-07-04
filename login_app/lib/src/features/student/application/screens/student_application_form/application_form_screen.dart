@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:login_app/src/constants/text_strings.dart';
+import 'package:login_app/src/features/admin/screen/bursaries/bursary_controller.dart';
 import 'package:login_app/src/features/student/application/controllers/student_details_controller.dart';
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';
+
+enum ParentStatus {
+  bothAlive,
+  fatherAlive,
+  motherAlive,
+  bothDeceased,
+  fatherDeceased,
+  motherDeceased,
+  singleMother,
+}
 
 class StudentApplicationForm extends StatefulWidget {
   const StudentApplicationForm({Key? key}) : super(key: key);
@@ -13,20 +25,15 @@ class StudentApplicationForm extends StatefulWidget {
 
 class _StudentApplicationFormState extends State<StudentApplicationForm> {
   int _currentStep = 0;
+  ParentStatus? selectedParentStatus;
 
   final List<GlobalKey<FormState>> _formKeys = [
     GlobalKey<FormState>(),
     GlobalKey<FormState>(),
+    GlobalKey<FormState>(),
   ];
 
-  final StudentDetailsController _controller =
-      Get.put(StudentDetailsController());
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+  final _controller = Get.put(StudentDetailsController());
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +108,9 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
           }
         },
         controlsBuilder: (context, details) {
+          final bursaryController = Get.put(BursaryController());
+          final selectedBursary = bursaryController.getSelectedBursary();
+
           return Container(
             margin: const EdgeInsets.only(top: 50),
             child: Row(children: [
@@ -117,7 +127,9 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
               const SizedBox(width: 12),
               Expanded(
                 child: ElevatedButton(
-                  onPressed: details.onStepContinue,
+                  onPressed: selectedBursary?.isClicked == true
+                      ? details.onStepContinue
+                      : null,
                   child: Text(isLastStep ? 'CONFIRM' : 'NEXT'),
                 ),
               ),
@@ -132,7 +144,7 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
         Step(
           state: _currentStep > 0 ? StepState.complete : StepState.indexed,
           isActive: _currentStep >= 0,
-          title: const Text('Student Details'),
+          title: const Text(''),
           content: Form(
             key: _formKeys[0],
             child: Column(
@@ -141,26 +153,35 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
                 TextFormField(
                   controller: _controller.subCounty,
                   decoration: const InputDecoration(label: Text(bSubCounty)),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z\s]")),
+                  ],
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: _controller.ward,
                   decoration: const InputDecoration(label: Text(bWard)),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z\s]")),
+                  ],
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: _controller.location,
                   decoration: const InputDecoration(label: Text(bLocation)),
+                  keyboardType: TextInputType.text,
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: _controller.subLocation,
                   decoration: const InputDecoration(label: Text(bSubLocation)),
+                  keyboardType: TextInputType.text,
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: _controller.village,
                   decoration: const InputDecoration(label: Text(bVillage)),
+                  keyboardType: TextInputType.text,
                 ),
                 const SizedBox(height: 10),
                 const Text('Kindly fill your personal details below'),
@@ -168,102 +189,310 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
                 TextFormField(
                   controller: _controller.fullName,
                   decoration: const InputDecoration(label: Text(bFullName)),
+                  keyboardType: TextInputType.text,
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: _controller.admNumber,
                   decoration: const InputDecoration(label: Text(bAdmNumber)),
+                  keyboardType: TextInputType.text,
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
                   // controller: _controller.gender,
                   decoration: const InputDecoration(label: Text(bGender)),
+                  keyboardType: TextInputType.text,
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
                   // controller: _controller.dateOfBirth,
                   decoration: const InputDecoration(label: Text(bDateOfBirth)),
-                ),
-                const Text('Kindly fill your school details below'),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: _controller.institutionName,
-                  decoration:
-                      const InputDecoration(label: Text(binstitutionName)),
+                  keyboardType: TextInputType.datetime,
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
-                  controller: _controller.institutionAddress,
-                  decoration:
-                      const InputDecoration(label: Text(binstitutionAddress)),
+                  controller: _controller.phoneNo,
+                  decoration: const InputDecoration(label: Text(bPhoneNo)),
+                  keyboardType: TextInputType.phone,
                 ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: _controller.institutionBankAccountNo,
-                  decoration: const InputDecoration(
-                      label: Text(binstitutionBankAccountNo)),
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: _controller.bankName,
-                  decoration: const InputDecoration(label: Text(bbankName)),
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: _controller.bankBranch,
-                  decoration: const InputDecoration(label: Text(bbankBranch)),
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: _controller.bankCode,
-                  decoration: const InputDecoration(label: Text(bbankCode)),
-                ),
-                const SizedBox(height: 10),
               ],
             ),
           ),
         ),
         Step(
           state: _currentStep > 1 ? StepState.complete : StepState.indexed,
-          isActive: _currentStep >= 0,
-          title: const Text('Family Details'),
+          isActive: _currentStep >= 1,
+          title: const Text(''),
           content: Form(
             key: _formKeys[1],
             child: Column(
               children: [
-                const Text('Kindly fill your family details below'),
                 TextFormField(
-                  controller: _controller.fatherName,
-                  decoration: const InputDecoration(label: Text(bFatherName)),
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: _controller.fatherNationalId,
+                  controller: _controller.institutionName,
                   decoration:
-                      const InputDecoration(label: Text(bFatherNationalid)),
+                      const InputDecoration(label: Text(binstitutionName)),
+                  keyboardType: TextInputType.text,
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
-                  controller: _controller.fatherPhoneNumber,
+                  controller: _controller.institutionAddress,
                   decoration:
-                      const InputDecoration(label: Text(bFatherPhoneNo)),
+                      const InputDecoration(label: Text(binstitutionAddress)),
+                  keyboardType: TextInputType.text,
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
-                  controller: _controller.fatherOccupation,
-                  decoration:
-                      const InputDecoration(label: Text(bFatherOccupation)),
+                  controller: _controller.institutionBankAccountNo,
+                  decoration: const InputDecoration(
+                      label: Text(binstitutionBankAccountNo)),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                  keyboardType: TextInputType.number,
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
-                  controller: _controller.fatherDisability,
-                  decoration:
-                      const InputDecoration(label: Text(bFatherDisable)),
+                  controller: _controller.bankName,
+                  decoration: const InputDecoration(label: Text(bbankName)),
+                  keyboardType: TextInputType.text,
                 ),
                 const SizedBox(height: 10),
+                TextFormField(
+                  controller: _controller.bankBranch,
+                  decoration: const InputDecoration(label: Text(bbankBranch)),
+                  keyboardType: TextInputType.text,
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  controller: _controller.bankCode,
+                  decoration: const InputDecoration(label: Text(bbankCode)),
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+        Step(
+          state: _currentStep > 2 ? StepState.complete : StepState.indexed,
+          isActive: _currentStep >= 2,
+          title: const Text(''),
+          content: Form(
+            key: _formKeys[2],
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 20),
+                const Text('Parent Status'),
+                const SizedBox(height: 10),
+                Card(
+                  child: Wrap(
+                    spacing: 10,
+                    children: ParentStatus.values.map((status) {
+                      return ChoiceChip(
+                        label: Text(status.toString().split('.').last),
+                        selected: selectedParentStatus == status,
+                        onSelected: (isSelected) {
+                          setState(() {
+                            if (isSelected) {
+                              selectedParentStatus = status;
+                            } else {
+                              selectedParentStatus = null;
+                            }
+                          });
+                        },
+                      );
+                    }).toList(),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                if (selectedParentStatus == ParentStatus.bothAlive)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      fatherDetails(),
+                      motherDetails(),
+                    ],
+                  ),
+                if (selectedParentStatus == ParentStatus.fatherAlive)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Father Details'),
+                      fatherDetails(),
+                    ],
+                  ),
+                if (selectedParentStatus == ParentStatus.motherAlive)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      motherDetails(),
+                    ],
+                  ),
+                if (selectedParentStatus == ParentStatus.bothDeceased)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      guardianDetails(),
+                    ],
+                  ),
+                if (selectedParentStatus == ParentStatus.fatherDeceased)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      motherDetails(),
+                    ],
+                  ),
+                if (selectedParentStatus == ParentStatus.motherDeceased)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      fatherDetails(),
+                    ],
+                  ),
+                if (selectedParentStatus == ParentStatus.singleMother)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      motherDetails(),
+                    ],
+                  ),
               ],
             ),
           ),
         ),
       ];
+
+  Widget fatherDetails() {
+    return Column(
+      children: [
+        TextFormField(
+          controller: _controller.fatherName,
+          decoration: const InputDecoration(label: Text(bFatherName)),
+          keyboardType: TextInputType.text,
+        ),
+        const SizedBox(height: 10),
+        TextFormField(
+          controller: _controller.fatherNationalId,
+          decoration: const InputDecoration(label: Text(bFatherNationalid)),
+          keyboardType: TextInputType.number,
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly,
+          ],
+        ),
+        const SizedBox(height: 10),
+        TextFormField(
+          controller: _controller.fatherOccupation,
+          decoration: const InputDecoration(label: Text(bFatherOccupation)),
+          keyboardType: TextInputType.text,
+        ),
+        const SizedBox(height: 10),
+        TextFormField(
+          controller: _controller.fatherPhoneNumber,
+          decoration: const InputDecoration(label: Text(bFatherPhoneNo)),
+          keyboardType: TextInputType.phone,
+        ),
+        const SizedBox(height: 10),
+        TextFormField(
+          controller: _controller.fatherDisability,
+          decoration: const InputDecoration(label: Text(bFatherDisable)),
+          keyboardType: TextInputType.text,
+        ),
+        const SizedBox(height: 10),
+        TextFormField(
+          controller: _controller.ifFatherDisable,
+          decoration: const InputDecoration(label: Text(bIfFatherDisable)),
+          keyboardType: TextInputType.text,
+        ),
+        const SizedBox(height: 20),
+      ],
+    );
+  }
+
+  Widget motherDetails() {
+    return Column(children: [
+      const Text('Mother Details'),
+      const SizedBox(height: 10),
+      TextFormField(
+        controller: _controller.motherName,
+        decoration: const InputDecoration(label: Text(bMotherName)),
+        keyboardType: TextInputType.text,
+      ),
+      const SizedBox(height: 10),
+      TextFormField(
+        controller: _controller.motherNationalId,
+        decoration: const InputDecoration(label: Text(bMotherNationalid)),
+        keyboardType: TextInputType.number,
+        inputFormatters: [
+          FilteringTextInputFormatter.digitsOnly,
+        ],
+      ),
+      const SizedBox(height: 10),
+      TextFormField(
+        controller: _controller.motherOccupation,
+        decoration: const InputDecoration(label: Text(bMotherOccupation)),
+        keyboardType: TextInputType.text,
+      ),
+      const SizedBox(height: 10),
+      TextFormField(
+        controller: _controller.motherPhoneNumber,
+        decoration: const InputDecoration(label: Text(bMotherPhoneNo)),
+        keyboardType: TextInputType.phone,
+      ),
+      const SizedBox(height: 10),
+      TextFormField(
+        controller: _controller.ifMotherDisable,
+        decoration: const InputDecoration(label: Text(bIfMotherDisable)),
+        keyboardType: TextInputType.text,
+      ),
+      const SizedBox(height: 20),
+    ]);
+  }
+
+  Widget guardianDetails() {
+    return Column(children: [
+      const Text('Guardian Details'),
+      const SizedBox(height: 10),
+      TextFormField(
+        controller: _controller.guardianName,
+        decoration: const InputDecoration(label: Text(bGuardianName)),
+        keyboardType: TextInputType.text,
+      ),
+      const SizedBox(height: 10),
+      TextFormField(
+        controller: _controller.guardianNationalId,
+        decoration: const InputDecoration(label: Text(bGuardianNationalid)),
+        keyboardType: TextInputType.number,
+        inputFormatters: [
+          FilteringTextInputFormatter.digitsOnly,
+        ],
+      ),
+      const SizedBox(height: 10),
+      TextFormField(
+        controller: _controller.guardianOccupation,
+        decoration: const InputDecoration(label: Text(bGuardianOccupation)),
+        keyboardType: TextInputType.text,
+      ),
+      const SizedBox(height: 10),
+      TextFormField(
+        controller: _controller.guardianPhoneNumber,
+        decoration: const InputDecoration(label: Text(bGuardianPhoneNo)),
+        keyboardType: TextInputType.phone,
+      ),
+      const SizedBox(height: 10),
+      TextFormField(
+        controller: _controller.guardianDisability,
+        decoration: const InputDecoration(label: Text(bIfGuardianDisable)),
+        keyboardType: TextInputType.text,
+      ),
+      const SizedBox(height: 10),
+      TextFormField(
+        controller: _controller.ifGuardianDisable,
+        decoration: const InputDecoration(label: Text(bIfGuardianDisable)),
+        keyboardType: TextInputType.text,
+      ),
+    ]);
+  }
 }
