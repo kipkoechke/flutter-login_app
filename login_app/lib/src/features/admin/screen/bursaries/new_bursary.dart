@@ -47,6 +47,7 @@ class NewBursaryScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("Title: ${bursary.title}"),
+                            const Divider(),
                             Text(bursary.description),
                             const Divider()
                           ],
