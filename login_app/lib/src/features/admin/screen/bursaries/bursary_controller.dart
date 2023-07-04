@@ -23,10 +23,12 @@ class BursaryController extends GetxController {
     }
   }
 
-  Future<void> createBursary(String title, DateTime deadline) async {
+  Future<void> createBursary(
+      String title, String description, DateTime deadline) async {
     try {
       final BursaryModel bursary =
-          BursaryModel(title: title, deadline: deadline);
+          BursaryModel(
+          title: title, description: description, deadline: deadline);
       await _userRepo.createBursary(bursary);
       fetchBursaries();
     } catch (error) {
