@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:login_app/src/constants/sizes.dart';
 import 'package:login_app/src/features/admin/screen/bursaries/bursary_controller.dart';
 import 'package:login_app/src/features/authentication/screens/profile/profile_screen.dart';
@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Application Form'),
+          title: const Text('Recent Bursaries'),
           actions: [
             IconButton(
               onPressed: () {
@@ -32,21 +32,14 @@ class HomePage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'Bursary Application Form',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: bDefaultSize),
-                ElevatedButton(
-                  onPressed: () async {
-                    await bursaryController.fetchBursaries();
-                    Get.to(() => const StudentApplicationForm());
-                  },
-                  child: const Text('Click to apply'),
-                ),
+                // Text(
+                //   'Bursary Application Form',
+                //   style: GoogleFonts.montserrat(
+                //     fontSize: 20,
+                //     fontWeight: FontWeight.bold,
+                //   ),
+                // ),
+                
                 const SizedBox(height: bDefaultSize),
                 const Text(
                   'Available Bursaries',
@@ -61,8 +54,42 @@ class HomePage extends StatelessWidget {
                         final bursary = bursaryController.bursaries[index];
                         return Card(
                           child: ListTile(
-                            title: Text(bursary.title),
-                            subtitle: Text(bursary.deadline.toString()),
+                            onTap: () {
+                              bursaryController.setBursaryClicked(bursary);
+                              Get.to(() => const StudentApplicationForm());
+                            },
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text("Title: ${bursary.title}"),
+                                const Divider(),
+                                Text(bursary.description),
+                                const Divider()
+                              ],
+                            ),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Deadline: ${DateFormat('MMM dd, yyyy -  HH:mm a').format(bursary.deadline)}",
+                                ),
+                                const Divider(),
+                                SizedBox(
+                                  width: double.infinity,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      bursaryController
+                                          .setBursaryClicked(bursary);
+                                      Get.to(
+                                          () => const StudentApplicationForm());
+                                    },
+                                    child: const Text(
+                                      'Proceed to apply',
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         );
                       },
