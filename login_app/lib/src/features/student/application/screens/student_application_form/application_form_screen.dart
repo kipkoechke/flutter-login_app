@@ -19,6 +19,7 @@ enum ParentStatus {
 bool isFatherSelected = false;
 bool isMotherSelected = false;
 bool isGuardianSelected = false;
+bool isParentStatusSelected = false;
 
 class StudentApplicationForm extends StatefulWidget {
   const StudentApplicationForm({Key? key}) : super(key: key);
@@ -51,11 +52,34 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
         type: StepperType.horizontal,
         currentStep: _currentStep,
         steps: getSteps(),
-        onStepTapped: (step) {
-          setState(() {
-            _currentStep = step;
-          });
+        stepIconBuilder: (stepIndex, stepState) {
+          bool isStepComplete = stepState == StepState.complete;
+          switch (stepIndex) {
+            case 0:
+              return isStepComplete
+                  ? const Icon(Icons.check, color: Colors.green)
+                  : const Icon(Icons.person, color: Colors.blue);
+            case 1:
+              return isStepComplete
+                  ? const Icon(Icons.check, color: Colors.green)
+                  : const Icon(Icons.location_on, color: Colors.green);
+            case 2:
+              return isStepComplete
+                  ? const Icon(Icons.check, color: Colors.green)
+                  : const Icon(Icons.family_restroom, color: Colors.orange);
+            case 3:
+              return isStepComplete
+                  ? const Icon(Icons.check, color: Colors.green)
+                  : const Icon(Icons.school, color: Colors.purple);
+            default:
+              return null; // Use default step icons
+          }
         },
+        // onStepTapped: (step) {
+        //   setState(() {
+        //     _currentStep = step;
+        //   });
+        // },
         onStepCancel: () {
           _currentStep == 0
               ? null
@@ -65,45 +89,66 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
         },
         onStepContinue: () {
           if (isLastStep && _formKeys[_currentStep].currentState!.validate()) {
-            final applicationForm = ApplicationFormModel(
-              // status: "Pending",
-              subCounty: _controller.subCounty.text.trim(),
-              ward: _controller.ward.text.trim(),
-              location: _controller.location.text.trim(),
-              subLocation: _controller.subLocation.text.trim(),
-              village: _controller.village.text.trim(),
-              fullName: _controller.fullName.text.trim(),
-              nationalId: _controller.admNumber.text.trim(),
-              admNumber: _controller.admNumber.text.trim(),
-              phoneNo: _controller.phoneNo.text.trim(),
-              institutionCounty: _controller.subCounty.text.trim(),
-              institutionAddress: _controller.institutionAddress.text.trim(),
-              institutionName: _controller.institutionName.text.trim(),
-              institutionBankAccountNo:
-                  _controller.institutionBankAccountNo.text.trim(),
-              bankName: _controller.bankName.text.trim(),
-              bankBranch: _controller.bankBranch.text.trim(),
-              bankCode: _controller.bankCode.text.trim(),
-              fatherName: _controller.fatherName.text.trim(),
-              fatherNationalId: _controller.fatherNationalId.text.trim(),
-              fatherOccupation: _controller.fatherOccupation.text.trim(),
-              fatherPhoneNumber: _controller.fatherPhoneNumber.text.trim(),
-              fatherDisability: _controller.fatherDisability.text.trim(),
-              ifFatherDisable: _controller.ifFatherDisable.text.trim(),
-              motherName: _controller.motherName.text.trim(),
-              motherNationalId: _controller.motherNationalId.text.trim(),
-              motherOccupation: _controller.motherOccupation.text.trim(),
-              motherPhoneNumber: _controller.motherPhoneNumber.text.trim(),
-              motherDisability: _controller.motherDisability.text.trim(),
-              ifMotherDisable: _controller.ifMotherDisable.text.trim(),
-              guardianName: _controller.guardianName.text.trim(),
-              guardianNationalId: _controller.guardianNationalId.text.trim(),
-              guardianOccupation: _controller.guardianOccupation.text.trim(),
-              guardianPhoneNumber: _controller.guardianPhoneNumber.text.trim(),
-              guardianDisability: _controller.guardianDisability.text.trim(),
-              ifGuardianDisable: _controller.ifGuardianDisable.text.trim(),
-            );
-            StudentDetailsController.instance.saveForm(applicationForm);
+            if (isParentStatusSelected) {
+              final applicationForm = ApplicationFormModel(
+                // status: "Pending",
+                subCounty: _controller.subCounty.text.trim(),
+                ward: _controller.ward.text.trim(),
+                location: _controller.location.text.trim(),
+                subLocation: _controller.subLocation.text.trim(),
+                village: _controller.village.text.trim(),
+                fullName: _controller.fullName.text.trim(),
+                nationalId: _controller.admNumber.text.trim(),
+                admNumber: _controller.admNumber.text.trim(),
+                phoneNo: _controller.phoneNo.text.trim(),
+                institutionCounty: _controller.subCounty.text.trim(),
+                institutionAddress: _controller.institutionAddress.text.trim(),
+                institutionName: _controller.institutionName.text.trim(),
+                institutionBankAccountNo:
+                    _controller.institutionBankAccountNo.text.trim(),
+                bankName: _controller.bankName.text.trim(),
+                bankBranch: _controller.bankBranch.text.trim(),
+                bankCode: _controller.bankCode.text.trim(),
+                fatherName: _controller.fatherName.text.trim(),
+                fatherNationalId: _controller.fatherNationalId.text.trim(),
+                fatherOccupation: _controller.fatherOccupation.text.trim(),
+                fatherPhoneNumber: _controller.fatherPhoneNumber.text.trim(),
+                fatherDisability: _controller.fatherDisability.text.trim(),
+                ifFatherDisable: _controller.ifFatherDisable.text.trim(),
+                motherName: _controller.motherName.text.trim(),
+                motherNationalId: _controller.motherNationalId.text.trim(),
+                motherOccupation: _controller.motherOccupation.text.trim(),
+                motherPhoneNumber: _controller.motherPhoneNumber.text.trim(),
+                motherDisability: _controller.motherDisability.text.trim(),
+                ifMotherDisable: _controller.ifMotherDisable.text.trim(),
+                guardianName: _controller.guardianName.text.trim(),
+                guardianNationalId: _controller.guardianNationalId.text.trim(),
+                guardianOccupation: _controller.guardianOccupation.text.trim(),
+                guardianPhoneNumber:
+                    _controller.guardianPhoneNumber.text.trim(),
+                guardianDisability: _controller.guardianDisability.text.trim(),
+                ifGuardianDisable: _controller.ifGuardianDisable.text.trim(),
+              );
+              StudentDetailsController.instance.saveForm(applicationForm);
+            } else {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text('Error'),
+                    content: const Text('Please select a parent status.'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
           } else {
             setState(() {
               if (_formKeys[_currentStep].currentState!.validate()) {
@@ -455,40 +500,44 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 10),
-                Card(
-                  child: Wrap(
-                    spacing: 20,
-                    children: ParentStatus.values.map((status) {
-                      return ChoiceChip(
-                        label: Text(status.toString().split('.').last),
-                        selected: selectedParentStatus == status,
-                        onSelected: (isSelected) {
-                          setState(() {
-                            if (isSelected) {
-                              selectedParentStatus = status;
-                              // Update the selection status for each parent/guardian field accordingly
-                              isFatherSelected =
-                                  status == ParentStatus.fatherAlive ||
-                                      status == ParentStatus.bothAlive ||
-                                      status == ParentStatus.motherDeceased;
-                              isMotherSelected =
-                                  status == ParentStatus.motherAlive ||
-                                      status == ParentStatus.bothAlive ||
-                                      status == ParentStatus.singleMother ||
-                                      status == ParentStatus.fatherDeceased;
-                              isGuardianSelected =
-                                  status == ParentStatus.bothDeceased;
-                            } else {
-                              selectedParentStatus = null;
-                              // Reset the selection status for each parent/guardian field when unselected
-                              isFatherSelected = false;
-                              isMotherSelected = false;
-                              isGuardianSelected = false;
-                            }
-                          });
-                        },
-                      );
-                    }).toList(),
+                Form(
+                  child: Card(
+                    child: Wrap(
+                      spacing: 20,
+                      children: ParentStatus.values.map((status) {
+                        return ChoiceChip(
+                          label: Text(status.toString().split('.').last),
+                          selected: selectedParentStatus == status,
+                          onSelected: (isSelected) {
+                            setState(() {
+                              if (isSelected) {
+                                selectedParentStatus = status;
+                                // Update the selection status for each parent/guardian field accordingly
+                                isFatherSelected =
+                                    status == ParentStatus.fatherAlive ||
+                                        status == ParentStatus.bothAlive ||
+                                        status == ParentStatus.motherDeceased;
+                                isMotherSelected =
+                                    status == ParentStatus.motherAlive ||
+                                        status == ParentStatus.bothAlive ||
+                                        status == ParentStatus.singleMother ||
+                                        status == ParentStatus.fatherDeceased;
+                                isGuardianSelected =
+                                    status == ParentStatus.bothDeceased;
+                                isParentStatusSelected = true;
+                              } else {
+                                selectedParentStatus = null;
+                                // Reset the selection status for each parent/guardian field when unselected
+                                isFatherSelected = false;
+                                isMotherSelected = false;
+                                isGuardianSelected = false;
+                                isParentStatusSelected = false;
+                              }
+                            });
+                          },
+                        );
+                      }).toList(),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
