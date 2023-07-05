@@ -58,11 +58,11 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
             case 0:
               return isStepComplete
                   ? const Icon(Icons.check, color: Colors.green)
-                  : const Icon(Icons.person, color: Colors.blue);
+                  : const Icon(Icons.location_on, color: Colors.blue);
             case 1:
               return isStepComplete
                   ? const Icon(Icons.check, color: Colors.green)
-                  : const Icon(Icons.location_on, color: Colors.green);
+                  : const Icon(Icons.person, color: Colors.green);
             case 2:
               return isStepComplete
                   ? const Icon(Icons.check, color: Colors.green)
