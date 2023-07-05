@@ -7,6 +7,7 @@ import 'package:login_app/src/features/admin/screen/applications/applications_st
 import 'package:login_app/src/features/admin/screen/bursaries/new_bursary.dart';
 import 'package:login_app/src/repository/authentication_repository/authentication_reposirtory.dart';
 
+
 class AdminDashboardScreen extends StatelessWidget {
   const AdminDashboardScreen({super.key});
 
@@ -77,6 +78,33 @@ class AdminDashboardScreen extends StatelessWidget {
                 onTap: () {
                   Get.to(() => NewBursaryScreen());
                 },
+              ),
+            ],
+          ),
+        ),
+        body: const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Welcome to the Admin Dashboard!',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Total Applications: 100',
+                style: TextStyle(fontSize: 16),
+              ),
+              Text(
+                'Allocated Beneficiaries: 50',
+                style: TextStyle(fontSize: 16),
+              ),
+              Text(
+                'Pending Applications: 20',
+                style: TextStyle(fontSize: 16),
               ),
             ],
           ),
