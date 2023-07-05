@@ -16,6 +16,10 @@ enum ParentStatus {
   singleMother,
 }
 
+bool isFatherSelected = false;
+bool isMotherSelected = false;
+bool isGuardianSelected = false;
+
 class StudentApplicationForm extends StatefulWidget {
   const StudentApplicationForm({Key? key}) : super(key: key);
 
@@ -28,6 +32,7 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
   ParentStatus? selectedParentStatus;
 
   final List<GlobalKey<FormState>> _formKeys = [
+    GlobalKey<FormState>(),
     GlobalKey<FormState>(),
     GlobalKey<FormState>(),
     GlobalKey<FormState>(),
@@ -149,71 +154,98 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
             key: _formKeys[0],
             child: Column(
               children: [
-                const Text('Kindly fill your location details below'),
+                const Text(
+                  'Kindly fill your location details below:',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 10),
                 TextFormField(
                   controller: _controller.subCounty,
-                  decoration: const InputDecoration(label: Text(bSubCounty)),
+                  decoration: const InputDecoration(
+                    labelText: bSubCounty,
+                    prefixIcon: Icon(Icons.location_city),
+                  ),
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z\s]")),
                   ],
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your sub-county';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: _controller.ward,
-                  decoration: const InputDecoration(label: Text(bWard)),
+                  decoration: const InputDecoration(
+                    labelText: bWard,
+                    prefixIcon: Icon(Icons.location_on),
+                  ),
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z\s]")),
                   ],
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your ward';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: _controller.location,
-                  decoration: const InputDecoration(label: Text(bLocation)),
+                  decoration: const InputDecoration(
+                    labelText: bLocation,
+                    prefixIcon: Icon(Icons.location_pin),
+                  ),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z\s]")),
+                  ],
                   keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your location';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: _controller.subLocation,
-                  decoration: const InputDecoration(label: Text(bSubLocation)),
+                  decoration: const InputDecoration(
+                    labelText: bSubLocation,
+                    prefixIcon: Icon(Icons.location_on),
+                  ),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z\s]")),
+                  ],
                   keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your sub-location';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
                   controller: _controller.village,
-                  decoration: const InputDecoration(label: Text(bVillage)),
+                  decoration: const InputDecoration(
+                    labelText: bVillage,
+                    prefixIcon: Icon(Icons.location_city),
+                  ),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z\s]")),
+                  ],
                   keyboardType: TextInputType.text,
-                ),
-                const SizedBox(height: 10),
-                const Text('Kindly fill your personal details below'),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: _controller.fullName,
-                  decoration: const InputDecoration(label: Text(bFullName)),
-                  keyboardType: TextInputType.text,
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: _controller.admNumber,
-                  decoration: const InputDecoration(label: Text(bAdmNumber)),
-                  keyboardType: TextInputType.text,
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  // controller: _controller.gender,
-                  decoration: const InputDecoration(label: Text(bGender)),
-                  keyboardType: TextInputType.text,
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  // controller: _controller.dateOfBirth,
-                  decoration: const InputDecoration(label: Text(bDateOfBirth)),
-                  keyboardType: TextInputType.datetime,
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: _controller.phoneNo,
-                  decoration: const InputDecoration(label: Text(bPhoneNo)),
-                  keyboardType: TextInputType.phone,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter your village';
+                    }
+                    return null;
+                  },
                 ),
               ],
             ),
@@ -223,55 +255,74 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
           state: _currentStep > 1 ? StepState.complete : StepState.indexed,
           isActive: _currentStep >= 1,
           title: const Text(''),
-          content: Form(
-            key: _formKeys[1],
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: _controller.institutionName,
-                  decoration:
-                      const InputDecoration(label: Text(binstitutionName)),
-                  keyboardType: TextInputType.text,
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: _controller.institutionAddress,
-                  decoration:
-                      const InputDecoration(label: Text(binstitutionAddress)),
-                  keyboardType: TextInputType.text,
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: _controller.institutionBankAccountNo,
-                  decoration: const InputDecoration(
-                      label: Text(binstitutionBankAccountNo)),
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
-                  keyboardType: TextInputType.number,
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: _controller.bankName,
-                  decoration: const InputDecoration(label: Text(bbankName)),
-                  keyboardType: TextInputType.text,
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: _controller.bankBranch,
-                  decoration: const InputDecoration(label: Text(bbankBranch)),
-                  keyboardType: TextInputType.text,
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: _controller.bankCode,
-                  decoration: const InputDecoration(label: Text(bbankCode)),
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
-                ),
-              ],
+          content: Obx(
+            () => Form(
+              key: _formKeys[1],
+              child: Column(
+                children: [
+                  const Text(
+                    'Kindly fill your personal details below',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _controller.fullName,
+                    decoration: const InputDecoration(
+                      labelText: 'Full Name',
+                      prefixIcon: Icon(Icons.person),
+                    ),
+                    keyboardType: TextInputType.text,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z\s]")),
+                    ],
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your full name';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _controller.admNumber,
+                    decoration: const InputDecoration(
+                      labelText: 'Admission Number',
+                      prefixIcon: Icon(Icons.school),
+                    ),
+                    keyboardType: TextInputType.text,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your admission number';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  _controller.buildGenderRadioButtons(),
+                  const SizedBox(height: 10),
+                  _controller.buildDateOfBirthDatePicker(),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    controller: _controller.phoneNo,
+                    decoration: const InputDecoration(
+                      prefixText: '+254 ',
+                      labelText: 'Phone Number',
+                      prefixIcon: Icon(Icons.phone),
+                    ),
+                    keyboardType: TextInputType.phone,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter your phone number';
+                      }
+                      return null;
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -282,14 +333,131 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
           content: Form(
             key: _formKeys[2],
             child: Column(
+              children: [
+                const Text(
+                  'Kindly fill your institution details below:',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  controller: _controller.institutionName,
+                  decoration: const InputDecoration(
+                    labelText: binstitutionName,
+                    prefixIcon: Icon(Icons.school),
+                  ),
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter the institution name';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  controller: _controller.institutionAddress,
+                  decoration: const InputDecoration(
+                    labelText: binstitutionAddress,
+                    prefixIcon: Icon(Icons.location_on),
+                  ),
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter the institution address';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  controller: _controller.institutionBankAccountNo,
+                  decoration: const InputDecoration(
+                    labelText: binstitutionBankAccountNo,
+                    prefixIcon: Icon(Icons.account_balance),
+                  ),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                  keyboardType: TextInputType.number,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter the institution bank account number';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  controller: _controller.bankName,
+                  decoration: const InputDecoration(
+                    labelText: bbankName,
+                    prefixIcon: Icon(Icons.money),
+                  ),
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter the bank name';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  controller: _controller.bankBranch,
+                  decoration: const InputDecoration(
+                    labelText: bbankBranch,
+                    prefixIcon: Icon(Icons.location_on),
+                  ),
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter the bank branch';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  controller: _controller.bankCode,
+                  decoration: const InputDecoration(
+                    labelText: bbankCode,
+                    prefixIcon: Icon(Icons.account_balance),
+                  ),
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly,
+                  ],
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please enter the bank code';
+                    }
+                    return null;
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+        Step(
+          state: _currentStep > 3 ? StepState.complete : StepState.indexed,
+          isActive: _currentStep >= 3,
+          title: const Text(''),
+          content: Form(
+            key: _formKeys[3],
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                const Text('Parent Status'),
+                const Text(
+                  'Parent Status',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
                 const SizedBox(height: 10),
                 Card(
                   child: Wrap(
-                    spacing: 10,
+                    spacing: 20,
                     children: ParentStatus.values.map((status) {
                       return ChoiceChip(
                         label: Text(status.toString().split('.').last),
@@ -298,8 +466,24 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
                           setState(() {
                             if (isSelected) {
                               selectedParentStatus = status;
+                              // Update the selection status for each parent/guardian field accordingly
+                              isFatherSelected =
+                                  status == ParentStatus.fatherAlive ||
+                                      status == ParentStatus.bothAlive ||
+                                      status == ParentStatus.motherDeceased;
+                              isMotherSelected =
+                                  status == ParentStatus.motherAlive ||
+                                      status == ParentStatus.bothAlive ||
+                                      status == ParentStatus.singleMother ||
+                                      status == ParentStatus.fatherDeceased;
+                              isGuardianSelected =
+                                  status == ParentStatus.bothDeceased;
                             } else {
                               selectedParentStatus = null;
+                              // Reset the selection status for each parent/guardian field when unselected
+                              isFatherSelected = false;
+                              isMotherSelected = false;
+                              isGuardianSelected = false;
                             }
                           });
                         },
@@ -320,7 +504,6 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text('Father Details'),
                       fatherDetails(),
                     ],
                   ),
@@ -366,133 +549,262 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
       ];
 
   Widget fatherDetails() {
-    return Column(
-      children: [
-        TextFormField(
-          controller: _controller.fatherName,
-          decoration: const InputDecoration(label: Text(bFatherName)),
-          keyboardType: TextInputType.text,
-        ),
-        const SizedBox(height: 10),
-        TextFormField(
-          controller: _controller.fatherNationalId,
-          decoration: const InputDecoration(label: Text(bFatherNationalid)),
-          keyboardType: TextInputType.number,
-          inputFormatters: [
-            FilteringTextInputFormatter.digitsOnly,
-          ],
-        ),
-        const SizedBox(height: 10),
-        TextFormField(
-          controller: _controller.fatherOccupation,
-          decoration: const InputDecoration(label: Text(bFatherOccupation)),
-          keyboardType: TextInputType.text,
-        ),
-        const SizedBox(height: 10),
-        TextFormField(
-          controller: _controller.fatherPhoneNumber,
-          decoration: const InputDecoration(label: Text(bFatherPhoneNo)),
-          keyboardType: TextInputType.phone,
-        ),
-        const SizedBox(height: 10),
-        TextFormField(
-          controller: _controller.fatherDisability,
-          decoration: const InputDecoration(label: Text(bFatherDisable)),
-          keyboardType: TextInputType.text,
-        ),
-        const SizedBox(height: 10),
-        TextFormField(
-          controller: _controller.ifFatherDisable,
-          decoration: const InputDecoration(label: Text(bIfFatherDisable)),
-          keyboardType: TextInputType.text,
-        ),
-        const SizedBox(height: 20),
-      ],
+    return Obx(
+      () => Column(
+        children: [
+          const Text(
+            'Kindly fill your father details below:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          TextFormField(
+            controller: _controller.fatherName,
+            decoration: const InputDecoration(
+              labelText: bFatherName,
+              prefixIcon: Icon(Icons.person),
+            ),
+            keyboardType: TextInputType.text,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter father\'s name';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 10),
+          TextFormField(
+            controller: _controller.fatherNationalId,
+            decoration: const InputDecoration(
+              labelText: bFatherNationalid,
+              prefixIcon: Icon(Icons.credit_card),
+            ),
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter father\'s national ID';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 10),
+          TextFormField(
+            controller: _controller.fatherOccupation,
+            decoration: const InputDecoration(
+              labelText: bFatherOccupation,
+              prefixIcon: Icon(Icons.work),
+            ),
+            keyboardType: TextInputType.text,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter father\'s occupation';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 10),
+          TextFormField(
+            controller: _controller.fatherPhoneNumber,
+            decoration: const InputDecoration(
+              labelText: bFatherPhoneNo,
+              prefixIcon: Icon(Icons.phone),
+            ),
+            keyboardType: TextInputType.phone,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter father\'s phone number';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 10),
+          _controller.buildFatherDisabilityRadioButtons(),
+          const SizedBox(height: 10),
+          if (_controller.fatherdisabilityChoice.value == 'Yes')
+            TextFormField(
+              controller: _controller.ncpwd,
+              decoration: const InputDecoration(label: Text('Enter NCPD')),
+              keyboardType: TextInputType.text,
+            ),
+          const SizedBox(height: 10),
+        ],
+      ),
     );
   }
 
   Widget motherDetails() {
-    return Column(children: [
-      const Text('Mother Details'),
-      const SizedBox(height: 10),
-      TextFormField(
-        controller: _controller.motherName,
-        decoration: const InputDecoration(label: Text(bMotherName)),
-        keyboardType: TextInputType.text,
-      ),
-      const SizedBox(height: 10),
-      TextFormField(
-        controller: _controller.motherNationalId,
-        decoration: const InputDecoration(label: Text(bMotherNationalid)),
-        keyboardType: TextInputType.number,
-        inputFormatters: [
-          FilteringTextInputFormatter.digitsOnly,
+    return Obx(
+      () => Column(
+        children: [
+          const Text(
+            'Kindly fill your mother details below:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 10),
+          TextFormField(
+            controller: _controller.motherName,
+            decoration: const InputDecoration(
+              labelText: bMotherName,
+              prefixIcon: Icon(Icons.person),
+            ),
+            keyboardType: TextInputType.text,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your mother\'s name';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 10),
+          TextFormField(
+            controller: _controller.motherNationalId,
+            decoration: const InputDecoration(
+              labelText: bMotherNationalid,
+              prefixIcon: Icon(Icons.credit_card),
+            ),
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your mother\'s national ID';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 10),
+          TextFormField(
+            controller: _controller.motherOccupation,
+            decoration: const InputDecoration(
+              labelText: bMotherOccupation,
+              prefixIcon: Icon(Icons.work),
+            ),
+            keyboardType: TextInputType.text,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your mother\'s occupation';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 10),
+          TextFormField(
+            controller: _controller.motherPhoneNumber,
+            decoration: const InputDecoration(
+              labelText: bMotherPhoneNo,
+              prefixIcon: Icon(Icons.phone),
+            ),
+            keyboardType: TextInputType.phone,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your mother\'s phone number';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 10),
+          _controller.buildMotherDisabilityRadioButtons(),
+          const SizedBox(height: 10),
+          if (_controller.motherdisabilityChoice.value == 'Yes')
+            TextFormField(
+              controller: _controller.ncpwd,
+              decoration: const InputDecoration(label: Text('Enter NCPD')),
+              keyboardType: TextInputType.text,
+            ),
+          const SizedBox(height: 10),
         ],
       ),
-      const SizedBox(height: 10),
-      TextFormField(
-        controller: _controller.motherOccupation,
-        decoration: const InputDecoration(label: Text(bMotherOccupation)),
-        keyboardType: TextInputType.text,
-      ),
-      const SizedBox(height: 10),
-      TextFormField(
-        controller: _controller.motherPhoneNumber,
-        decoration: const InputDecoration(label: Text(bMotherPhoneNo)),
-        keyboardType: TextInputType.phone,
-      ),
-      const SizedBox(height: 10),
-      TextFormField(
-        controller: _controller.ifMotherDisable,
-        decoration: const InputDecoration(label: Text(bIfMotherDisable)),
-        keyboardType: TextInputType.text,
-      ),
-      const SizedBox(height: 20),
-    ]);
+    );
   }
 
   Widget guardianDetails() {
-    return Column(children: [
-      const Text('Guardian Details'),
-      const SizedBox(height: 10),
-      TextFormField(
-        controller: _controller.guardianName,
-        decoration: const InputDecoration(label: Text(bGuardianName)),
-        keyboardType: TextInputType.text,
-      ),
-      const SizedBox(height: 10),
-      TextFormField(
-        controller: _controller.guardianNationalId,
-        decoration: const InputDecoration(label: Text(bGuardianNationalid)),
-        keyboardType: TextInputType.number,
-        inputFormatters: [
-          FilteringTextInputFormatter.digitsOnly,
+    return Obx(
+      () => Column(
+        children: [
+          const Text(
+            'Kindly fill your guardian details below:',
+            style: TextStyle(fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 10),
+          TextFormField(
+            controller: _controller.guardianName,
+            decoration: const InputDecoration(
+              labelText: 'Guardian Name',
+              prefixIcon: Icon(Icons.person),
+            ),
+            keyboardType: TextInputType.text,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter guardian name';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 10),
+          TextFormField(
+            controller: _controller.guardianNationalId,
+            decoration: const InputDecoration(
+              labelText: 'Guardian National ID',
+              prefixIcon: Icon(Icons.credit_card),
+            ),
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              FilteringTextInputFormatter.digitsOnly,
+            ],
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter guardian national ID';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 10),
+          TextFormField(
+            controller: _controller.guardianOccupation,
+            decoration: const InputDecoration(
+              labelText: 'Guardian Occupation',
+              prefixIcon: Icon(Icons.work),
+            ),
+            keyboardType: TextInputType.text,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter guardian occupation';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 10),
+          TextFormField(
+            controller: _controller.guardianPhoneNumber,
+            decoration: const InputDecoration(
+              labelText: 'Guardian Phone Number',
+              prefixIcon: Icon(Icons.phone),
+            ),
+            keyboardType: TextInputType.phone,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter guardian phone number';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 10),
+          _controller.buildGuardianDisabilityRadioButtons(),
+          const SizedBox(height: 10),
+          if (_controller.guardiandisabilityChoice.value == 'Yes')
+            TextFormField(
+              controller: _controller.ncpwd,
+              decoration: const InputDecoration(label: Text('Enter NCPD')),
+              keyboardType: TextInputType.text,
+            ),
+          const SizedBox(height: 10),
         ],
       ),
-      const SizedBox(height: 10),
-      TextFormField(
-        controller: _controller.guardianOccupation,
-        decoration: const InputDecoration(label: Text(bGuardianOccupation)),
-        keyboardType: TextInputType.text,
-      ),
-      const SizedBox(height: 10),
-      TextFormField(
-        controller: _controller.guardianPhoneNumber,
-        decoration: const InputDecoration(label: Text(bGuardianPhoneNo)),
-        keyboardType: TextInputType.phone,
-      ),
-      const SizedBox(height: 10),
-      TextFormField(
-        controller: _controller.guardianDisability,
-        decoration: const InputDecoration(label: Text(bIfGuardianDisable)),
-        keyboardType: TextInputType.text,
-      ),
-      const SizedBox(height: 10),
-      TextFormField(
-        controller: _controller.ifGuardianDisable,
-        decoration: const InputDecoration(label: Text(bIfGuardianDisable)),
-        keyboardType: TextInputType.text,
-      ),
-    ]);
+    );
   }
 }
