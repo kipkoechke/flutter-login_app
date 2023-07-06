@@ -7,7 +7,6 @@ import 'package:login_app/src/features/admin/screen/applications/applications_st
 import 'package:login_app/src/features/admin/screen/bursaries/new_bursary.dart';
 import 'package:login_app/src/repository/authentication_repository/authentication_reposirtory.dart';
 
-
 class AdminDashboardScreen extends StatelessWidget {
   const AdminDashboardScreen({super.key});
 
@@ -17,6 +16,8 @@ class AdminDashboardScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Admin Portal'),
+          backgroundColor:
+              bPrimaryColor, // Set the background color of the app bar
           actions: [
             IconButton(
               onPressed: () {
@@ -46,38 +47,54 @@ class AdminDashboardScreen extends StatelessWidget {
                     Icon(
                       Icons.dashboard_customize_rounded,
                       size: 48,
-                      color: bSecondaryColor,
+                      color: Colors
+                          .white, // Set the color of the icon in the drawer header
                     ),
                     SizedBox(
                       width: 18.0,
                     ),
-                    Text('Bursary Management')
+                    Text(
+                      'Bursary Management',
+                      style: TextStyle(
+                          color: Colors
+                              .white, // Set the color of the text in the drawer header
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ],
                 ),
               ),
-              ListTile(
-                title: const Text('Dashboard'),
-                onTap: () {
-                  Get.to(() => const AllApplicationsScreen());
-                },
+              Card(
+                child: ListTile(
+                  title: const Text('Dashboard'),
+                  onTap: () {
+                    Get.to(() => const AllApplicationsScreen());
+                  },
+                ),
               ),
-              ListTile(
-                title: const Text('Beneficiaries'),
-                onTap: () {
-                  Get.to(const AllocatedApplicationScreen());
-                },
+              Card(
+                child: ListTile(
+                  title: const Text('Beneficiaries'),
+                  onTap: () {
+                    Get.to(const AllocatedApplicationScreen());
+                  },
+                ),
               ),
-              ListTile(
-                title: const Text('Applications'),
-                onTap: () {
-                  Get.to(ApplicationStatusScreen());
-                },
+              Card(
+                child: ListTile(
+                  title: const Text('Applications'),
+                  onTap: () {
+                    Get.to(ApplicationStatusScreen());
+                  },
+                ),
               ),
-              ListTile(
-                title: const Text('Bursaries'),
-                onTap: () {
-                  Get.to(() => NewBursaryScreen());
-                },
+              Card(
+                child: ListTile(
+                  title: const Text('Bursaries'),
+                  onTap: () {
+                    Get.to(() => NewBursaryScreen());
+                  },
+                ),
               ),
             ],
           ),
