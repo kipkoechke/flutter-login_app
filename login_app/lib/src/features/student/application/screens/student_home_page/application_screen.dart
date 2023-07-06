@@ -23,7 +23,7 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 Get.to(() => const ProfileScreen());
               },
-              icon: const Icon(Icons.logout),
+              icon: const Icon(Icons.person),
             ),
           ],
         ),
