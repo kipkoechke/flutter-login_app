@@ -8,4 +8,8 @@ class AllocatedUsersController extends GetxController {
   Stream<List<ApplicationFormModel>> getAllocatedUsers() {
     return _userRepo.allocatedApplications().asStream();
   }
+
+  Stream<int> getAllocatedUsersCount() {
+    return _userRepo.allocatedApplicationsCount().asStream();
+  }
 }

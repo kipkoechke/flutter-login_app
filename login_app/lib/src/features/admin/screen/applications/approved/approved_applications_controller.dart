@@ -16,4 +16,8 @@ class ApprovedApplicationController extends GetxController {
   Stream<List<ApplicationFormModel>> getApprovedApplication() {
     return _userRepo.approvedApplication().asStream();
   }
+
+  Stream<int> getApprovedApplicationsCount() {
+    return _userRepo.approvedApplicationsCount().asStream();
+  }
 }
