@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_app/src/features/admin/screen/bursaries/bursary_model.dart';
-
 import 'package:login_app/src/features/authentication/models/user_model.dart';
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';
 import 'package:login_app/src/features/student/application/screens/student_dashboard/student_dashboard.dart';
@@ -44,6 +43,7 @@ class UserRepository extends GetxController {
     return bursaries;
   }
 
+  //-- Store sign up details
   Future<void> createUser(UserModel user) async {
     try {
       await _authRepo.createUserWithEmailAndPassword(user);
@@ -60,6 +60,7 @@ class UserRepository extends GetxController {
             colorText: Colors.red,
           );
           // Handle the case where the user already exists
+          return;
         } else {
           await userRef.set(user.toJson()).whenComplete(() {
             Get.snackbar(
@@ -156,6 +157,13 @@ class UserRepository extends GetxController {
     return userApplication;
   }
 
+  //-- Fetch the total number of all the users applications as the admin
+  Future<int> allApplicationsCount() async {
+    final snapshot = await _db.collection("Applications").get();
+
+    return snapshot.docs.length;
+  }
+
   //-- Fetch data for all the pending users applications as the admin
   Future<List<ApplicationFormModel>> pendingApplications() async {
     final snapshot = await _db
@@ -165,6 +173,16 @@ class UserRepository extends GetxController {
     final userApplication =
         snapshot.docs.map((e) => ApplicationFormModel.fromSnapshot(e)).toList();
     return userApplication;
+  }
+
+  //-- Fetch the total number of all the pending users applications as the admin
+  Future<int> pendingApplicationsCount() async {
+    final snapshot = await _db
+        .collection("Applications")
+        .where("Status", isEqualTo: 'Pending')
+        .get();
+
+    return snapshot.docs.length;
   }
 
   //-- Fetch data for all the approved users applications as the admin
@@ -178,6 +196,16 @@ class UserRepository extends GetxController {
     return userData;
   }
 
+  //-- Fetch the total number of all the approved users applications as the admin
+  Future<int> approvedApplicationsCount() async {
+    final snapshot = await _db
+        .collection("Applications")
+        .where("Status", isEqualTo: 'Approved')
+        .get();
+
+    return snapshot.docs.length;
+  }
+
   //-- Fetch data for all the declined users applications as the admin
   Future<List<ApplicationFormModel>> declinedApplication() async {
     final snapshot = await _db
@@ -187,6 +215,16 @@ class UserRepository extends GetxController {
     final userData =
         snapshot.docs.map((e) => ApplicationFormModel.fromSnapshot(e)).toList();
     return userData;
+  }
+
+  //-- Fetch the total number of all the declined users applications as the admin
+  Future<int> declinedApplicationsCount() async {
+    final snapshot = await _db
+        .collection("Applications")
+        .where("Status", isEqualTo: 'Declined')
+        .get();
+
+    return snapshot.docs.length;
   }
 
   //-- Fetch data for single user as the admin
@@ -305,6 +343,17 @@ class UserRepository extends GetxController {
     return userData;
   }
 
+  //-- Fetch the total number of all the declined users applications as the admin
+  Future<int> allocatedApplicationsCount() async {
+    final snapshot = await _db
+        .collection("Applications")
+        .where("Amount", isGreaterThanOrEqualTo: 4000.00)
+        .where("Amount", isLessThan: 20000.00)
+        .get();
+
+    return snapshot.docs.length;
+  }
+
   //-- Fetch allocated amount for a signed-in user
   Future<double> getAllocatedAmount() async {
     final userUid = FirebaseAuth.instance.currentUser?.uid;
@@ -318,5 +367,14 @@ class UserRepository extends GetxController {
     final userData =
         snapshot.docs.map((e) => ApplicationFormModel.fromSnapshot(e)).single;
     return userData.amount!;
+  }
+
+  //-- Save device toekn for push notifications
+  Future<void> saveDeviceToken(String deviceToken) async {
+    final userUid = FirebaseAuth.instance.currentUser?.uid;
+    if (userUid != null) {
+      final userRef = _db.collection("Users").doc(userUid);
+      await userRef.update({'deviceToken': deviceToken});
+    }
   }
 }
