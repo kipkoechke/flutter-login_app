@@ -3,8 +3,18 @@ import 'package:get/get.dart';
 import 'package:login_app/src/constants/colors.dart';
 import 'package:login_app/src/features/admin/all_applications.dart';
 import 'package:login_app/src/features/admin/screen/allocation/allocated_users.dart';
+import 'package:login_app/src/features/admin/screen/allocation/allocated_users_controller.dart';
+import 'package:login_app/src/features/admin/screen/allocation/total_allocated_users.dart';
 import 'package:login_app/src/features/admin/screen/applications/applications_status/application_status_screen.dart';
+import 'package:login_app/src/features/admin/screen/applications/approved/approved_applications_controller.dart';
+import 'package:login_app/src/features/admin/screen/applications/approved/total_approved_applications.dart';
+import 'package:login_app/src/features/admin/screen/applications/declined/declined_applications_controller.dart';
+import 'package:login_app/src/features/admin/screen/applications/declined/total_applications.dart';
+import 'package:login_app/src/features/admin/screen/applications/declined/total_declined_applications.dart';
+import 'package:login_app/src/features/admin/screen/applications/pending/pending_applications_controller.dart';
+import 'package:login_app/src/features/admin/screen/applications/pending/total_pending_applications.dart';
 import 'package:login_app/src/features/admin/screen/bursaries/new_bursary.dart';
+import 'package:login_app/src/features/student/application/controllers/student_details_controller.dart';
 import 'package:login_app/src/repository/authentication_repository/authentication_reposirtory.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
@@ -12,12 +22,22 @@ class AdminDashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final fcm = Get.put(FCMController());
+    final pendingApplicationsController =
+        Get.put(PendingApplicationsController());
+    final approvedApplicationsController =
+        Get.put(ApprovedApplicationController());
+    final declinedApplicationsController =
+        Get.put(DeclinedApplicationsController());
+    final allApplicationsController = Get.put(StudentDetailsController());
+    final allocatedUsersController = Get.put(AllocatedUsersController());
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Admin Portal'),
-          backgroundColor:
-              bPrimaryColor, // Set the background color of the app bar
+          //  backgroundColor:
+          //    bPrimaryColor, // Set the background color of the app bar
           actions: [
             IconButton(
               onPressed: () {
@@ -68,6 +88,14 @@ class AdminDashboardScreen extends StatelessWidget {
                 child: ListTile(
                   title: const Text('Dashboard'),
                   onTap: () {
+                    Get.back();
+                  },
+                ),
+              ),
+              Card(
+                child: ListTile(
+                  title: const Text('All Applications'),
+                  onTap: () {
                     Get.to(() => const AllApplicationsScreen());
                   },
                 ),
@@ -99,29 +127,41 @@ class AdminDashboardScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: const Center(
+        body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Welcome to the Admin Dashboard!',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
-                'Total Applications: 100',
-                style: TextStyle(fontSize: 16),
+              const SizedBox(height: 20),
+              // ElevatedButton(
+              //   onPressed: () {
+              //     FCMController.to
+              //         .sendPushMessage(fcm.deviceToken!, 'body', 'title');
+              //   },
+              //   child: const Text('Send Bursary'),
+              // ),
+              // FCMController.to.listenToForegroundMessages(),
+
+              TotalNumberOfBeneficiaries(
+                allocatedUsersController: allocatedUsersController,
               ),
-              Text(
-                'Allocated Beneficiaries: 50',
-                style: TextStyle(fontSize: 16),
+              TotalNumberOfAllApplications(
+                allApplicationsController: allApplicationsController,
               ),
-              Text(
-                'Pending Applications: 20',
-                style: TextStyle(fontSize: 16),
+              TotalNumberOfPendingApplications(
+                pendingApplicationsController: pendingApplicationsController,
+              ),
+              TotalNumberOfApprovedApplications(
+                approvedApplicationsController: approvedApplicationsController,
+              ),
+              TotalNumberOfDeclinedApplications(
+                declinedApplicationsController: declinedApplicationsController,
               ),
             ],
           ),
