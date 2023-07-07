@@ -11,4 +11,8 @@ class PendingApplicationsController extends GetxController {
   Stream<List<ApplicationFormModel>> getPendingApplications() {
     return userRepo.pendingApplications().asStream();
   }
+
+  Stream<int> getPendingApplicationsCount() {
+    return userRepo.pendingApplicationsCount().asStream();
+  }
 }

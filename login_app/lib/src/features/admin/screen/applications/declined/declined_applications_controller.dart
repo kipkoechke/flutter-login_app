@@ -16,4 +16,10 @@ class DeclinedApplicationsController extends GetxController {
   Stream<List<ApplicationFormModel>> getDeclinedApplication() {
     return _userRepo.declinedApplication().asStream();
   }
+
+  Stream<int> getDeclinedApplicationsCount() {
+    return _userRepo.declinedApplicationsCount().asStream();
+  }
+
+  
 }
