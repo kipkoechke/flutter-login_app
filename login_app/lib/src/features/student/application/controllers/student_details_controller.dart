@@ -22,6 +22,10 @@ class StudentDetailsController extends GetxController {
     return await userRepo.allApplications();
   }
 
+  Stream<int> getAllApplicationsCount() {
+    return userRepo.allApplicationsCount().asStream();
+  }
+
   Widget buildGenderRadioButtons() {
     return TextFormField(
       readOnly: true,
