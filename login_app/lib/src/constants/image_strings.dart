@@ -1,11 +1,11 @@
 /*-- App Image Strings --*/
 const String bSplashTopIcon = "assets/images/splash/splash-top-icon.png";
-const String bSplashImage = "assets/images/splash/splash-screen-image.jpg";
+const String bSplashImage = "assets/images/splash/splash-screen-image.png";
 
 //-- Welcome Screen Images
 //-- also used for login and signup
 const String bWelcomeScreenImage =
-    "assets/images/welcome/welcome-screen-image.jpg";
+    "assets/images/welcome/welcome-screen-image.png";
 
 // -- Login & SignUp Images
 const String bGoogleLogoImage = "assets/logo/google-logo.png";
