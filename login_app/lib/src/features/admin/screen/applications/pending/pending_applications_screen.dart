@@ -5,6 +5,7 @@ import 'package:login_app/src/features/admin/screen/applications/approved/approv
 import 'package:login_app/src/features/admin/screen/applications/declined/declined_applications_controller.dart';
 import 'package:login_app/src/features/admin/screen/applications/pending/pending_applications_controller.dart';
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';
+import 'package:login_app/src/repository/fcm_repository/fcm_repository.dart';
 
 class PendingApplicationsScreen extends StatelessWidget {
   const PendingApplicationsScreen({super.key});
@@ -14,6 +15,8 @@ class PendingApplicationsScreen extends StatelessWidget {
     final controller = Get.put(PendingApplicationsController());
     final approve = Get.put(ApprovedApplicationController());
     final decline = Get.put(DeclinedApplicationsController());
+    final fcm = Get.put(FCMController());
+    final deviceToken = fcm.deviceToken;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -262,6 +265,8 @@ class PendingApplicationsScreen extends StatelessWidget {
                                               onPressed: () {
                                                 approve.approveApplication(
                                                     userApplication[index].id!);
+                                                fcm.sendApplicationApprovedNotification(
+                                                    deviceToken!);
                                                 Get.back();
                                               },
                                               child: const Text('Approve'),
@@ -273,9 +278,11 @@ class PendingApplicationsScreen extends StatelessWidget {
                                               onPressed: () {
                                                 decline.declineApplication(
                                                     userApplication[index].id!);
+                                                fcm.sendApplicationDeclinedNotification(
+                                                    deviceToken!);
                                                 Get.back();
                                               },
-                                              child: const Text('Reject'),
+                                              child: const Text('Decline'),
                                             ),
                                           )
                                         ],
