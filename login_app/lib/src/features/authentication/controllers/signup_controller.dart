@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_app/src/features/authentication/models/user_model.dart';
 import 'package:login_app/src/repository/authentication_repository/authentication_reposirtory.dart';
+import 'package:login_app/src/repository/fcm_repository/fcm_repository.dart';
 import 'package:login_app/src/repository/user_repository/user_repository.dart';
 
 class SignUpController extends GetxController {
@@ -13,9 +14,11 @@ class SignUpController extends GetxController {
   final password = TextEditingController();
 
   final userRepo = Get.put(UserRepository());
+  final fcm = Get.put(FCMController());
 
   createUser(UserModel user) async {
     userRepo.createUser(user);
+    await FCMController.to.getToken();
   }
 
   void phoneAuthentication(String phoneNo) {
