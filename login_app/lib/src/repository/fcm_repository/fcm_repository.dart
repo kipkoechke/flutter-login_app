@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:login_app/src/features/admin/screen/applications/applications_status/application_status_screen.dart';
 import 'package:login_app/src/repository/user_repository/user_repository.dart';
 
 class FCMController extends GetxController {
@@ -21,9 +22,10 @@ class FCMController extends GetxController {
     super.onInit();
     requestPermissions();
     getToken();
-    listenToForegroundMessages();
-    handleNotificationInteraction();
     initInfo();
+    setupInteractedMessage();
+    listenToForegroundMessages();
+    //handleNotificationInteraction();
   }
 
   initInfo() {
@@ -68,13 +70,17 @@ class FCMController extends GetxController {
     deviceToken = await messaging.getToken();
     print('Device Token: $deviceToken');
     // Save or send the device token to your server for targeted notifications
-    userRepo.saveDeviceToken(deviceToken!);
+    // userRepo.saveDeviceToken(deviceToken!);
   }
 
   listenToForegroundMessages() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       print('Got a message whilst in the foreground!');
       print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+      }
 
       BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
         message.notification!.body.toString(),
@@ -101,27 +107,51 @@ class FCMController extends GetxController {
     });
   }
 
-  void handleNotificationInteraction() {
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      print('Message opened from terminated state!');
-      print('Message data: ${message.data}');
+  // void handleNotificationInteraction() {
+  //   FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+  //     print('Message opened from terminated state!');
+  //     print('Message data: ${message.data}');
 
-      if (message.notification != null) {
-        print('Message also contained a notification: ${message.notification}');
-        navigateToScreen(message);
-      }
-    });
+  //     if (message.notification != null) {
+  //       print('Message also contained a notification: ${message.notification}');
+  //       navigateToScreen(message);
+  //     }
+  //   });
+  // }
+
+  Future<void> setupInteractedMessage() async {
+    // Get any messages which caused the application to open from
+    // a terminated state.
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+
+    // If the message also contains a data property with a "type" of "chat",
+    // navigate to a chat screen
+    if (initialMessage != null) {
+      _handleMessage(initialMessage);
+    }
+
+    // Also handle any interaction when the app is in the background via a
+    // Stream listener
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
   }
 
-  void navigateToScreen(RemoteMessage message) {
-    // Implement your navigation logic here based on the message data
-    // You can use Get.toNamed or Get.to to navigate to the desired screen
-    // Example:
-    // Get.toNamed('/notification_detail', arguments: {'message': message});
+  void _handleMessage(RemoteMessage message) {
+    if (message.notification != null) {
+      if (message.data['type'] == 'approved') {
+        Get.to(() => ApplicationStatusScreen());
+      } else if (message.data['type'] == 'declined') {
+        Get.to(() => ApplicationStatusScreen());
+      } else if (message.data['type'] == 'allocated') {
+        Get.to(() => ApplicationStatusScreen());
+      } else {}
+    } else {
+      return;
+    }
   }
 
   Future<void> sendPushMessage(
-      String deviceToken, String body, String title) async {
+      String deviceToken, String title, String body, String type) async {
     try {
       await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),
           headers: <String, String>{
@@ -136,6 +166,7 @@ class FCMController extends GetxController {
               'status': 'done',
               'title': title,
               'body': body,
+              'type': type,
             },
             "notification": <String, dynamic>{
               "title": title,
@@ -148,5 +179,26 @@ class FCMController extends GetxController {
         print('Error Push Notification');
       }
     }
+  }
+
+  Future<void> sendApplicationApprovedNotification(String deviceToken) async {
+    const title = 'Application Approved';
+    const body = 'Your application has been approved';
+
+    await sendPushMessage(deviceToken, title, body, 'approved');
+  }
+
+  Future<void> sendApplicationDeclinedNotification(String deviceToken) async {
+    const title = 'Application Declined';
+    const body = 'Your application has been declined';
+
+    await sendPushMessage(deviceToken, title, body, 'declined');
+  }
+
+  Future<void> sendFundsAllocatedNotification(String deviceToken) async {
+    const title = 'Funds Allocated';
+    const body = 'Funds have been allocated to your application';
+
+    await sendPushMessage(deviceToken, title, body, 'allocated');
   }
 }
