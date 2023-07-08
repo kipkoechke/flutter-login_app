@@ -9,7 +9,7 @@ import 'package:login_app/src/features/admin/screen/applications/applications_st
 import 'package:login_app/src/features/admin/screen/applications/approved/approved_applications_controller.dart';
 import 'package:login_app/src/features/admin/screen/applications/approved/total_approved_applications.dart';
 import 'package:login_app/src/features/admin/screen/applications/declined/declined_applications_controller.dart';
-import 'package:login_app/src/features/admin/screen/applications/declined/total_applications.dart';
+import 'package:login_app/src/features/admin/screen/applications/total_applications.dart';
 import 'package:login_app/src/features/admin/screen/applications/declined/total_declined_applications.dart';
 import 'package:login_app/src/features/admin/screen/applications/pending/pending_applications_controller.dart';
 import 'package:login_app/src/features/admin/screen/applications/pending/total_pending_applications.dart';
