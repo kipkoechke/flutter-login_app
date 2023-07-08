@@ -6,6 +6,7 @@ class UserModel {
   final String email;
   final String phoneNo;
   final String? password;
+  final String? deviceToken;
 
   UserModel({
     this.id,
@@ -13,6 +14,7 @@ class UserModel {
     required this.email,
     required this.phoneNo,
     this.password,
+    this.deviceToken = "",
   });
 
   toJson() {
@@ -20,6 +22,7 @@ class UserModel {
       "FullName": fullName,
       "Email": email,
       "Phone Number": phoneNo,
+      "Device Token": deviceToken,
     };
   }
 
@@ -33,6 +36,7 @@ class UserModel {
       email: data["Email"],
       phoneNo: data["Phone Number"],
       password: data["Password"],
+      deviceToken: data["Device Token"],
     );
   }
 }
