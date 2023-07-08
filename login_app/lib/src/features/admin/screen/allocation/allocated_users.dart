@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:login_app/src/constants/sizes.dart';
 import 'package:login_app/src/features/admin/screen/allocation/allocated_users_controller.dart';
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';
 
@@ -18,11 +17,12 @@ class AllocatedApplicationScreen extends StatelessWidget {
             icon: const Icon(LineAwesomeIcons.angle_left)),
         title: Text(
           "Beneficiaries",
-          style: Theme.of(context).textTheme.headlineSmall,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
+        centerTitle: true,
       ),
       body: Container(
-        padding: const EdgeInsets.all(bDefaultSize),
+        padding: const EdgeInsets.all(4),
         //-- Fetching data for all users
         child: StreamBuilder<List<ApplicationFormModel>>(
           stream: allocated.getAllocatedUsers(),
@@ -39,22 +39,29 @@ class AllocatedApplicationScreen extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {},
-                          child: ListTile(
-                            iconColor: Colors.blue,
-                            tileColor: Colors.blue.withOpacity(0.1),
-                            leading: const Icon(LineAwesomeIcons.user_1),
-                            title: Text("Name: ${userData[index].fullName}"),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Phone No: ${userData[index].phoneNo}"),
-                                Text("Reg No: ${userData[index].admNumber}"),
-                                Text("Amount: ${userData[index].amount}"),
-                              ],
+                          child: Card(
+                            child: ListTile(
+                              iconColor: Colors.blue,
+                              tileColor: Colors.blue.withOpacity(0.1),
+                              //leading: const Icon(LineAwesomeIcons.user_1),
+                              title: Text("Name: ${userData[index].fullName}"),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "Institution: ${userData[index].institutionName}",
+                                  ),
+                                  Text(
+                                    "Reg No: ${userData[index].admNumber}",
+                                  ),
+                                  Text(
+                                    "Amount: ${userData[index].amount}",
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                        const SizedBox(height: 10),
                       ],
                     );
                   },
