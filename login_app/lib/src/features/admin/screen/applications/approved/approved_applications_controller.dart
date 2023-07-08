@@ -7,9 +7,15 @@ class ApprovedApplicationController extends GetxController {
 
   final String title = 'Approved Applications';
   final _userRepo = Get.put(UserRepository());
-
+  //final FCMController fcmController = Get.put(FCMController());
+  
   approveApplication(String id) async {
     await _userRepo.approveUserApplication(id);
+    // final user = await _userRepo.getUserApplicationDetails(id);
+    // final deviceToken = await _userRepo.getUserDeviceToken(user.uid!);
+    // if (deviceToken != null) {
+    //   await fcmController.sendApplicationApprovedNotification(deviceToken);
+    // }
   }
 
   //-- Retrieves user application data
