@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:login_app/src/constants/sizes.dart';
 import 'package:login_app/src/features/student/application/controllers/student_details_controller.dart';
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';
 
@@ -18,11 +17,13 @@ class AllApplicationsScreen extends StatelessWidget {
             icon: const Icon(LineAwesomeIcons.angle_left)),
         title: Text(
           'All Applications',
-          style: Theme.of(context).textTheme.headlineSmall,
+          style: Theme.of(context).textTheme.titleLarge,
+          textAlign: TextAlign.center,
         ),
+        centerTitle: true,
       ),
       body: Container(
-        padding: const EdgeInsets.all(bDefaultSize),
+        padding: const EdgeInsets.all(4),
 
 //-- Fetching data for all users
         child: FutureBuilder<List<ApplicationFormModel>>(
@@ -46,9 +47,7 @@ class AllApplicationsScreen extends StatelessWidget {
                               margin: const EdgeInsets.all(10),
                               child: Column(
                                 children: [
-                                  const ListTile(
-                                    title: Text('Location Details'),
-                                  ),
+                                  const Text('Location Details'),
                                   ListTile(
                                     title: const Text('Sub County'),
                                     subtitle:
@@ -259,21 +258,23 @@ class AllApplicationsScreen extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        padding: const EdgeInsets.all(4),
+                      child: Card(
                         child: ListTile(
                           iconColor: Colors.blue,
                           tileColor: Colors.blue.withOpacity(0.1),
                           leading: const Icon(LineAwesomeIcons.user_1),
-                          title:
-                              Text("Name: ${userApplication[index].fullName}"),
+                          title: Text(
+                            "Name: ${userApplication[index].fullName}",
+                          ),
                           subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Text(userApplicationData.phoneNo),
-                              Text(userApplication[index].admNumber),
+                              Text(
+                                "Phone No: ${userApplication[index].phoneNo}",
+                              ),
+                              Text(
+                                "Reg No: ${userApplication[index].admNumber}",
+                              ),
                             ],
                           ),
                           trailing: const Icon(LineAwesomeIcons.angle_right),
