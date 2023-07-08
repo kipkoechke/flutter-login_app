@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:login_app/src/features/admin/dashboard/admin_dashboard.dart';
 import 'package:login_app/src/features/admin/screen/bursaries/bursary_model.dart';
 import 'package:login_app/src/features/authentication/models/user_model.dart';
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';
@@ -70,7 +71,11 @@ class UserRepository extends GetxController {
               backgroundColor: Colors.green.withOpacity(0.1),
               colorText: Colors.green,
             );
-            Get.offAll(() => const StudentDashboardScreen());
+            if (user.email == 'admin@gmail.com') {
+              Get.offAll(() => const AdminDashboardScreen());
+            } else {
+              Get.offAll(() => const StudentDashboardScreen());
+            }
           });
         }
       }
@@ -367,14 +372,5 @@ class UserRepository extends GetxController {
     final userData =
         snapshot.docs.map((e) => ApplicationFormModel.fromSnapshot(e)).single;
     return userData.amount!;
-  }
-
-  //-- Save device toekn for push notifications
-  Future<void> saveDeviceToken(String deviceToken) async {
-    final userUid = FirebaseAuth.instance.currentUser?.uid;
-    if (userUid != null) {
-      final userRef = _db.collection("Users").doc(userUid);
-      await userRef.update({'deviceToken': deviceToken});
-    }
   }
 }
