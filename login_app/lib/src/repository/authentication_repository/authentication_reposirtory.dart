@@ -27,7 +27,7 @@ class AuthenticationRepository extends GetxController {
     if (user == null) {
       Get.offAll(() => const SplashScreen());
     } else if (user.email == 'admin@gmail.com') {
-      Get.offAll(() => const AdminDashboardScreen());
+      Get.offAll(() => AdminDashboardScreen());
     } else {
       Get.offAll(() => const StudentDashboardScreen());
     }

@@ -72,7 +72,7 @@ class UserRepository extends GetxController {
               colorText: Colors.green,
             );
             if (user.email == 'admin@gmail.com') {
-              Get.offAll(() => const AdminDashboardScreen());
+              Get.offAll(() => AdminDashboardScreen());
             } else {
               Get.offAll(() => const StudentDashboardScreen());
             }

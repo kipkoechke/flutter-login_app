@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(
           name: "/",
-          page: () => const AdminDashboardScreen(),
+          page: () => AdminDashboardScreen(),
           binding: ApplicationStatusBinding(),
         ),
       ],

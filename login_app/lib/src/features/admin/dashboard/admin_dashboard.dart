@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_app/src/constants/colors.dart';
@@ -16,12 +17,37 @@ import 'package:login_app/src/features/admin/screen/applications/pending/total_p
 import 'package:login_app/src/features/admin/screen/bursaries/new_bursary.dart';
 import 'package:login_app/src/features/student/application/controllers/student_details_controller.dart';
 import 'package:login_app/src/repository/authentication_repository/authentication_reposirtory.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
-  const AdminDashboardScreen({super.key});
+  AdminDashboardScreen({super.key});
+  // State variables for pie chart data
+  final Map<String, double> applicationsStatusData = {
+    'Pending': 10,
+    'Approved': 20,
+    'Declined': 5,
+  };
 
+  final Map<String, double> allocationData = {
+    'Allocated': 15,
+    'Unallocated': 10,
+  };
   @override
   Widget build(BuildContext context) {
+    // Build pie chart widget
+    Widget buildPieChart(Map<String, double> dataMap) {
+      return PieChart(
+        dataMap: dataMap,
+        animationDuration: const Duration(milliseconds: 800),
+        chartRadius: math.min(MediaQuery.of(context).size.width / 3.2, 300),
+        chartType: ChartType.disc,
+        chartValuesOptions: const ChartValuesOptions(
+          showChartValues: true,
+          showChartValuesInPercentage: true,
+        ),
+      );
+    }
+
     // final fcm = Get.put(FCMController());
     final pendingApplicationsController =
         Get.put(PendingApplicationsController());
@@ -147,10 +173,14 @@ class AdminDashboardScreen extends StatelessWidget {
               //   child: const Text('Send Bursary'),
               // ),
               // FCMController.to.listenToForegroundMessages(),
-
+              
+              // Add pie chart for applications status
+              buildPieChart(applicationsStatusData),
               TotalNumberOfBeneficiaries(
                 allocatedUsersController: allocatedUsersController,
               ),
+              // Add pie chart for allocation
+              buildPieChart(allocationData),
               TotalNumberOfAllApplications(
                 allApplicationsController: allApplicationsController,
               ),
