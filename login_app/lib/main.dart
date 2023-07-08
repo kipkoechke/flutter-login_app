@@ -6,6 +6,7 @@ import 'package:login_app/firebase_options.dart';
 import 'package:login_app/src/features/admin/dashboard/admin_dashboard.dart';
 import 'package:login_app/src/features/admin/screen/applications/applications_status/application_status_binding.dart';
 import 'package:login_app/src/repository/authentication_repository/authentication_reposirtory.dart';
+import 'package:login_app/src/repository/fcm_repository/fcm_repository.dart';
 import 'package:login_app/src/utils/theme/theme.dart';
 
 // Listening to the background messages
@@ -48,7 +49,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(FCMController());
     return GetMaterialApp(
+      title: 'Bursary',
       theme: BAppTheme.lightTheme,
       darkTheme: BAppTheme.darkTheme,
       themeMode: ThemeMode.system,
@@ -63,7 +66,9 @@ class MyApp extends StatelessWidget {
           binding: ApplicationStatusBinding(),
         ),
       ],
-      // initialBinding: InitialBinding(),
+      initialBinding: BindingsBuilder(() {
+        Get.put(FCMController());
+      }),
     );
   }
 }
