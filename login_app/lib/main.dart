@@ -15,15 +15,12 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
 }
 
-FirebaseMessaging messaging = FirebaseMessaging.instance;
-// RxString deviceToken = RxString('');
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform)
       .then((value) {
-    messaging.getInitialMessage();
+    FirebaseMessaging.instance.getInitialMessage();
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     Get.put(AuthenticationRepository());
   });
