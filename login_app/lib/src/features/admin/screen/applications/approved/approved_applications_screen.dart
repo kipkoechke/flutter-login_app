@@ -85,17 +85,20 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                               ),
                                             ],
                                           ),
-                                          ListTile(
-                                            title: const Text('Sub Location'),
-                                            subtitle: Text(
-                                                userApplication[index]
-                                                    .subLocation),
-                                          ),
-                                          ListTile(
-                                            title: const Text('Village'),
-                                            subtitle: Text(
-                                                userApplication[index].village),
-                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              RowDisplay(
+                                                  keyy: "Sub Location",
+                                                  valuee: userApplication[index]
+                                                      .subLocation),
+                                              RowDisplay(
+                                                  keyy: "Village",
+                                                  valuee: userApplication[index]
+                                                      .village)
+                                            ],
+                                          )
                                         ]),
                                       ),
                                       const Divider(),
@@ -105,31 +108,37 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                             const ListTile(
                                               title: Text('Personal Details'),
                                             ),
-                                            ListTile(
-                                              title: const Text('Full Name'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .fullName),
+                                            Row(
+                                              children: [
+                                                RowDisplay(
+                                                    keyy: "Full Name",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .fullName),
+                                                RowDisplay(
+                                                    keyy: "National ID",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .nationalId),
+                                                RowDisplay(
+                                                    keyy: "Admission Number",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .admNumber),
+                                              ],
                                             ),
-                                            ListTile(
-                                              title: const Text('National ID'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .nationalId),
-                                            ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'Admission Number'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .admNumber),
-                                            ),
-                                            ListTile(
-                                              title: const Text('Phone Number'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .phoneNo),
-                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                RowDisplay(
+                                                    keyy: "Phone Number",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .phoneNo)
+                                              ],
+                                            )
                                           ],
                                         ),
                                       ),
@@ -140,51 +149,64 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                             const ListTile(
                                               title: Text('School Details'),
                                             ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'Institution\'s County'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .institutionCounty),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                RowDisplay(
+                                                    keyy:
+                                                        "Institution's County",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .institutionCounty),
+                                                RowDisplay(
+                                                    keyy:
+                                                        "Institution's Address",
+                                                    valuee: userApplication[
+                                                            index]
+                                                        .institutionAddress),
+                                                RowDisplay(
+                                                    keyy: "Institution's Name",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .institutionName)
+                                              ],
                                             ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'Institution\'s Address'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .institutionAddress),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                RowDisplay(
+                                                    keyy:
+                                                        "Institution's Bank Account No",
+                                                    valuee: userApplication[
+                                                            index]
+                                                        .institutionBankAccountNo),
+                                                RowDisplay(
+                                                    keyy: "Bank Name",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .bankName)
+                                              ],
                                             ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'Institution\'s Name'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .institutionName),
-                                            ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'Institution\'s Bank Account No'),
-                                              subtitle: Text(userApplication[
-                                                      index]
-                                                  .institutionBankAccountNo),
-                                            ),
-                                            ListTile(
-                                              title: const Text('Bank Name'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .bankName),
-                                            ),
-                                            ListTile(
-                                              title: const Text('Bank Branch'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .bankBranch),
-                                            ),
-                                            ListTile(
-                                              title: const Text('Bank Code'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .bankCode),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                RowDisplay(
+                                                    keyy: "Bank Branch",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .bankBranch),
+                                                RowDisplay(
+                                                    keyy: "Bank Code",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .bankCode)
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -196,46 +218,49 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                             const ListTile(
                                               title: Text('Father Details'),
                                             ),
-                                            ListTile(
-                                              title: const Text('Father Name'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .fatherName),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                RowDisplay(
+                                                    keyy: " Name",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .fatherName),
+                                                RowDisplay(
+                                                    keyy: " National ID",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .fatherNationalId),
+                                                RowDisplay(
+                                                    keyy: "Disabled",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .ifFatherDisable)
+                                              ],
                                             ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'Father National ID'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .fatherNationalId),
-                                            ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'Father Occupation'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .fatherOccupation),
-                                            ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'Father Phone Number'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .fatherPhoneNumber),
-                                            ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'Father Disability'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .fatherDisability),
-                                            ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'If Father is Disable'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .ifFatherDisable),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                RowDisplay(
+                                                    keyy: " Occupation",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .fatherOccupation),
+                                                RowDisplay(
+                                                    keyy: " Phone Number",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .fatherPhoneNumber),
+                                                RowDisplay(
+                                                    keyy: "Disability",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .fatherDisability)
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -243,39 +268,45 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                       Card(
                                         child: Column(
                                           children: [
-                                            ListTile(
-                                              title: const Text('Mother Name'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .motherName),
+                                            const Text("Mother Details"),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                RowDisplay(
+                                                    keyy: "Name",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .motherName),
+                                                RowDisplay(
+                                                    keyy: "National ID",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .motherNationalId),
+                                                RowDisplay(
+                                                    keyy: "Occupation",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .motherOccupation)
+                                              ],
                                             ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'Mother National ID'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .motherNationalId),
-                                            ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'Mother Occupation'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .motherOccupation),
-                                            ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'Mother Phone Number'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .motherPhoneNumber),
-                                            ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'Mother Disability'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .motherDisability),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                RowDisplay(
+                                                    keyy: "Phone",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .motherPhoneNumber),
+                                                RowDisplay(
+                                                    keyy: "Disability",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .motherDisability)
+                                              ],
                                             ),
                                             ListTile(
                                               title: const Text(
@@ -290,40 +321,42 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                       Card(
                                         child: Column(
                                           children: [
-                                            ListTile(
-                                              title:
-                                                  const Text('Guardian Name'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .guardianName),
+                                            const Text("Guardian Details"),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                RowDisplay(
+                                                    keyy: "Name",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .guardianName),
+                                                RowDisplay(
+                                                    keyy: "ID",
+                                                    valuee: userApplication[
+                                                            index]
+                                                        .guardianNationalId),
+                                                RowDisplay(
+                                                    keyy: "Occupation",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .guardianOccupation)
+                                              ],
                                             ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'Guardian National ID'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .guardianNationalId),
-                                            ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'Guardian Occupation'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .guardianOccupation),
-                                            ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'Guardian Phone Number'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .guardianPhoneNumber),
-                                            ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'Guardian Disability'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .guardianDisability),
+                                            Row(
+                                              children: [
+                                                RowDisplay(
+                                                    keyy: "Phone",
+                                                    valuee: userApplication[
+                                                            index]
+                                                        .guardianPhoneNumber),
+                                                RowDisplay(
+                                                    keyy: "Disability",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .guardianDisability)
+                                              ],
                                             ),
                                             ListTile(
                                               title: const Text(
