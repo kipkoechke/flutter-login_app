@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_app/src/constants/sizes.dart';
+import 'package:login_app/src/features/admin/screen/applications/declined/declined_applications_controller.dart';
 import 'package:login_app/src/features/student/application/screens/student_application_status/student_application_status_controller.dart';
 
 class StudentApplicationStatusScreen extends StatelessWidget {
@@ -11,6 +12,7 @@ class StudentApplicationStatusScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(StudentApplicationStatusController());
+    final decline = Get.put(DeclinedApplicationsController());
 
     return Scaffold(
       appBar: AppBar(
@@ -79,6 +81,29 @@ class StudentApplicationStatusScreen extends StatelessWidget {
                     );
                   } else {
                     return const SizedBox();
+                  }
+                },
+              ),
+              FutureBuilder<String>(
+                future: decline.getDeclineReason(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    // Display a loading indicator while waiting for the decline reason
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    // Display an error message if an error occurred while fetching the decline reason
+                    return const Text(
+                      'Error occurred while fetching decline reason',
+                      style: TextStyle(color: Colors.red),
+                    );
+                  } else {
+                    // Display the decline reason
+                    String declineReason = snapshot.data!;
+                    return Text(
+                      'Decline Reason: $declineReason',
+                      style: const TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center,
+                    );
                   }
                 },
               ),
