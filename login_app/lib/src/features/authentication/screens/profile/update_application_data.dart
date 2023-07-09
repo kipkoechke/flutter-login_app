@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:login_app/src/constants/sizes.dart';
 import 'package:login_app/src/constants/text_strings.dart';
 import 'package:login_app/src/features/authentication/controllers/profile_controller.dart';
@@ -74,15 +75,16 @@ class UpdateApplicationData extends StatelessWidget {
                             ),
                             const SizedBox(height: 10),
                             TextFormField(
-                              // controller: _controller.gender,
+                              initialValue: userApplicationData.gender,
                               decoration:
-                                  const InputDecoration(label: Text(bGender)),
+                                  InputDecoration(label: Text(bGender!)),
                             ),
                             const SizedBox(height: 10),
                             TextFormField(
-                              // controller: _controller.dateOfBirth,
-                              decoration: const InputDecoration(
-                                  label: Text(bDateOfBirth)),
+                              initialValue: DateFormat('yyyy-MM-dd')
+                                  .format(userApplicationData.dateOfBirth!),
+                              decoration: InputDecoration(
+                                  label: Text(bDateOfBirth.toString())),
                             ),
                             const Text('Applicant school details:'),
                             const SizedBox(height: 10),
@@ -155,8 +157,8 @@ class UpdateApplicationData extends StatelessWidget {
                             TextFormField(
                               initialValue:
                                   userApplicationData.fatherDisability,
-                              decoration: const InputDecoration(
-                                  label: Text(bFatherDisable)),
+                              decoration: InputDecoration(
+                                  label: Text(bFatherDisable.toString())),
                             ),
                             const SizedBox(height: 10),
                           ],

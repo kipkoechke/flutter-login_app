@@ -77,13 +77,11 @@ const String bSubLocation = "Sub Location";
 const String bVillage = "Village";
 
 //-- Personal Details
-// const String bFullName = "Full Name";
-const String bNationalId = "National ID";
 const String bAdmNumber = "Admission Number";
-// const String bPhoneNo = "Phone Number";
-const String bDateOfBirth = "Date Picker";
-const String bGender = "Radio button - Male or Female";
-const String bRegularOrPrivate = "Radio button - Regular/Private";
+const String bStudentPhoneNo = "Phone Number";
+DateTime? bDateOfBirth;
+const List<String> bGenderOptions = ['Male', 'Female'];
+String? bGender;
 
 // -- Family Details
 const String bFatherDetails = "Enter your father's details";
@@ -91,7 +89,8 @@ const String bFatherName = "Full Name";
 const String bFatherNationalid = "National ID";
 const String bFatherOccupation = "Occupation";
 const String bFatherPhoneNo = "Father's Phone Number";
-const String bFatherDisable = "Father's Disability";
+const List<String> bFatherOptions = ['Male', 'Female'];
+String? bFatherDisable;
 const String bIfFatherDisable = "NCPWD";
 
 const String bMotherDetails = "Enter your mother's details";
@@ -99,7 +98,8 @@ const String bMotherName = "Full Name";
 const String bMotherNationalid = "National ID";
 const String bMotherOccupation = "Occupation";
 const String bMotherPhoneNo = "Mother's Phone Number";
-const String bMotherDisable = "Mother's Disability";
+const List<String> bMotherOptions = ['Male', 'Female'];
+String? bMotherDisable;
 const String bIfMotherDisable = "NCPWD";
 
 const String bGuardianDetails = "Enter your guardian's details";
@@ -107,7 +107,8 @@ const String bGuardianName = "Full Name";
 const String bGuardianNationalid = "National ID";
 const String bGuardianOccupation = "Occupation";
 const String bGuardianPhoneNo = "Guardian's Phone Number";
-const String bGuardianDisable = "Guardian's Disability";
+const List<String> bGuardianOptions = ['Male', 'Female'];
+String? bGuardianDisable;
 const String bIfGuardianDisable = "NCPWD";
 
 enum ParentStatus {

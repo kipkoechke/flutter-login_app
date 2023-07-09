@@ -3,7 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_app/firebase_options.dart';
-import 'package:login_app/src/features/admin/dashboard/admin_dashboard.dart';
+import 'package:login_app/src/features/admin/screen/dashboard/admin_dashboard.dart';
 import 'package:login_app/src/features/admin/screen/applications/applications_status/application_status_binding.dart';
 import 'package:login_app/src/repository/authentication_repository/authentication_reposirtory.dart';
 import 'package:login_app/src/repository/fcm_repository/fcm_repository.dart';

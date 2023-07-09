@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:login_app/src/constants/sizes.dart';
 import 'package:login_app/src/constants/text_strings.dart';
@@ -95,15 +96,16 @@ class UserDetailsScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 10),
                                 TextFormField(
-                                  // initialValue: userApplicationData.gender,
+                                  initialValue: userApplicationData.gender,
                                   decoration:
-                                      const InputDecoration(labelText: bGender),
+                                      InputDecoration(labelText: bGender!),
                                 ),
                                 const SizedBox(height: 10),
                                 TextFormField(
-                                  // initialValue: userApplicationData.dateOfBirth,
-                                  decoration: const InputDecoration(
-                                      labelText: bDateOfBirth),
+                                  initialValue: DateFormat('yyyy-MM-dd')
+                                      .format(userApplicationData.dateOfBirth!),
+                                  decoration: InputDecoration(
+                                      labelText: bDateOfBirth.toString()),
                                 ),
                                 const Text('Applicant school details:'),
                                 const SizedBox(height: 10),
@@ -177,7 +179,7 @@ class UserDetailsScreen extends StatelessWidget {
                                 TextFormField(
                                   initialValue:
                                       userApplicationData.fatherDisability,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                       labelText: bFatherDisable),
                                 ),
                                 const SizedBox(height: 10),

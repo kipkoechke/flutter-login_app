@@ -2,7 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_app/src/constants/colors.dart';
-import 'package:login_app/src/features/admin/all_applications.dart';
+import 'package:login_app/src/features/admin/screen/applications/all_applications/all_applications.dart';
 import 'package:login_app/src/features/admin/screen/allocation/allocated_users.dart';
 import 'package:login_app/src/features/admin/screen/allocation/allocated_users_controller.dart';
 import 'package:login_app/src/features/admin/screen/allocation/total_allocated_users.dart';
@@ -10,7 +10,7 @@ import 'package:login_app/src/features/admin/screen/applications/applications_st
 import 'package:login_app/src/features/admin/screen/applications/approved/approved_applications_controller.dart';
 import 'package:login_app/src/features/admin/screen/applications/approved/total_approved_applications.dart';
 import 'package:login_app/src/features/admin/screen/applications/declined/declined_applications_controller.dart';
-import 'package:login_app/src/features/admin/screen/applications/total_applications.dart';
+import 'package:login_app/src/features/admin/screen/applications/all_applications/total_applications.dart';
 import 'package:login_app/src/features/admin/screen/applications/declined/total_declined_applications.dart';
 import 'package:login_app/src/features/admin/screen/applications/pending/pending_applications_controller.dart';
 import 'package:login_app/src/features/admin/screen/applications/pending/total_pending_applications.dart';

@@ -98,10 +98,10 @@ class _StudentApplicationFormState extends State<StudentApplicationForm> {
                 subLocation: _controller.subLocation.text.trim(),
                 village: _controller.village.text.trim(),
                 fullName: _controller.fullName.text.trim(),
-                nationalId: _controller.admNumber.text.trim(),
                 admNumber: _controller.admNumber.text.trim(),
+                gender: _controller.gender.value,
+                dateOfBirth: DateTime.parse(_controller.dateOfBirth.value),
                 phoneNo: _controller.phoneNo.text.trim(),
-                institutionCounty: _controller.subCounty.text.trim(),
                 institutionAddress: _controller.institutionAddress.text.trim(),
                 institutionName: _controller.institutionName.text.trim(),
                 institutionBankAccountNo:

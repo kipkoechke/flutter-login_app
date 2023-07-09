@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:login_app/src/features/admin/dashboard/admin_dashboard.dart';
+import 'package:login_app/src/features/admin/screen/dashboard/admin_dashboard.dart';
 import 'package:login_app/src/features/student/application/screens/student_dashboard/student_dashboard.dart';
 import 'package:login_app/src/features/authentication/models/user_model.dart';
 import 'package:login_app/src/features/authentication/screens/splash_screen/splash_screen.dart';

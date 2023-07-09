@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login_app/src/features/admin/dashboard/admin_dashboard.dart';
+import 'package:login_app/src/features/admin/screen/dashboard/admin_dashboard.dart';
 import 'package:login_app/src/features/admin/screen/bursaries/bursary_model.dart';
 import 'package:login_app/src/features/authentication/models/user_model.dart';
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';

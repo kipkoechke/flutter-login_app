@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:login_app/src/features/admin/screen/applications/allocation_controller.dart';
+import 'package:login_app/src/features/admin/screen/allocation/allocation_controller.dart';
 import 'package:login_app/src/features/admin/screen/applications/approved/approved_applications_controller.dart';
 import 'package:login_app/src/features/admin/screen/applications/declined/declined_applications_controller.dart';
-import 'package:login_app/src/features/admin/widgets/row_display.dart';
+import 'package:login_app/src/common_widgets/row_display.dart';
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';
 import 'package:login_app/src/repository/fcm_repository/fcm_repository.dart';
 
@@ -102,6 +102,8 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                       ),
                                       Card(
                                         child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             const Text('Personal Details'),
                                             const Divider(),
@@ -112,11 +114,6 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                                     valuee:
                                                         userApplication[index]
                                                             .fullName),
-                                                RowDisplay(
-                                                    keyy: "National ID",
-                                                    valuee:
-                                                        userApplication[index]
-                                                            .nationalId),
                                                 RowDisplay(
                                                     keyy: "Admission Number",
                                                     valuee:
@@ -133,7 +130,19 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                                     keyy: "Phone Number",
                                                     valuee:
                                                         userApplication[index]
-                                                            .phoneNo)
+                                                            .phoneNo),
+                                                RowDisplay(
+                                                    keyy: "Gender",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .gender
+                                                            .toString()),
+                                                RowDisplay(
+                                                  keyy: "Date Of Birth",
+                                                  valuee: userApplication[index]
+                                                      .dateOfBirth
+                                                      .toString(),
+                                                ),
                                               ],
                                             )
                                           ],
@@ -246,7 +255,8 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                                     keyy: "Disability",
                                                     valuee:
                                                         userApplication[index]
-                                                            .fatherDisability)
+                                                            .fatherDisability
+                                                            .toString())
                                               ],
                                             ),
                                           ],
@@ -273,7 +283,7 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                                         userApplication[index]
                                                             .motherNationalId),
                                                 RowDisplay(
-                                                    keyy: "Disability",
+                                                    keyy: "Disabled",
                                                     valuee:
                                                         userApplication[index]
                                                             .ifMotherDisable),
@@ -298,7 +308,8 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                                     keyy: "Disability",
                                                     valuee:
                                                         userApplication[index]
-                                                            .motherDisability)
+                                                            .motherDisability
+                                                            .toString())
                                               ],
                                             ),
                                           ],
@@ -327,7 +338,7 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                                             index]
                                                         .guardianNationalId),
                                                 RowDisplay(
-                                                    keyy: "National ID",
+                                                    keyy: "Disabled",
                                                     valuee:
                                                         userApplication[index]
                                                             .ifGuardianDisable),
@@ -352,7 +363,8 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                                     keyy: "Disability",
                                                     valuee:
                                                         userApplication[index]
-                                                            .guardianDisability)
+                                                            .guardianDisability
+                                                            .toString())
                                               ],
                                             ),
                                           ],

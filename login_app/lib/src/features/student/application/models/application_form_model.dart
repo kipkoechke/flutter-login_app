@@ -18,12 +18,12 @@ class ApplicationFormModel {
 
   // Personal details
   final String fullName;
-  final String nationalId;
+  final String? gender;
+  final DateTime? dateOfBirth;
   final String admNumber;
   final String phoneNo;
 
   // School details
-  final String institutionCounty;
   final String institutionAddress;
   final String institutionName;
   final String institutionBankAccountNo;
@@ -36,21 +36,21 @@ class ApplicationFormModel {
   final String fatherNationalId;
   final String fatherOccupation;
   final String fatherPhoneNumber;
-  final String fatherDisability;
+  final String? fatherDisability;
   final String ifFatherDisable;
 
   final String motherName;
   final String motherNationalId;
   final String motherOccupation;
   final String motherPhoneNumber;
-  final String motherDisability;
+  final String? motherDisability;
   final String ifMotherDisable;
 
   final String guardianName;
   final String guardianNationalId;
   final String guardianOccupation;
   final String guardianPhoneNumber;
-  final String guardianDisability;
+  final String? guardianDisability;
   final String ifGuardianDisable;
 
   ApplicationFormModel({
@@ -70,12 +70,12 @@ class ApplicationFormModel {
 
     // Personal details
     required this.fullName,
-    required this.nationalId,
+    required this.gender,
+    required this.dateOfBirth,
     required this.admNumber,
     required this.phoneNo,
 
     // School details
-    required this.institutionCounty,
     required this.institutionAddress,
     required this.institutionName,
     required this.institutionBankAccountNo,
@@ -120,12 +120,12 @@ class ApplicationFormModel {
 
       // Personal details
       "Full Name": fullName,
-      "National Id": nationalId,
+      "Gender": gender,
+      "Date Of Birth": dateOfBirth,
       "Registration Number": admNumber,
       "Phone Number": phoneNo,
 
       // School details
-      "Institution's County": institutionCounty,
       "Institution's Address": institutionAddress,
       "Institution's Name": institutionName,
       "Institution's Bank Account No": institutionBankAccountNo,
@@ -176,12 +176,12 @@ class ApplicationFormModel {
 
       //-- personal details
       fullName: data["Full Name"],
-      nationalId: data["National Id"],
       admNumber: data["Registration Number"],
+      gender: data["Gender"],
+      dateOfBirth: data["Date Of Birth"],
       phoneNo: data["Phone Number"],
 
       //-- school details
-      institutionCounty: data["Institution's County"],
       institutionAddress: data["Institution's Address"],
       institutionName: data["Institution's Name"],
       institutionBankAccountNo: data["Institution's Bank Account No"],
@@ -190,24 +190,24 @@ class ApplicationFormModel {
       bankCode: data["Bank Code"],
 
       //-- family details
-      fatherName: data["Father Name"],
-      fatherNationalId: data["Father National Id"],
-      fatherOccupation: data["Father Occupation"],
-      fatherPhoneNumber: data["Father Phone Number"],
-      fatherDisability: data["Father Disability"],
-      ifFatherDisable: data["If father is disable"],
-      motherName: data["Mother Name"],
-      motherNationalId: data["Mother National Id"],
-      motherOccupation: data["Mother Occupation"],
-      motherPhoneNumber: data["Mother Phone Number"],
-      motherDisability: data["Mother Disability"],
-      ifMotherDisable: data["If mother is disable"],
-      guardianName: data["Guardian Name"],
-      guardianNationalId: data["Guardian National Id"],
-      guardianOccupation: data["Guardian Occupation"],
-      guardianPhoneNumber: data["Guardian Phone Number"],
-      guardianDisability: data["Guardian Disability"],
-      ifGuardianDisable: data["If guardian is disable"],
+      fatherName: data["Father Name"] ?? '',
+      fatherNationalId: data["Father National Id"] ?? '',
+      fatherOccupation: data["Father Occupation"] ?? '',
+      fatherPhoneNumber: data["Father Phone Number"] ?? '',
+      fatherDisability: data["Father Disability"] ?? '',
+      ifFatherDisable: data["If father is disable"] ?? '',
+      motherName: data["Mother Name"] ?? '',
+      motherNationalId: data["Mother National Id"] ?? '',
+      motherOccupation: data["Mother Occupation"] ?? '',
+      motherPhoneNumber: data["Mother Phone Number"] ?? '',
+      motherDisability: data["Mother Disability"] ?? '',
+      ifMotherDisable: data["If mother is disable"] ?? '',
+      guardianName: data["Guardian Name"] ?? '',
+      guardianNationalId: data["Guardian National Id"] ?? '',
+      guardianOccupation: data["Guardian Occupation"] ?? '',
+      guardianPhoneNumber: data["Guardian Phone Number"] ?? '',
+      guardianDisability: data["Guardian Disability"] ?? '',
+      ifGuardianDisable: data["If guardian is disable"] ?? '',
     );
   }
 }
