@@ -6,6 +6,7 @@ class ApplicationFormModel {
   final String? id;
   final double? amount;
   double? allocatedAmount = 0.0;
+  String declineReason;
   // Application status
   final String? status;
   // Location details
@@ -57,6 +58,7 @@ class ApplicationFormModel {
     this.uid,
     this.amount,
     this.allocatedAmount,
+    this.declineReason = '',
     // Application status
     this.status = "Pending",
     // Location details
@@ -108,6 +110,7 @@ class ApplicationFormModel {
       // Application status
       "Status": status,
       "Amount": amount,
+      "Decline Reason": declineReason,
       // Location details
       "Sub County": subCounty,
       "Ward": ward,
@@ -161,7 +164,7 @@ class ApplicationFormModel {
       uid: data["uid"],
       amount: data["Amount"],
       allocatedAmount: data["Allocated amount"],
-
+      declineReason: data["Decline Reason"] ?? '',
       // APplication status
       status: data["Status"],
       //-- Location details
