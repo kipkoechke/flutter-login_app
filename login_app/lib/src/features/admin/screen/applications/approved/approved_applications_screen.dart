@@ -4,6 +4,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:login_app/src/features/admin/screen/applications/allocation_controller.dart';
 import 'package:login_app/src/features/admin/screen/applications/approved/approved_applications_controller.dart';
 import 'package:login_app/src/features/admin/screen/applications/declined/declined_applications_controller.dart';
+import 'package:login_app/src/features/admin/widgets/row_display.dart';
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';
 import 'package:login_app/src/repository/fcm_repository/fcm_repository.dart';
 
@@ -63,22 +64,26 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                           const ListTile(
                                             title: Text('Location Details'),
                                           ),
-                                          ListTile(
-                                            title: const Text('Sub County'),
-                                            subtitle: Text(
-                                                userApplication[index]
-                                                    .subCounty),
-                                          ),
-                                          ListTile(
-                                            title: const Text('Ward'),
-                                            subtitle: Text(
-                                                userApplication[index].ward),
-                                          ),
-                                          ListTile(
-                                            title: const Text('Location'),
-                                            subtitle: Text(
-                                                userApplication[index]
-                                                    .location),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              RowDisplay(
+                                                keyy: "Sub County",
+                                                valuee: userApplication[index]
+                                                    .subCounty,
+                                              ),
+                                              RowDisplay(
+                                                keyy: "Ward",
+                                                valuee:
+                                                    userApplication[index].ward,
+                                              ),
+                                              RowDisplay(
+                                                keyy: "Location",
+                                                valuee: userApplication[index]
+                                                    .location,
+                                              ),
+                                            ],
                                           ),
                                           ListTile(
                                             title: const Text('Sub Location'),
