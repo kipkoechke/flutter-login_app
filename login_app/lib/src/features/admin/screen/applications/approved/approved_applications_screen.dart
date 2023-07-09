@@ -372,7 +372,7 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                                               // Validate the entered amount
                                                               if (allocatedAmount
                                                                   .isNotEmpty) {
-                                                                // Parse the amount to a numeric value (you can customize this based on your requirements)
+                                                                // Parse the amount to a numeric value
                                                                 double amount =
                                                                     double.tryParse(
                                                                             allocatedAmount) ??
@@ -391,8 +391,9 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                                                     application
                                                                         .id!,
                                                                     amount);
-                                                                // Save the updated application or perform any other necessary actions
-
+                                                                // Send allocation notification
+                                                                fcm.sendFundsAllocatedNotification(
+                                                                    deviceToken!);
                                                                 // Close the dialog
                                                                 Get.back();
                                                               } else {
@@ -426,8 +427,8 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                                 onPressed: () {
                                                   decline
                                                       .showDeclineReasonDialog(
-                                                      userApplication[index]
-                                                          .id!);
+                                                          userApplication[index]
+                                                              .id!);
                                                   fcm.sendApplicationDeclinedNotification(
                                                       deviceToken!);
                                                   Get.back();
