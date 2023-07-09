@@ -34,12 +34,13 @@ class AdminDashboardScreen extends StatelessWidget {
   };
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     // Build pie chart widget
     Widget buildPieChart(Map<String, double> dataMap) {
       return PieChart(
         dataMap: dataMap,
         animationDuration: const Duration(milliseconds: 800),
-        chartRadius: math.min(MediaQuery.of(context).size.width / 3.2, 300),
+        chartRadius: math.min(size.width / 3.2, 300),
         chartType: ChartType.disc,
         chartValuesOptions: const ChartValuesOptions(
           showChartValues: true,
@@ -61,9 +62,11 @@ class AdminDashboardScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Admin Portal'),
-          //  backgroundColor:
-          //    bPrimaryColor, // Set the background color of the app bar
+          title: Text(
+            'Admin Dashboard',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          centerTitle: true,
           actions: [
             IconButton(
               onPressed: () {
@@ -153,45 +156,52 @@ class AdminDashboardScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: Center(
+        body: Container(
+          padding: const EdgeInsets.all(4),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const Text(
-                'Welcome to the Admin Dashboard!',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    TotalNumberOfAllApplications(
+                      allApplicationsController: allApplicationsController,
+                    ),
+                    const SizedBox(height: 8.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TotalNumberOfPendingApplications(
+                          pendingApplicationsController:
+                              pendingApplicationsController,
+                        ),
+                        TotalNumberOfApprovedApplications(
+                          approvedApplicationsController:
+                              approvedApplicationsController,
+                        ),
+                        TotalNumberOfDeclinedApplications(
+                          declinedApplicationsController:
+                              declinedApplicationsController,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 20),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     FCMController.to
-              //         .sendPushMessage(fcm.deviceToken!, 'body', 'title');
-              //   },
-              //   child: const Text('Send Bursary'),
-              // ),
-              // FCMController.to.listenToForegroundMessages(),
-              
+              const Divider(),
               // Add pie chart for applications status
               buildPieChart(applicationsStatusData),
-              TotalNumberOfBeneficiaries(
-                allocatedUsersController: allocatedUsersController,
-              ),
-              // Add pie chart for allocation
-              buildPieChart(allocationData),
-              TotalNumberOfAllApplications(
-                allApplicationsController: allApplicationsController,
-              ),
-              TotalNumberOfPendingApplications(
-                pendingApplicationsController: pendingApplicationsController,
-              ),
-              TotalNumberOfApprovedApplications(
-                approvedApplicationsController: approvedApplicationsController,
-              ),
-              TotalNumberOfDeclinedApplications(
-                declinedApplicationsController: declinedApplicationsController,
+              const Divider(),
+              Column(
+                children: [
+                  TotalNumberOfBeneficiaries(
+                    allocatedUsersController: allocatedUsersController,
+                  ),
+                  // Add pie chart for allocation
+                  buildPieChart(allocationData),
+                ],
               ),
             ],
           ),
