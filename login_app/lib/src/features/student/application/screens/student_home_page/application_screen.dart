@@ -6,7 +6,6 @@ import 'package:login_app/src/features/admin/screen/bursaries/bursary_controller
 import 'package:login_app/src/features/authentication/screens/profile/profile_screen.dart';
 import 'package:login_app/src/features/student/application/screens/student_application_form/application_form_screen.dart';
 
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -57,12 +56,15 @@ class HomePage extends StatelessWidget {
                           itemCount: bursaryController.bursaries.length,
                           itemBuilder: (context, index) {
                             final bursary = bursaryController.bursaries[index];
+                            final isDeadlineReached =
+                                DateTime.now().isAfter(bursary.deadline);
+                            final isButtonClickable = !isDeadlineReached;
                             return Card(
                               child: ListTile(
-                                onTap: () {
-                                  bursaryController.setBursaryClicked(bursary);
-                                  Get.to(() => const StudentApplicationForm());
-                                },
+                                // onTap: () {
+                                //   bursaryController.setBursaryClicked(bursary);
+                                //   Get.to(() => const StudentApplicationForm());
+                                // },
                                 title: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -82,14 +84,23 @@ class HomePage extends StatelessWidget {
                                     SizedBox(
                                       width: double.infinity,
                                       child: ElevatedButton(
-                                        onPressed: () {
-                                          bursaryController
-                                              .setBursaryClicked(bursary);
-                                          Get.to(() =>
-                                              const StudentApplicationForm());
-                                        },
-                                        child: const Text(
-                                          'Proceed to apply',
+                                        onPressed: isButtonClickable
+                                            ? () {
+                                                bursaryController
+                                                    .setBursaryClicked(bursary);
+                                                Get.to(() =>
+                                                    const StudentApplicationForm());
+                                              }
+                                            : () {},
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: isButtonClickable
+                                              ? Colors.grey
+                                              : Colors.red,
+                                        ),
+                                        child: Text(
+                                          isDeadlineReached
+                                              ? 'Expired Application'
+                                              : 'Proceed to apply',
                                         ),
                                       ),
                                     ),
