@@ -55,15 +55,14 @@ class ApprovedApplicationScreen extends StatelessWidget {
                               isScrollControlled: true,
                               context: context,
                               builder: (context) => SingleChildScrollView(
-                                child: Card(
-                                  //margin: const EdgeInsets.all(10),
+                                child: Container(
+                                  padding: const EdgeInsets.all(4),
                                   child: Column(
                                     children: [
                                       Card(
                                         child: Column(children: [
-                                          const ListTile(
-                                            title: Text('Location Details'),
-                                          ),
+                                          const Text('Location Details'),
+                                          const Divider(),
                                           Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
@@ -101,13 +100,11 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                           )
                                         ]),
                                       ),
-                                      const Divider(),
                                       Card(
                                         child: Column(
                                           children: [
-                                            const ListTile(
-                                              title: Text('Personal Details'),
-                                            ),
+                                            const Text('Personal Details'),
+                                            const Divider(),
                                             Row(
                                               children: [
                                                 RowDisplay(
@@ -142,35 +139,27 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      const Divider(),
                                       Card(
                                         child: Column(
                                           children: [
-                                            const ListTile(
-                                              title: Text('School Details'),
-                                            ),
+                                            const Text('School Details'),
+                                            const Divider(),
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
                                                 RowDisplay(
-                                                    keyy:
-                                                        "Institution's County",
+                                                    keyy: "Institution's Name",
                                                     valuee:
                                                         userApplication[index]
-                                                            .institutionCounty),
+                                                            .institutionName),
                                                 RowDisplay(
                                                     keyy:
                                                         "Institution's Address",
                                                     valuee: userApplication[
                                                             index]
                                                         .institutionAddress),
-                                                RowDisplay(
-                                                    keyy: "Institution's Name",
-                                                    valuee:
-                                                        userApplication[index]
-                                                            .institutionName)
                                               ],
                                             ),
                                             Row(
@@ -211,13 +200,11 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                           ],
                                         ),
                                       ),
-                                      const Divider(),
                                       Card(
                                         child: Column(
                                           children: [
-                                            const ListTile(
-                                              title: Text('Father Details'),
-                                            ),
+                                            const Text('Father Details'),
+                                            const Divider(),
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -269,6 +256,7 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             const Text("Mother Details"),
+                                            const Divider(),
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -285,10 +273,10 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                                         userApplication[index]
                                                             .motherNationalId),
                                                 RowDisplay(
-                                                    keyy: "Occupation",
+                                                    keyy: "Disability",
                                                     valuee:
                                                         userApplication[index]
-                                                            .motherOccupation)
+                                                            .ifMotherDisable),
                                               ],
                                             ),
                                             Row(
@@ -296,6 +284,11 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
+                                                RowDisplay(
+                                                    keyy: "Occupation",
+                                                    valuee:
+                                                        userApplication[index]
+                                                            .motherOccupation),
                                                 RowDisplay(
                                                     keyy: "Phone",
                                                     valuee:
@@ -308,20 +301,16 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                                             .motherDisability)
                                               ],
                                             ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'If Mother is Disable'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .ifMotherDisable),
-                                            ),
                                           ],
                                         ),
                                       ),
                                       Card(
                                         child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             const Text("Guardian Details"),
+                                            const Divider(),
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -333,19 +322,27 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                                         userApplication[index]
                                                             .guardianName),
                                                 RowDisplay(
-                                                    keyy: "ID",
+                                                    keyy: "National ID",
                                                     valuee: userApplication[
                                                             index]
                                                         .guardianNationalId),
                                                 RowDisplay(
-                                                    keyy: "Occupation",
+                                                    keyy: "National ID",
                                                     valuee:
                                                         userApplication[index]
-                                                            .guardianOccupation)
+                                                            .ifGuardianDisable),
                                               ],
                                             ),
                                             Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
+                                                RowDisplay(
+                                                    keyy: "Occupation",
+                                                    valuee: userApplication[
+                                                            index]
+                                                        .guardianOccupation),
                                                 RowDisplay(
                                                     keyy: "Phone",
                                                     valuee: userApplication[
@@ -358,124 +355,114 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                                             .guardianDisability)
                                               ],
                                             ),
-                                            ListTile(
-                                              title: const Text(
-                                                  'If Guardian is Disable'),
-                                              subtitle: Text(
-                                                  userApplication[index]
-                                                      .ifGuardianDisable),
-                                            ),
                                           ],
                                         ),
                                       ),
                                       const SizedBox(height: 10),
-                                      Card(
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              child: ElevatedButton(
-                                                onPressed: () {
-                                                  showDialog(
-                                                    context: context,
-                                                    builder: (context) {
-                                                      TextEditingController
-                                                          amountController =
-                                                          TextEditingController();
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    TextEditingController
+                                                        amountController =
+                                                        TextEditingController();
 
-                                                      return AlertDialog(
-                                                        title: const Text(
-                                                            'Allocate Amount'),
-                                                        content: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.min,
-                                                          children: [
-                                                            TextField(
-                                                              controller:
-                                                                  amountController,
-                                                              decoration:
-                                                                  const InputDecoration(
-                                                                labelText:
-                                                                    'Amount',
-                                                              ),
+                                                    return AlertDialog(
+                                                      title: const Text(
+                                                          'Allocate Amount'),
+                                                      content: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          TextField(
+                                                            controller:
+                                                                amountController,
+                                                            decoration:
+                                                                const InputDecoration(
+                                                              labelText:
+                                                                  'Amount',
                                                             ),
-                                                          ],
-                                                        ),
-                                                        actions: [
-                                                          TextButton(
-                                                            onPressed: () {
-                                                              String
-                                                                  allocatedAmount =
-                                                                  amountController
-                                                                      .text;
-                                                              // Validate the entered amount
-                                                              if (allocatedAmount
-                                                                  .isNotEmpty) {
-                                                                // Parse the amount to a numeric value
-                                                                double amount =
-                                                                    double.tryParse(
-                                                                            allocatedAmount) ??
-                                                                        0.0;
-
-                                                                // Perform the allocation logic
-                                                                ApplicationFormModel
-                                                                    application =
-                                                                    userApplication[
-                                                                        index];
-                                                                // Update the application with the allocated amount
-                                                                application
-                                                                        .allocatedAmount =
-                                                                    amount;
-                                                                allocate.allocateAmount(
-                                                                    application
-                                                                        .id!,
-                                                                    amount);
-                                                                // Send allocation notification
-                                                                fcm.sendFundsAllocatedNotification(
-                                                                    deviceToken!);
-                                                                // Close the dialog
-                                                                Get.back();
-                                                              } else {
-                                                                // Show an error message if the amount is not entered
-                                                                Get.snackbar(
-                                                                    'Error',
-                                                                    'Please enter the amount to allocate');
-                                                              }
-                                                            },
-                                                            child: const Text(
-                                                                'Allocate'),
-                                                          ),
-                                                          TextButton(
-                                                            onPressed: () {
-                                                              Get.back();
-                                                            },
-                                                            child: const Text(
-                                                                'Cancel'),
                                                           ),
                                                         ],
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                                child: const Text('Allocate'),
-                                              ),
+                                                      ),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            String
+                                                                allocatedAmount =
+                                                                amountController
+                                                                    .text;
+                                                            // Validate the entered amount
+                                                            if (allocatedAmount
+                                                                .isNotEmpty) {
+                                                              // Parse the amount to a numeric value
+                                                              double amount =
+                                                                  double.tryParse(
+                                                                          allocatedAmount) ??
+                                                                      0.0;
+
+                                                              // Perform the allocation logic
+                                                              ApplicationFormModel
+                                                                  application =
+                                                                  userApplication[
+                                                                      index];
+                                                              // Update the application with the allocated amount
+                                                              application
+                                                                      .allocatedAmount =
+                                                                  amount;
+                                                              allocate
+                                                                  .allocateAmount(
+                                                                      application
+                                                                          .id!,
+                                                                      amount);
+                                                              // Send allocation notification
+                                                              fcm.sendFundsAllocatedNotification(
+                                                                  deviceToken!);
+                                                              // Close the dialog
+                                                              Get.back();
+                                                            } else {
+                                                              // Show an error message if the amount is not entered
+                                                              Get.snackbar(
+                                                                  'Error',
+                                                                  'Please enter the amount to allocate');
+                                                            }
+                                                          },
+                                                          child: const Text(
+                                                              'Allocate'),
+                                                        ),
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            Get.back();
+                                                          },
+                                                          child: const Text(
+                                                              'Cancel'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                              child: const Text('Allocate'),
                                             ),
-                                            const SizedBox(width: 10),
-                                            Expanded(
-                                              child: OutlinedButton(
-                                                onPressed: () {
-                                                  decline
-                                                      .showDeclineReasonDialog(
-                                                          userApplication[index]
-                                                              .id!);
-                                                  fcm.sendApplicationDeclinedNotification(
-                                                      deviceToken!);
-                                                  Get.back();
-                                                },
-                                                child: const Text('Reject'),
-                                              ),
-                                            )
-                                          ],
-                                        ),
+                                          ),
+                                          const SizedBox(width: 10),
+                                          Expanded(
+                                            child: OutlinedButton(
+                                              onPressed: () {
+                                                decline.showDeclineReasonDialog(
+                                                    userApplication[index].id!);
+                                                fcm.sendApplicationDeclinedNotification(
+                                                    deviceToken!);
+                                                Get.back();
+                                              },
+                                              child: const Text('Reject'),
+                                            ),
+                                          )
+                                        ],
                                       ),
                                     ],
                                   ),

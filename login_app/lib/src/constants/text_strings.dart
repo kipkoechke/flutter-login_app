@@ -91,7 +91,7 @@ const String bFatherName = "Full Name";
 const String bFatherNationalid = "National ID";
 const String bFatherOccupation = "Occupation";
 const String bFatherPhoneNo = "Father's Phone Number";
-const String bFatherDisable = "Father's Disability (Yes/No)";
+const String bFatherDisable = "Father's Disability";
 const String bIfFatherDisable = "NCPWD";
 
 const String bMotherDetails = "Enter your mother's details";
@@ -99,7 +99,7 @@ const String bMotherName = "Full Name";
 const String bMotherNationalid = "National ID";
 const String bMotherOccupation = "Occupation";
 const String bMotherPhoneNo = "Mother's Phone Number";
-const String bMotherDisable = "Mother's Disability (Yes/No)";
+const String bMotherDisable = "Mother's Disability";
 const String bIfMotherDisable = "NCPWD";
 
 const String bGuardianDetails = "Enter your guardian's details";
@@ -107,7 +107,7 @@ const String bGuardianName = "Full Name";
 const String bGuardianNationalid = "National ID";
 const String bGuardianOccupation = "Occupation";
 const String bGuardianPhoneNo = "Guardian's Phone Number";
-const String bGuardianDisable = "Guardian's Disability (Yes/No)";
+const String bGuardianDisable = "Guardian's Disability";
 const String bIfGuardianDisable = "NCPWD";
 
 enum ParentStatus {
