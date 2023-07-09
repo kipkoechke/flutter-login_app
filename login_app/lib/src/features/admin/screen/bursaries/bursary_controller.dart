@@ -27,8 +27,7 @@ class BursaryController extends GetxController {
   Future<void> createBursary(
       String title, String description, DateTime deadline) async {
     try {
-      final BursaryModel bursary =
-          BursaryModel(
+      final BursaryModel bursary = BursaryModel(
           title: title, description: description, deadline: deadline);
       await _userRepo.createBursary(bursary);
       fetchBursaries();
@@ -45,4 +44,31 @@ class BursaryController extends GetxController {
     return bursaries.firstWhereOrNull((bursary) => bursary.isClicked);
   }
 
+  void updateBursary(
+    String bursaryId,
+    String updatedTitle,
+    String updatedDescription,
+    DateTime updatedDeadline,
+  ) async {
+    try {
+      await _userRepo.updateBursary(
+        bursaryId,
+        updatedTitle,
+        updatedDescription,
+        updatedDeadline,
+      );
+      fetchBursaries();
+    } catch (error) {
+      // Handle error
+    }
+  }
+
+  Future<void> deleteBursary(String bursaryId) async {
+    try {
+      await _userRepo.deleteBursary(bursaryId);
+      fetchBursaries();
+    } catch (error) {
+      // Handle error
+    }
+  }
 }

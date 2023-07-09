@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BursaryModel {
-  final String? id;
-  final String title;
-  final String description;
-  final DateTime deadline;
+  String? id;
+  String title;
+  String description;
+  DateTime deadline;
   bool isClicked;
 
   BursaryModel({
