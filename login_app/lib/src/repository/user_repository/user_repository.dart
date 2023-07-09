@@ -44,6 +44,61 @@ class UserRepository extends GetxController {
     return bursaries;
   }
 
+  //-- Update bursary details
+  Future<void> updateBursary(
+    String bursaryId,
+    String updatedTitle,
+    String updatedDescription,
+    DateTime updatedDeadline,
+  ) async {
+    try {
+      await _db.collection("Bursaries").doc(bursaryId).update({
+        "Title": updatedTitle,
+        "Description": updatedDescription,
+        "Deadline": Timestamp.fromDate(updatedDeadline),
+      });
+      Get.snackbar(
+        'Success',
+        'The bursary has been updated',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green.withOpacity(0.1),
+        colorText: Colors.green,
+      );
+    } catch (error) {
+      Get.snackbar(
+        'Error',
+        'Failed to update the bursary',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent.withOpacity(0.1),
+        colorText: Colors.red,
+      );
+      rethrow;
+    }
+  }
+
+  //-- Delete a bursary
+  Future<void> deleteBursary(String bursaryId) async {
+    try {
+      await _db.collection("Bursaries").doc(bursaryId).delete();
+      Get.snackbar(
+        'Success',
+        'The bursary has been deleted',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green.withOpacity(0.1),
+        colorText: Colors.green,
+      );
+    } catch (error) {
+      Get.snackbar(
+        'Error',
+        'Failed to delete the bursary',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent.withOpacity(0.1),
+        colorText: Colors.red,
+      );
+      rethrow;
+    }
+  }
+
   //-- Store sign up details
   Future<void> createUser(UserModel user) async {
     try {
@@ -232,6 +287,19 @@ class UserRepository extends GetxController {
     return snapshot.docs.length;
   }
 
+  //-- Fetch reason for the declined  applications as the admin
+  Future<String> declineReason() async {
+    final userUid = FirebaseAuth.instance.currentUser?.uid;
+
+    final snapshot = await _db
+        .collection("Applications")
+        .where("uid", isEqualTo: userUid)
+        .get();
+    final userData =
+        snapshot.docs.map((e) => ApplicationFormModel.fromSnapshot(e)).single;
+    return userData.declineReason;
+  }
+
   //-- Fetch data for single user as the admin
   Future<ApplicationFormModel> adminGetUserApplicationDetails(
       String uid) async {
@@ -285,12 +353,13 @@ class UserRepository extends GetxController {
   }
 
   //-- Update user application status to declined as the admin
-  Future<void> declineUserApplication(String id) async {
+  Future<void> declineUserApplication(String id, String reason) async {
     await _db
         .collection("Applications")
         .doc(id)
         .update({
           "Status": "Declined",
+          "Decline Reason": reason,
         })
         .whenComplete(
           () => Get.snackbar(
