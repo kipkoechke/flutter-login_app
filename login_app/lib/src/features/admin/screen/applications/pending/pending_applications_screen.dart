@@ -15,6 +15,7 @@ class PendingApplicationsScreen extends StatelessWidget {
     final controller = Get.put(PendingApplicationsController());
     final approve = Get.put(ApprovedApplicationController());
     final decline = Get.put(DeclinedApplicationsController());
+
     final fcm = Get.put(FCMController());
     final deviceToken = fcm.deviceToken;
     return SafeArea(
@@ -276,8 +277,11 @@ class PendingApplicationsScreen extends StatelessWidget {
                                           Expanded(
                                             child: OutlinedButton(
                                               onPressed: () {
-                                                decline.declineApplication(
+                                                decline.showDeclineReasonDialog(
                                                     userApplication[index].id!);
+
+                                                // decline.declineApplication(
+                                                //     userApplication[index].id!);
                                                 fcm.sendApplicationDeclinedNotification(
                                                     deviceToken!);
                                                 Get.back();
@@ -313,7 +317,7 @@ class PendingApplicationsScreen extends StatelessWidget {
                                 ],
                               ),
                               trailing:
-                                  const Icon(LineAwesomeIcons.angle_right),
+                                  const Icon(LineAwesomeIcons.times_circle),
                             ),
                           ),
                         );
