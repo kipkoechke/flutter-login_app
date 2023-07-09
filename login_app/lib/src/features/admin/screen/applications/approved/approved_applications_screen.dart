@@ -424,7 +424,8 @@ class ApprovedApplicationScreen extends StatelessWidget {
                                             Expanded(
                                               child: OutlinedButton(
                                                 onPressed: () {
-                                                  decline.declineApplication(
+                                                  decline
+                                                      .showDeclineReasonDialog(
                                                       userApplication[index]
                                                           .id!);
                                                   fcm.sendApplicationDeclinedNotification(
