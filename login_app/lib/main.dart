@@ -26,23 +26,8 @@ Future<void> main() async {
     Get.put(AuthenticationRepository());
   });
 
-  // try {
-  //   deviceToken.value = (await messaging.getToken())!;
-  //   print('Device Token: ${deviceToken.value}');
-  // } catch (e) {
-  //   print('Error retrieving device token: $e');
-  // }
-
   runApp(const MyApp());
 }
-
-// class InitialBinding implements Bindings {
-//   @override
-//   void dependencies() {
-//     Get.put(AuthenticationRepository());
-//     Get.put(deviceToken, permanent: true);
-//   }
-// }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
