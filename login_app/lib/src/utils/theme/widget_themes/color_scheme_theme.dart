@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 class BColorSchemeTheme {
   BColorSchemeTheme._();
   static ColorScheme lightColorSchemeTheme = ColorScheme.fromSeed(
-    seedColor: const Color.fromRGBO(33, 150, 243, 1),
+    seedColor: const Color.fromRGBO(255, 230, 0, 0.7),
     brightness: Brightness.light,
-    //primary: Color.fromRGBO(255, 230, 0, 1),
-    primary: const Color(0xFF6750A4),
+    //primary: const Color.fromRGBO(255, 230, 0, 0.4),
+    primary: const Color(0xFF673AB7),
+    
     onPrimary: const Color(0xFFFFFFFF),
     primaryContainer: const Color(0xFFEADDFF),
     onPrimaryContainer: const Color(0xFF21005D),
@@ -42,7 +43,9 @@ class BColorSchemeTheme {
   static ColorScheme darkColorSchemeTheme = ColorScheme.fromSeed(
     seedColor: const Color.fromRGBO(255, 255, 255, 1),
     brightness: Brightness.dark,
-    primary: const Color(0xFFD0BCFF),
+    primary: const Color.fromRGBO(255, 230, 0, 1),
+
+    //primary: const Color(0xFFD0BCFF),
     onPrimary: const Color(0xFF381E72),
     primaryContainer: const Color(0xFF4F378B),
     onPrimaryContainer: const Color(0xFFEADDFF),
