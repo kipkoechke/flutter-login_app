@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_app/src/constants/colors.dart';
@@ -10,10 +11,10 @@ import 'package:login_app/src/features/admin/screen/applications/applications_st
 import 'package:login_app/src/features/admin/screen/applications/approved/approved_applications_controller.dart';
 import 'package:login_app/src/features/admin/screen/applications/approved/total_approved_applications.dart';
 import 'package:login_app/src/features/admin/screen/applications/declined/declined_applications_controller.dart';
-import 'package:login_app/src/features/admin/screen/applications/total_applications.dart';
 import 'package:login_app/src/features/admin/screen/applications/declined/total_declined_applications.dart';
 import 'package:login_app/src/features/admin/screen/applications/pending/pending_applications_controller.dart';
 import 'package:login_app/src/features/admin/screen/applications/pending/total_pending_applications.dart';
+import 'package:login_app/src/features/admin/screen/applications/total_applications.dart';
 import 'package:login_app/src/features/admin/screen/bursaries/new_bursary.dart';
 import 'package:login_app/src/features/student/application/controllers/student_details_controller.dart';
 import 'package:login_app/src/repository/authentication_repository/authentication_reposirtory.dart';
@@ -133,7 +134,7 @@ class AdminDashboardScreen extends StatelessWidget {
                 child: ListTile(
                   title: const Text('Beneficiaries'),
                   onTap: () {
-                    Get.to(const AllocatedApplicationScreen());
+                    Get.to(AllocatedApplicationScreen());
                   },
                 ),
               ),
