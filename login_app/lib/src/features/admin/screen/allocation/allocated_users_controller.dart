@@ -5,6 +5,8 @@ import 'package:login_app/src/repository/user_repository/user_repository.dart';
 class AllocatedUsersController extends GetxController {
   final _userRepo = Get.put(UserRepository());
 
+  List<ApplicationFormModel> userData = [];
+
   Stream<List<ApplicationFormModel>> getAllocatedUsers() {
     return _userRepo.allocatedApplications().asStream();
   }
