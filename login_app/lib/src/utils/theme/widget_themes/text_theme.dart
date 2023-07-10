@@ -17,7 +17,7 @@ class BTextTheme {
     headlineMedium: GoogleFonts.poppins(
         fontSize: 16.0, fontWeight: FontWeight.w600, color: bDarkColor),
     titleLarge: GoogleFonts.poppins(
-        fontSize: 14.0, fontWeight: FontWeight.w600, color: bDarkColor),
+        fontSize: 18.0, fontWeight: FontWeight.w600, color: bDarkColor),
     bodyLarge: GoogleFonts.poppins(
         fontSize: 14.0, fontWeight: FontWeight.normal, color: bDarkColor),
     bodyMedium: GoogleFonts.poppins(
