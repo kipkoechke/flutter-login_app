@@ -33,6 +33,13 @@ class UpdateProfileScreen extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
                   UserModel userData = snapshot.data as UserModel;
+                  final fullName =
+                      TextEditingController(text: userData.fullName);
+                  final email = TextEditingController(text: userData.email);
+                  final phoneNo = TextEditingController(text: userData.phoneNo);
+                  final password =
+                      TextEditingController(text: userData.password);
+
                   return Column(
                     children: [
                       Stack(
@@ -71,7 +78,7 @@ class UpdateProfileScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             TextFormField(
-                              initialValue: userData.fullName,
+                              controller: fullName,
                               decoration: const InputDecoration(
                                   label: Text(bFullName),
                                   prefixIcon:
@@ -79,21 +86,21 @@ class UpdateProfileScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: bFormHeight - 20.0),
                             TextFormField(
-                              initialValue: userData.email,
+                              controller: email,
                               decoration: const InputDecoration(
                                   label: Text(bEmail),
                                   prefixIcon: Icon(Icons.email)),
                             ),
                             const SizedBox(height: bFormHeight - 20.0),
                             TextFormField(
-                              initialValue: userData.phoneNo,
+                              controller: phoneNo,
                               decoration: const InputDecoration(
                                   label: Text(bPhoneNo),
                                   prefixIcon: Icon(Icons.phone)),
                             ),
                             const SizedBox(height: bFormHeight - 20.0),
                             TextFormField(
-                              initialValue: userData.password,
+                              controller: password,
                               decoration: const InputDecoration(
                                   label: Text(bPassword),
                                   prefixIcon: Icon(Icons.fingerprint)),
@@ -102,8 +109,15 @@ class UpdateProfileScreen extends StatelessWidget {
                             SizedBox(
                               width: 200,
                               child: ElevatedButton(
-                                onPressed: () {
-                                  Get.to(() => const UpdateProfileScreen());
+                                onPressed: () async {
+                                  final user = UserModel(
+                                    fullName: fullName.text.trim(),
+                                    email: email.text.trim(),
+                                    phoneNo: phoneNo.text.trim(),
+                                    password: password.text.trim(),
+                                  );
+                                  await controller.updateRecord(user);
+                                  //Get.to(() => const UpdateProfileScreen());
                                 },
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: bPrimaryColor,
