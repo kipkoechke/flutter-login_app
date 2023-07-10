@@ -121,7 +121,8 @@ class ApplicationFormModel {
       // Personal details
       "Full Name": fullName,
       "Gender": gender,
-      "Date Of Birth": dateOfBirth,
+      "Date Of Birth":
+          dateOfBirth != null ? Timestamp.fromDate(dateOfBirth!) : null,
       "Registration Number": admNumber,
       "Phone Number": phoneNo,
 
@@ -178,7 +179,9 @@ class ApplicationFormModel {
       fullName: data["Full Name"],
       admNumber: data["Registration Number"],
       gender: data["Gender"],
-      dateOfBirth: data["Date Of Birth"],
+      dateOfBirth: data["Date Of Birth"] != null
+          ? (data["Date Of Birth"] as Timestamp).toDate()
+          : null,
       phoneNo: data["Phone Number"],
 
       //-- school details
