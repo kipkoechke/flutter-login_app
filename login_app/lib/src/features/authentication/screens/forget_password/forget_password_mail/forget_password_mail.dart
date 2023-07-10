@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:login_app/src/common_widgets/form/form_header_widget.dart';
@@ -11,6 +12,7 @@ class ForgetPasswordMailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController resetController = TextEditingController();
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -34,6 +36,7 @@ class ForgetPasswordMailScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       TextFormField(
+                        controller: resetController,
                         decoration: const InputDecoration(
                           prefixIcon: Icon(Icons.mail_outline_rounded),
                           label: Text(bEmail),
@@ -43,7 +46,9 @@ class ForgetPasswordMailScreen extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            FirebaseAuth.instance.sendPasswordResetEmail(
+                                email: resetController.text);
                             Get.to(() => const OTPScreen());
                           },
                           child: const Text(bNext),
