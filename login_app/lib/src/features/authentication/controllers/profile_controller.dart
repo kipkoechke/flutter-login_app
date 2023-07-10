@@ -35,4 +35,8 @@ class ProfileController extends GetxController {
       throw Exception('User not authenticated.');
     }
   }
+
+  updateRecord(UserModel user) async {
+    await _userRepo.updateUser(user);
+  }
 }

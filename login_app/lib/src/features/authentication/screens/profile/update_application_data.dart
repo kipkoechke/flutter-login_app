@@ -77,12 +77,16 @@ class UpdateApplicationData extends StatelessWidget {
                             TextFormField(
                               initialValue: userApplicationData.gender,
                               decoration:
-                                  InputDecoration(label: Text(bGender!)),
+                                  InputDecoration(
+                                  label: Text(bGender.toString())),
                             ),
                             const SizedBox(height: 10),
                             TextFormField(
-                              initialValue: DateFormat('yyyy-MM-dd')
-                                  .format(userApplicationData.dateOfBirth!),
+                              initialValue: userApplicationData.dateOfBirth !=
+                                      null
+                                  ? DateFormat('yyyy-MM-dd')
+                                      .format(userApplicationData.dateOfBirth!)
+                                  : '',
                               decoration: InputDecoration(
                                   label: Text(bDateOfBirth.toString())),
                             ),
@@ -161,6 +165,73 @@ class UpdateApplicationData extends StatelessWidget {
                                   label: Text(bFatherDisable.toString())),
                             ),
                             const SizedBox(height: 10),
+                            TextFormField(
+                              initialValue: userApplicationData.motherName,
+                              decoration: const InputDecoration(
+                                  label: Text(bMotherName)),
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormField(
+                              initialValue:
+                                  userApplicationData.motherNationalId,
+                              decoration: const InputDecoration(
+                                  label: Text(bMotherNationalid)),
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormField(
+                              initialValue:
+                                  userApplicationData.motherPhoneNumber,
+                              decoration: const InputDecoration(
+                                  label: Text(bMotherPhoneNo)),
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormField(
+                              initialValue:
+                                  userApplicationData.motherOccupation,
+                              decoration: const InputDecoration(
+                                  label: Text(bMotherOccupation)),
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormField(
+                              initialValue:
+                                  userApplicationData.motherDisability,
+                              decoration: InputDecoration(
+                                  label: Text(bMotherDisable.toString())),
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormField(
+                              initialValue: userApplicationData.guardianName,
+                              decoration: const InputDecoration(
+                                  label: Text(bGuardianName)),
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormField(
+                              initialValue:
+                                  userApplicationData.guardianNationalId,
+                              decoration: const InputDecoration(
+                                  label: Text(bGuardianNationalid)),
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormField(
+                              initialValue:
+                                  userApplicationData.guardianPhoneNumber,
+                              decoration: const InputDecoration(
+                                  label: Text(bGuardianPhoneNo)),
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormField(
+                              initialValue:
+                                  userApplicationData.guardianOccupation,
+                              decoration: const InputDecoration(
+                                  label: Text(bGuardianOccupation)),
+                            ),
+                            const SizedBox(height: 10),
+                            TextFormField(
+                              initialValue:
+                                  userApplicationData.guardianDisability,
+                              decoration: InputDecoration(
+                                  label: Text(bGuardianDisable.toString())),
+                            ),
                           ],
                         ),
                       ),
