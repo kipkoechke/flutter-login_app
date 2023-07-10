@@ -94,7 +94,8 @@ class HomePage extends StatelessWidget {
                                             : () {},
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: isButtonClickable
-                                              ? Colors.grey
+                                              ? const Color.fromARGB(
+                                                  255, 84, 163, 86)
                                               : Colors.red,
                                         ),
                                         child: Text(
