@@ -146,6 +146,24 @@ class UserRepository extends GetxController {
     }
   }
 
+  //-- Update record
+  Future<void> updateUser(UserModel user) async {
+    final userUid = FirebaseAuth.instance.currentUser?.uid;
+    await _db
+        .collection("Users")
+        .doc(userUid)
+        .update(user.toJson())
+        .whenComplete(() {
+      Get.snackbar(
+        'Success',
+        'Your details has been updated',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.green.withOpacity(0.1),
+        colorText: Colors.green,
+      );
+    });
+  }
+
   //-- Fetch data from the firestore for a single user using email
   Future<UserModel> getUserDetails(String email) async {
     final snapshot =
