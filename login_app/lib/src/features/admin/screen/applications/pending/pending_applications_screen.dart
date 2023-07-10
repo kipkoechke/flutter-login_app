@@ -8,7 +8,8 @@ import 'package:login_app/src/common_widgets/row_display.dart';
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';
 import 'package:login_app/src/repository/fcm_repository/fcm_repository.dart';
 
-class PendingApplicationsScreen extends StatelessWidget {
+class PendingApplicationsScreen
+    extends GetWidget<PendingApplicationsController> {
   const PendingApplicationsScreen({super.key});
 
   @override
@@ -377,7 +378,7 @@ class PendingApplicationsScreen extends StatelessWidget {
                                           Expanded(
                                             child: ElevatedButton(
                                               onPressed: () {
-                                                approve.approveApplication(
+                                                controller.approveApplication(
                                                     userApplication[index].id!);
                                                 fcm.sendApplicationApprovedNotification(
                                                     deviceToken!);

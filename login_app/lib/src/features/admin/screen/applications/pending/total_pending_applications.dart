@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:login_app/src/features/admin/screen/applications/pending/pending_applications_controller.dart';
 import 'package:login_app/src/features/admin/screen/applications/pending/pending_applications_screen.dart';
 
@@ -13,6 +14,7 @@ class TotalNumberOfPendingApplications extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GetStorage();
     return StreamBuilder<int>(
       stream: pendingApplicationsController.getPendingApplicationsCount(),
       builder: (context, snapshot) {

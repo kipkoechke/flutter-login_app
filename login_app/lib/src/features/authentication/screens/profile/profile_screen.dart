@@ -28,6 +28,7 @@ class ProfileScreen extends StatelessWidget {
           bProfile,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
+        centerTitle: true,
         actions: [
           IconButton(
             onPressed: () {},
@@ -109,27 +110,7 @@ class ProfileScreen extends StatelessWidget {
                   Get.to(() => const UpdateApplicationData());
                 },
               ),
-              // ProfileMenuWidget(
-              //   title: bMenu2,
-              //   icon: LineAwesomeIcons.wallet,
-              //   onPress: () {
-              //     Get.to(() => const AllApplicationsScreen());
-              //   },
-              // ),
-              // ProfileMenuWidget(
-              //   title: bMenu3,
-              //   icon: LineAwesomeIcons.user_check,
-              //   onPress: () {
-              //     Get.to(const UserManagementScreen());
-              //   },
-              // ),
               const Divider(),
-              // const SizedBox(height: 10),
-              // ProfileMenuWidget(
-              //   title: bMenu4,
-              //   icon: LineAwesomeIcons.info,
-              //   onPress: () {},
-              // ),
               ProfileMenuWidget(
                 title: bMenu5,
                 icon: LineAwesomeIcons.alternate_sign_out,

@@ -8,9 +8,13 @@ class DeclinedApplicationsController extends GetxController {
 
   final String title = 'Declined Applications';
   final _userRepo = Get.put(UserRepository());
+  final RxList<ApplicationFormModel> applications =
+      <ApplicationFormModel>[].obs;
 
   declineApplication(String id, String reason) async {
     await _userRepo.declineUserApplication(id, reason);
+    applications.removeWhere((application) => application.id == id);
+    applications.refresh(); 
   }
 
   Future<String> getDeclineReason() async {
