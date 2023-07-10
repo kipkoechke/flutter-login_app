@@ -16,10 +16,32 @@ class TotalNumberOfBeneficiaries extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final allocatedUsersCount = snapshot.data!;
-          return Text(
-            'Total Beneficiaries: $allocatedUsersCount',
-            style: const TextStyle(fontSize: 16),
+          return SizedBox(
+            width: double.infinity,
+            child: Card(
+              elevation: 0,
+              child: ListTile(
+                title: const Text(
+                  'Total Beneficiaries',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                subtitle: Text(
+                  '$allocatedUsersCount',
+                  style: const TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
           );
+          
+          
         } else if (snapshot.hasError) {
           return Text(
             'Error: ${snapshot.error}',
