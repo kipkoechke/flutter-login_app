@@ -12,85 +12,92 @@ class NewBursaryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Bursaries'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  _showCreateBursaryDialog(context);
-                },
-                child: const Text('New Bursary'),
-              ),
-            ),
-            const SizedBox(height: 16.0),
-            const Text(
-              'Created Bursaries',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8.0),
-            Expanded(
-              child: Obx(
-                () => ListView.builder(
-                  itemCount: bursaryController.bursaries.length,
-                  itemBuilder: (context, index) {
-                    final bursary = bursaryController.bursaries[index];
-                    return Card(
-                      child: ListTile(
-                        title: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text("Title: ${bursary.title}"),
-                            const Divider(),
-                            Text(bursary.description),
-                            const Divider()
-                          ],
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Deadline: ${bursary.deadline.toString()}",
-                            ),
-                            const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      _showEditBursaryDialog(context, bursary);
-                                    },
-                                    child: const Text('Edit Bursary'),
-                                  ),
-                                ),
-                                const SizedBox(width: 8.0),
-                                Expanded(
-                                  child: OutlinedButton(
-                                    onPressed: () {
-                                      _showDeleteConfirmationDialog(
-                                          context, bursary);
-                                    },
-                                    child: const Text('Delete Bursary'),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Bursaries',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          centerTitle: true,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    _showCreateBursaryDialog(context);
                   },
+                  child: const Text('New Bursary'),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 16.0),
+              const Text(
+                'Created Bursaries',
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8.0),
+              Expanded(
+                child: Obx(
+                  () => ListView.builder(
+                    itemCount: bursaryController.bursaries.length,
+                    itemBuilder: (context, index) {
+                      final bursary = bursaryController.bursaries[index];
+                      return Card(
+                        child: ListTile(
+                          title: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Title: ${bursary.title}"),
+                              const Divider(),
+                              Text(bursary.description),
+                              const Divider()
+                            ],
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Deadline: ${bursary.deadline.toString()}",
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        _showEditBursaryDialog(
+                                            context, bursary);
+                                      },
+                                      child: const Text('Edit Bursary'),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8.0),
+                                  Expanded(
+                                    child: OutlinedButton(
+                                      onPressed: () {
+                                        _showDeleteConfirmationDialog(
+                                            context, bursary);
+                                      },
+                                      child: const Text('Delete Bursary'),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
