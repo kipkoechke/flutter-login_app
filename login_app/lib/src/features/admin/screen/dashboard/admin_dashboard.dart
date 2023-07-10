@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:login_app/src/constants/colors.dart';
+import 'package:login_app/src/features/admin/screen/allocation/allocation_controller.dart';
 import 'package:login_app/src/features/admin/screen/applications/all_applications/all_applications.dart';
 import 'package:login_app/src/features/admin/screen/allocation/allocated_users.dart';
 import 'package:login_app/src/features/admin/screen/allocation/allocated_users_controller.dart';
@@ -21,6 +21,7 @@ import 'package:pie_chart/pie_chart.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
   AdminDashboardScreen({super.key});
+  final allocated = Get.put(AllocationController());
   // State variables for pie chart data
   final Map<String, double> applicationsStatusData = {
     'Pending': 10,
@@ -77,27 +78,28 @@ class AdminDashboardScreen extends StatelessWidget {
           ],
         ),
         drawer: Drawer(
+
           child: Column(
             children: [
-              DrawerHeader(
-                padding: const EdgeInsets.all(20),
+              const DrawerHeader(
+                padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      bSecondaryColor,
-                      bPrimaryColor.withOpacity(0.8),
+                      Colors.white,
+                      Colors.white38,
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
                 ),
-                child: const Row(
+                child: Row(
                   children: [
                     Icon(
                       Icons.dashboard_customize_rounded,
                       size: 48,
                       color: Colors
-                          .white, // Set the color of the icon in the drawer header
+                          .black, // Set the color of the icon in the drawer header
                     ),
                     SizedBox(
                       width: 18.0,
@@ -106,7 +108,7 @@ class AdminDashboardScreen extends StatelessWidget {
                       'Bursary Management',
                       style: TextStyle(
                           color: Colors
-                              .white, // Set the color of the text in the drawer header
+                              .black, // Set the color of the text in the drawer header
                           fontSize: 18,
                           fontWeight: FontWeight.bold),
                     ),
@@ -158,52 +160,54 @@ class AdminDashboardScreen extends StatelessWidget {
         ),
         body: Container(
           padding: const EdgeInsets.all(4),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      TotalNumberOfAllApplications(
+                        allApplicationsController: allApplicationsController,
+                      ),
+                      const SizedBox(height: 8.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          TotalNumberOfPendingApplications(
+                            pendingApplicationsController:
+                                pendingApplicationsController,
+                          ),
+                          TotalNumberOfApprovedApplications(
+                            approvedApplicationsController:
+                                approvedApplicationsController,
+                          ),
+                          TotalNumberOfDeclinedApplications(
+                            declinedApplicationsController:
+                                declinedApplicationsController,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const Divider(),
+                // Add pie chart for applications status
+                buildPieChart(applicationsStatusData),
+                const Divider(),
+                Column(
                   children: [
-                    TotalNumberOfAllApplications(
-                      allApplicationsController: allApplicationsController,
+                    TotalNumberOfBeneficiaries(
+                      allocatedUsersController: allocatedUsersController,
                     ),
-                    const SizedBox(height: 8.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        TotalNumberOfPendingApplications(
-                          pendingApplicationsController:
-                              pendingApplicationsController,
-                        ),
-                        TotalNumberOfApprovedApplications(
-                          approvedApplicationsController:
-                              approvedApplicationsController,
-                        ),
-                        TotalNumberOfDeclinedApplications(
-                          declinedApplicationsController:
-                              declinedApplicationsController,
-                        ),
-                      ],
-                    ),
+                    // Add pie chart for allocation
+                    buildPieChart(allocationData),
                   ],
                 ),
-              ),
-              const Divider(),
-              // Add pie chart for applications status
-              buildPieChart(applicationsStatusData),
-              const Divider(),
-              Column(
-                children: [
-                  TotalNumberOfBeneficiaries(
-                    allocatedUsersController: allocatedUsersController,
-                  ),
-                  // Add pie chart for allocation
-                  buildPieChart(allocationData),
-                ],
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
