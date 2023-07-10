@@ -5,11 +5,11 @@ import 'package:login_app/src/features/admin/screen/allocation/allocated_users_c
 import 'package:login_app/src/features/student/application/models/application_form_model.dart';
 
 class AllocatedApplicationScreen extends StatelessWidget {
-  const AllocatedApplicationScreen({super.key});
+  AllocatedApplicationScreen({super.key});
+  final allocated = Get.put(AllocatedUsersController());
 
   @override
   Widget build(BuildContext context) {
-    final allocated = Get.put(AllocatedUsersController());
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
