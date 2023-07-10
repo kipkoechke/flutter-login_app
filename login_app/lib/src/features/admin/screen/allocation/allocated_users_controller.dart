@@ -12,4 +12,8 @@ class AllocatedUsersController extends GetxController {
   Stream<int> getAllocatedUsersCount() {
     return _userRepo.allocatedApplicationsCount().asStream();
   }
+
+  Future<double> totalAllocatedAmount() {
+    return _userRepo.totalAllocatedAmount();
+  }
 }
