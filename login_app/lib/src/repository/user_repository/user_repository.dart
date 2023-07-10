@@ -417,6 +417,22 @@ class UserRepository extends GetxController {
     return userData;
   }
 
+  Future<double> totalAllocatedAmount() async {
+    double total = 0;
+    final snapshot = await _db
+        .collection("Applications")
+        .where("Amount", isGreaterThanOrEqualTo: 4000.00)
+        .where("Amount", isLessThan: 20000.00)
+        .get();
+    final userData =
+        snapshot.docs.map((e) => ApplicationFormModel.fromSnapshot(e)).toList();
+    for (var element in userData) {
+      total += element.amount!;
+    }
+
+    return total;
+  }
+
   //-- Fetch the total number of all the declined users applications as the admin
   Future<int> allocatedApplicationsCount() async {
     final snapshot = await _db
