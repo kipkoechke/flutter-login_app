@@ -8,18 +8,36 @@ class ApplicationDoneScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Done Application',
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.to(() => const StudentApplicationStatusScreen());
+              },
+              icon: const Icon(Icons.done))
+        ],
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Center(
-            child: Text(
-              " Your application was submited successfully",
-              style: TextStyle(fontWeight: FontWeight.bold),
+          const SizedBox(
+            height: 200,
+            child: Card(
+              child: Center(
+                child: Text(
+                  " Your application was submited successfully",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
             ),
           ),
           SizedBox(
             width: double.infinity,
-            child: OutlinedButton(
+            child: ElevatedButton(
                 onPressed: () {
                   Get.to(() => const StudentApplicationStatusScreen());
                 },
